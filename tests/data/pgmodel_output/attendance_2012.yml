@@ -1,0 +1,270 @@
+average: '2820'
+table:
+- - Tävling
+  - Från datum
+  - Till datum
+  - Publiksiffra
+- - Elitserien Omgång 1 Pir - Dac
+  - '2012-05-01'
+  - '2012-05-01'
+  - '3523'
+- - Elitserien Omgång 1 Ind - Var
+  - '2012-05-01'
+  - '2012-05-01'
+  - '4531'
+- - Elitserien Omgång 1 Väs - Val
+  - '2012-05-01'
+  - '2012-05-01'
+  - '1945'
+- - Elitserien Omgång 2 Val - Pir
+  - '2012-05-08'
+  - '2012-05-08'
+  - '2268'
+- - Elitserien Omgång 2 Dac - Ham
+  - '2012-05-08'
+  - '2012-05-08'
+  - '4171'
+- - Elitserien Omgång 2 Var - Väs
+  - '2012-05-08'
+  - '2012-05-08'
+  - '2145'
+- - Elitserien Omgång 2 ElitV - Ind
+  - '2012-05-08'
+  - '2012-05-08'
+  - '2616'
+- - Elitserien Omgång 1 Ham - ElitV
+  - '2012-05-09'
+  - '2012-05-09'
+  - '1710'
+- - Elitserien Omgång 3 Val - ElitV
+  - '2012-05-15'
+  - '2012-05-15'
+  - ''
+- - Elitserien Omgång 3 Dac - Väs
+  - '2012-05-15'
+  - '2012-05-15'
+  - '4203'
+- - Elitserien Omgång 3 Pir - Ind
+  - '2012-05-15'
+  - '2012-05-15'
+  - '2536'
+- - Elitserien Omgång 4 Ham - Pir
+  - '2012-05-22'
+  - '2012-05-22'
+  - '2140'
+- - Elitserien Omgång 4 Ind - Val
+  - '2012-05-22'
+  - '2012-05-22'
+  - ''
+- - Elitserien Omgång 4 Var - Dac
+  - '2012-05-22'
+  - '2012-05-22'
+  - '2186'
+- - Elitserien Omgång 4 ElitV - Väs
+  - '2012-05-22'
+  - '2012-05-22'
+  - '3081'
+- - Elitserien Omgång 5 Val - Ham
+  - '2012-05-29'
+  - '2012-05-29'
+  - '1794'
+- - Elitserien Omgång 5 Dac - EliV
+  - '2012-05-29'
+  - '2012-05-29'
+  - '5273'
+- - Elitserien Omgång 5 Pir - Var
+  - '2012-05-29'
+  - '2012-05-29'
+  - '2733'
+- - Elitserien Omgång 5 Väs - Ind
+  - '2012-05-29'
+  - '2012-05-29'
+  - '1703'
+- - Elitserien Omgång 3 Ham - Var
+  - '2012-06-04'
+  - '2012-06-04'
+  - '961'
+- - Elitserien Omgång 6 Val - Var
+  - '2012-06-05'
+  - '2012-06-05'
+  - '1480'
+- - Elitserien Omgång 6 Ind - Dac
+  - '2012-06-05'
+  - '2012-06-05'
+  - '2249'
+- - Elitserien Omgång 6 Väs - Ham
+  - '2012-06-05'
+  - '2012-06-05'
+  - '1867'
+- - Elitserien Omgång 6 ElitV - Pir
+  - '2012-06-05'
+  - '2012-06-05'
+  - '2696'
+- - Elitserien Omgång 7 Dac - Val
+  - '2012-06-12'
+  - '2012-06-12'
+  - '2480'
+- - Elitserien Omgång 7 Pir - Väs
+  - '2012-06-12'
+  - '2012-06-12'
+  - '2021'
+- - Elitserien Omgång 7 Var - ElitV
+  - '2012-06-12'
+  - '2012-06-12'
+  - '1506'
+- - Elitserien Omgång 8 Val - Väs
+  - '2012-06-26'
+  - '2012-06-26'
+  - '1681'
+- - Elitserien Omgång 8 Dac - Pir
+  - '2012-06-26'
+  - '2012-06-26'
+  - '3465'
+- - Elitserien Omgång 8 Var - Ind
+  - '2012-06-26'
+  - '2012-06-26'
+  - '1458'
+- - Elitserien Omgång 8 ElitV - Ham
+  - '2012-06-26'
+  - '2012-06-26'
+  - '2648'
+- - Elitserien Omgång 7 Ham - Ind
+  - '2012-06-27'
+  - '2012-06-27'
+  - '2019'
+- - Elitserien Omgång 9 Ham - Dac
+  - '2012-07-03'
+  - '2012-07-03'
+  - '2170'
+- - Elitserien Omgång 9 Ind - ElitV
+  - '2012-07-03'
+  - '2012-07-03'
+  - '3961'
+- - Elitserien Omgång 9 Pir - Val
+  - '2012-07-03'
+  - '2012-07-03'
+  - '0'
+- - Elitserien Omgång 9 Väs - Var
+  - '2012-07-03'
+  - '2012-07-03'
+  - '2558'
+- - Elitserien Omgång 10 Ind - Pir
+  - '2012-07-17'
+  - '2012-07-17'
+  - '4173'
+- - Elitserien Omgång 10 Var - Ham
+  - '2012-07-17'
+  - '2012-07-17'
+  - '1690'
+- - Elitserien Omgång 10 Väs - Dac
+  - '2012-07-17'
+  - '2012-07-17'
+  - '4124'
+- - Elitserien Omgång 10 ElitV - Val
+  - '2012-07-17'
+  - '2012-07-17'
+  - '2230'
+- - Elitserien Omgång 11 Val - Ind
+  - '2012-07-24'
+  - '2012-07-24'
+  - '4014'
+- - Elitserien Omgång 11 Dac - Var
+  - '2012-07-24'
+  - '2012-07-24'
+  - '3842'
+- - Elitserien Omgång 11 Pir - Ham
+  - '2012-07-24'
+  - '2012-07-24'
+  - '2887'
+- - Elitserien Omgång 11 Väs - ElitV
+  - '2012-07-24'
+  - '2012-07-24'
+  - '2736'
+- - Elitserien Omgång 12 Ham - Val
+  - '2012-07-31'
+  - '2012-07-31'
+  - '1973'
+- - Elitserien Omgång 12 Ind - Väs
+  - '2012-07-31'
+  - '2012-07-31'
+  - '2484'
+- - Elitserien Omgång 12 Var - Pir
+  - '2012-07-31'
+  - '2012-07-31'
+  - '3288'
+- - Elitserien Omgång 12 ElitV - Dac
+  - '2012-07-31'
+  - '2012-07-31'
+  - '5185'
+- - Elitserien Omgång 13 Ham - Väs
+  - '2012-08-14'
+  - '2012-08-14'
+  - '2612'
+- - Elitserien Omgång 13 Dac - Ind
+  - '2012-08-14'
+  - '2012-08-14'
+  - '4067'
+- - Elitserien Omgång 13 Pir - ElitV
+  - '2012-08-14'
+  - '2012-08-14'
+  - '3982'
+- - Elitserien Omgång 13 Var - Val
+  - '2012-08-14'
+  - '2012-08-14'
+  - '2115'
+- - Elitserien Omgång 14 Val - Dac
+  - '2012-08-21'
+  - '2012-08-21'
+  - '3010'
+- - Elitserien Omgång 14 Ind - Ham
+  - '2012-08-21'
+  - '2012-08-21'
+  - '3727'
+- - Elitserien Omgång 14 Väs - Pir
+  - '2012-08-21'
+  - '2012-08-21'
+  - '2660'
+- - Elitserien Omgång 14 ElitV - Var
+  - '2012-08-21'
+  - '2012-08-21'
+  - '3085'
+- - Elitserien Kvartsfinal 1 Dac - Väs
+  - '2012-08-28'
+  - '2012-08-28'
+  - '3581'
+- - Elitserien Kvartsfinal 2 Ham - Ind
+  - '2012-08-28'
+  - '2012-08-28'
+  - '2414'
+- - Elitserien Kvartsfinal 1 Väs - Dac
+  - '2012-09-04'
+  - '2012-09-04'
+  - '1943'
+- - Elitserien Kvartsfinal 2 Ind - Ham
+  - '2012-09-05'
+  - '2012-09-05'
+  - '3103'
+- - Elitserien Semifinal 1 Ind - ElitV
+  - '2012-09-11'
+  - '2012-09-11'
+  - '3135'
+- - Elitserien Semifinal 2 Dac - Pir
+  - '2012-09-11'
+  - '2012-09-11'
+  - '2554'
+- - Elitserien Semifinal 1 ElitV - Ind
+  - '2012-09-18'
+  - '2012-09-18'
+  - '3014'
+- - Elitserien Semifinal 2 Pir - Dac
+  - '2012-09-19'
+  - '2012-09-19'
+  - '3448'
+- - Elitserien Final 1 Pir - ElitV
+  - '2012-10-02'
+  - '2012-10-02'
+  - '3879'
+- - Elitserien Final 1 ElitV - Pir
+  - '2012-10-03'
+  - '2012-10-03'
+  - '5809'

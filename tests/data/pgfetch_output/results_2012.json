@@ -1,0 +1,7 @@
+{
+    "events": "https://ta.svemo.se/public/pages/competition/events.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=20�",
+    "standings": "https://ta.svemo.se/Public/Pages/Teams/DrivingSchedule/Teams.aspx?SerieId=199",
+    "teams": "https://ta.svemo.se/public/pages/sections.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&PageType=Sections&pagesize=10�",
+    "rider_averages": "https://ta.svemo.se/public/pages/serie/speedway/ProfileSerieRanking.aspx?SerieId=199",
+    "attendance": "https://ta.svemo.se/Public/Pages/Serie/Audience/AudienceStatistics.aspx?SerieId=199"
+}

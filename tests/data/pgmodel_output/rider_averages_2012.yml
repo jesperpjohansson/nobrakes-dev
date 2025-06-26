@@ -1,0 +1,617 @@
+table:
+- - '#'
+  - Förare
+  - Lag
+  - Matcher
+  - Heat
+  - Poäng
+  - Snitt
+- - '1.'
+  - Niels-Kristian Iversen
+  - Indianerna
+  - '17'
+  - '85'
+  - '196'
+  - 2,306
+- - '2.'
+  - Nicki Pedersen
+  - Vargarna
+  - '14'
+  - '73'
+  - '163'
+  - 2,233
+- - '3.'
+  - Leon Madsen
+  - Elit Vetlanda
+  - '18'
+  - '86'
+  - '171'
+  - 1,988
+- - '4.'
+  - Darcy Ward
+  - Dackarna
+  - '13'
+  - '64'
+  - '127'
+  - 1,984
+- - '5.'
+  - Andreas Jonsson
+  - Dackarna
+  - '17'
+  - '83'
+  - '163'
+  - 1,964
+- - '6.'
+  - Janusz Kolodziej
+  - ''
+  - '4'
+  - '20'
+  - '39'
+  - 1,950
+- - '7.'
+  - Jaroslaw Hampel
+  - Elit Vetlanda
+  - '10'
+  - '47'
+  - '89'
+  - 1,894
+- - '8.'
+  - Greg Hancock
+  - Piraterna
+  - '17'
+  - '86'
+  - '159'
+  - 1,849
+- - '9.'
+  - David Ruud
+  - Elit Vetlanda
+  - '9'
+  - '32'
+  - '59'
+  - 1,844
+- - '10.'
+  - Grzegorz Walasek
+  - Hammarby
+  - '15'
+  - '73'
+  - '132'
+  - 1,808
+- - '11.'
+  - Chris Holder
+  - Piraterna
+  - '16'
+  - '76'
+  - '136'
+  - 1,789
+- - '12.'
+  - Patryk Dudek
+  - Dackarna
+  - '13'
+  - '62'
+  - '110'
+  - 1,774
+- - '13.'
+  - Emil Sayfutdinov
+  - Elit Vetlanda
+  - '18'
+  - '83'
+  - '145'
+  - 1,747
+- - '14.'
+  - Piotr Protasiewicz
+  - Indianerna
+  - '18'
+  - '82'
+  - '143'
+  - 1,744
+- - '15.'
+  - Michael Jepsen Jensen
+  - Dackarna
+  - '18'
+  - '84'
+  - '145'
+  - 1,726
+- - '16.'
+  - Tomasz Gapinski
+  - Valsarna
+  - '10'
+  - '43'
+  - '74'
+  - 1,721
+- - '17.'
+  - Jason Crump
+  - Elit Vetlanda
+  - '17'
+  - '75'
+  - '129'
+  - 1,720
+- - '18.'
+  - Przemyslaw Pawlicki
+  - ''
+  - '14'
+  - '64'
+  - '110'
+  - 1,719
+- - '19.'
+  - Daniel Nermark
+  - Valsarna
+  - '13'
+  - '64'
+  - '110'
+  - 1,719
+- - '20.'
+  - Chris Harris
+  - Västervik
+  - '15'
+  - '77'
+  - '131'
+  - 1,701
+- - '21.'
+  - Tomasz Jedrzejak
+  - Västervik
+  - '8'
+  - '39'
+  - '66'
+  - 1,692
+- - '22.'
+  - Martin Vaculik
+  - Elit Vetlanda
+  - '15'
+  - '67'
+  - '113'
+  - 1,687
+- - '23.'
+  - Peter Karlsson
+  - Vargarna
+  - '13'
+  - '61'
+  - '102'
+  - 1,672
+- - '24.'
+  - Tomas Jonasson
+  - Elit Vetlanda
+  - '13'
+  - '52'
+  - '86'
+  - 1,654
+- - '25.'
+  - Adrian Miedzinski
+  - Hammarby
+  - '15'
+  - '72'
+  - '119'
+  - 1,653
+- - '26.'
+  - Krzysztof Buczkowski
+  - Valsarna
+  - '11'
+  - '48'
+  - '79'
+  - 1,646
+- - '27.'
+  - Fredrik Lindgren
+  - Dackarna
+  - '18'
+  - '84'
+  - '138'
+  - 1,643
+- - '28.'
+  - Tai Woffinden
+  - Dackarna
+  - '5'
+  - '22'
+  - '36'
+  - 1,636
+- - '29.'
+  - Artem Laguta
+  - Valsarna
+  - '10'
+  - '46'
+  - '75'
+  - 1,630
+- - '30.'
+  - Tomasz Gollob
+  - Hammarby
+  - '11'
+  - '49'
+  - '79'
+  - 1,612
+- - '31.'
+  - Grigory Laguta
+  - Valsarna
+  - '8'
+  - '35'
+  - '56'
+  - 1,600
+- - '32.'
+  - Linus Sundström
+  - Piraterna
+  - '14'
+  - '60'
+  - '91'
+  - 1,517
+- - '33.'
+  - Antonio Lindbäck
+  - Indianerna
+  - '18'
+  - '83'
+  - '125'
+  - 1,506
+- - '34.'
+  - Dennis Andersson
+  - ''
+  - '14'
+  - '65'
+  - '97'
+  - 1,492
+- - '35.'
+  - Peter Ljung
+  - Västervik
+  - '16'
+  - '76'
+  - '113'
+  - 1,487
+- - '36.'
+  - Maciej Janowski
+  - Piraterna
+  - '16'
+  - '75'
+  - '107'
+  - 1,427
+- - '37.'
+  - Bjarne Pedersen
+  - Vargarna
+  - '11'
+  - '48'
+  - '68'
+  - 1,417
+- - '38.'
+  - Rune Holta
+  - Indianerna
+  - '14'
+  - '61'
+  - '86'
+  - 1,410
+- - '39.'
+  - Krzysztof Kasprzak
+  - Valsarna
+  - '10'
+  - '48'
+  - '67'
+  - 1,396
+- - '40.'
+  - Jurica Pavlic
+  - Västervik
+  - '12'
+  - '56'
+  - '78'
+  - 1,393
+- - '41.'
+  - Grzegorz Zengota
+  - Piraterna
+  - '8'
+  - '39'
+  - '54'
+  - 1,385
+- - '42.'
+  - Daniel King
+  - Västervik
+  - '10'
+  - '42'
+  - '58'
+  - 1,381
+- - '43.'
+  - Piotr Pawlicki
+  - Piraterna
+  - '11'
+  - '45'
+  - '62'
+  - 1,378
+- - '44.'
+  - Joonas Kylmäkorpi
+  - Indianerna
+  - '11'
+  - '48'
+  - '66'
+  - 1,375
+- - '45.'
+  - Hans Andersen
+  - Indianerna
+  - '17'
+  - '75'
+  - '103'
+  - 1,373
+- - '46.'
+  - Robert Kosiecha
+  - ''
+  - '8'
+  - '38'
+  - '52'
+  - 1,368
+- - '47.'
+  - Mikael Max
+  - Västervik
+  - '15'
+  - '61'
+  - '83'
+  - 1,361
+- - '48.'
+  - Scott Nicholls
+  - Vargarna
+  - '6'
+  - '25'
+  - '34'
+  - 1,360
+- - '49.'
+  - David Watt
+  - Västervik
+  - '15'
+  - '65'
+  - '88'
+  - 1,354
+- - '50.'
+  - Rory Schlein
+  - Hammarby
+  - '10'
+  - '43'
+  - '55'
+  - 1,279
+- - '51.'
+  - Magnus Zetterström
+  - Hammarby
+  - '16'
+  - '71'
+  - '89'
+  - 1,254
+- - '52.'
+  - Simon Gustafsson
+  - Indianerna
+  - '5'
+  - '20'
+  - '25'
+  - 1,250
+- - '53.'
+  - Jonas Davidsson
+  - Dackarna
+  - '13'
+  - '56'
+  - '69'
+  - 1,232
+- - '54.'
+  - Tobiasz Musielak
+  - ''
+  - '3'
+  - '13'
+  - '16'
+  - 1,231
+- - '55.'
+  - Peter Kildemand
+  - Vargarna
+  - '10'
+  - '40'
+  - '49'
+  - 1,225
+- - '56.'
+  - Daniil Ivanov
+  - Vargarna
+  - '6'
+  - '25'
+  - '30'
+  - 1,200
+- - '57.'
+  - Kenneth Bjerre
+  - Indianerna
+  - '7'
+  - '31'
+  - '37'
+  - 1,194
+- - '58.'
+  - Kamil Brzozowski
+  - Hammarby
+  - '8'
+  - '27'
+  - '32'
+  - 1,185
+- - '59.'
+  - Linus Eklöf
+  - Dackarna
+  - '4'
+  - '17'
+  - '20'
+  - 1,176
+- - '60.'
+  - Kim Nilsson
+  - Vargarna
+  - '13'
+  - '55'
+  - '64'
+  - 1,164
+- - '61.'
+  - Adam Skornicki
+  - Vargarna
+  - '7'
+  - '29'
+  - '32'
+  - 1,103
+- - '62.'
+  - Anton Rosén
+  - Piraterna
+  - '17'
+  - '61'
+  - '67'
+  - 1,098
+- - '63.'
+  - Robin Törnqvist
+  - Valsarna
+  - '5'
+  - '21'
+  - '22'
+  - 1,048
+- - '64.'
+  - Sebastian Aldén
+  - Hammarby
+  - '7'
+  - '29'
+  - '29'
+  - 1,000
+- - '65.'
+  - Anders Mellgren
+  - Vargarna
+  - '11'
+  - '42'
+  - '42'
+  - 1,000
+- - '66.'
+  - Mathias Thörnblom
+  - Indianerna
+  - '18'
+  - '57'
+  - '55'
+  - 0,965
+- - '67.'
+  - Troy Batchelor
+  - Hammarby
+  - '5'
+  - '19'
+  - '17'
+  - 0,895
+- - '68.'
+  - Pontus Aspgren
+  - Västervik
+  - '14'
+  - '49'
+  - '43'
+  - 0,878
+- - '69.'
+  - Jacob Thorssell
+  - Elit Vetlanda
+  - '9'
+  - '34'
+  - '28'
+  - 0,824
+- - '70.'
+  - Victor Palovaara
+  - Dackarna
+  - '13'
+  - '44'
+  - '25'
+  - 0,568
+- - '71.'
+  - Alexander Edberg
+  - Hammarby
+  - '4'
+  - '12'
+  - '5'
+  - 0,417
+- - '72.'
+  - Henric Lindqvist
+  - Elit Vetlanda
+  - '12'
+  - '39'
+  - '16'
+  - 0,410
+- - '73.'
+  - Daniel Gunnestad
+  - Valsarna
+  - '5'
+  - '15'
+  - '6'
+  - 0,400
+- - '74.'
+  - Joel Larsson
+  - Dackarna
+  - '8'
+  - '25'
+  - '4'
+  - 0,160
+- - '75.'
+  - Tim Gudmundsson
+  - Dackarna
+  - '5'
+  - '15'
+  - '2'
+  - 0,133
+- - '76.'
+  - Lee Richardson *
+  - ''
+  - '2'
+  - '10'
+  - '15'
+  - 1,500
+- - '77.'
+  - Rafal Okoniewski *
+  - Hammarby
+  - '2'
+  - '10'
+  - '13'
+  - 1,300
+- - '78.'
+  - Norbert Kosciuch *
+  - Piraterna
+  - '1'
+  - '5'
+  - '5'
+  - 1,000
+- - '79.'
+  - Adam Shields *
+  - ''
+  - '1'
+  - '3'
+  - '2'
+  - 0,667
+- - '80.'
+  - Christian Agö *
+  - Hammarby
+  - '1'
+  - '4'
+  - '2'
+  - 0,500
+- - '81.'
+  - André Hertzberg *
+  - Vargarna
+  - '3'
+  - '10'
+  - '5'
+  - 0,500
+- - '82.'
+  - Magnus Karlsson *
+  - Vargarna
+  - '1'
+  - '2'
+  - '1'
+  - 0,500
+- - '83.'
+  - Michal Szczepaniak *
+  - ''
+  - '2'
+  - '6'
+  - '2'
+  - 0,333
+- - '84.'
+  - Zbignien Suchecki *
+  - Valsarna
+  - '1'
+  - '4'
+  - '1'
+  - 0,250
+- - '85.'
+  - Nikolai Klindt *
+  - Västervik
+  - '2'
+  - '5'
+  - '1'
+  - 0,200
+- - '86.'
+  - Viktor Bergström *
+  - Vargarna
+  - '1'
+  - '3'
+  - '0'
+  - 0,000
+- - '87.'
+  - Kurt Olle Oskar Karlsson *
+  - Västervik
+  - '2'
+  - '6'
+  - '0'
+  - 0,000

@@ -1,0 +1,269 @@
+table:
+- - Från datum
+  - Namn
+  - Matchresultat
+  - Heatresultat
+- - '2012-05-01'
+  - Elitserien Omgång 1 Pir - Dac
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1217
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1217
+- - '2012-05-01'
+  - Elitserien Omgång 1 Ind - Var
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1218
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1218
+- - '2012-05-01'
+  - Elitserien Omgång 1 Väs - Val
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1219
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1219
+- - '2012-05-08'
+  - Elitserien Omgång 2 Val - Pir
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1221
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1221
+- - '2012-05-08'
+  - Elitserien Omgång 2 Dac - Ham
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1222
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1222
+- - '2012-05-08'
+  - Elitserien Omgång 2 Var - Väs
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1223
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1223
+- - '2012-05-08'
+  - Elitserien Omgång 2 ElitV - Ind
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1224
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1224
+- - '2012-05-09'
+  - Elitserien Omgång 1 Ham - ElitV
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1220
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1220
+- - '2012-05-15'
+  - Elitserien Omgång 3 Val - ElitV
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1225
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1225
+- - '2012-05-15'
+  - Elitserien Omgång 3 Dac - Väs
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1227
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1227
+- - '2012-05-15'
+  - Elitserien Omgång 3 Pir - Ind
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1228
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1228
+- - '2012-05-22'
+  - Elitserien Omgång 4 Ham - Pir
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1229
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1229
+- - '2012-05-22'
+  - Elitserien Omgång 4 Ind - Val
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1230
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1230
+- - '2012-05-22'
+  - Elitserien Omgång 4 Var - Dac
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1231
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1231
+- - '2012-05-22'
+  - Elitserien Omgång 4 ElitV - Väs
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1232
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1232
+- - '2012-05-29'
+  - Elitserien Omgång 5 Val - Ham
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1233
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1233
+- - '2012-05-29'
+  - Elitserien Omgång 5 Dac - EliV
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1234
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1234
+- - '2012-05-29'
+  - Elitserien Omgång 5 Pir - Var
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1235
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1235
+- - '2012-05-29'
+  - Elitserien Omgång 5 Väs - Ind
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1236
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1236
+- - '2012-06-04'
+  - Elitserien Omgång 3 Ham - Var
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1226
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1226
+- - '2012-06-05'
+  - Elitserien Omgång 6 Val - Var
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1237
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1237
+- - '2012-06-05'
+  - Elitserien Omgång 6 Ind - Dac
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1238
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1238
+- - '2012-06-05'
+  - Elitserien Omgång 6 Väs - Ham
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1239
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1239
+- - '2012-06-05'
+  - Elitserien Omgång 6 ElitV - Pir
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1240
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1240
+- - '2012-06-12'
+  - Elitserien Omgång 7 Dac - Val
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1242
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1242
+- - '2012-06-12'
+  - Elitserien Omgång 7 Pir - Väs
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1243
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1243
+- - '2012-06-12'
+  - Elitserien Omgång 7 Var - ElitV
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1244
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1244
+- - '2012-06-26'
+  - Elitserien Omgång 8 Val - Väs
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1245
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1245
+- - '2012-06-26'
+  - Elitserien Omgång 8 Dac - Pir
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1246
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1246
+- - '2012-06-26'
+  - Elitserien Omgång 8 Var - Ind
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1247
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1247
+- - '2012-06-26'
+  - Elitserien Omgång 8 ElitV - Ham
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1248
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1248
+- - '2012-06-27'
+  - Elitserien Omgång 7 Ham - Ind
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1241
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1241
+- - '2012-07-03'
+  - Elitserien Omgång 9 Ham - Dac
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1249
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1249
+- - '2012-07-03'
+  - Elitserien Omgång 9 Ind - ElitV
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1250
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1250
+- - '2012-07-03'
+  - Elitserien Omgång 9 Pir - Val
+  - ''
+  - ''
+- - '2012-07-03'
+  - Elitserien Omgång 9 Väs - Var
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1252
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1252
+- - '2012-07-17'
+  - Elitserien Omgång 10 Ind - Pir
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1253
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1253
+- - '2012-07-17'
+  - Elitserien Omgång 10 Var - Ham
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1254
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1254
+- - '2012-07-17'
+  - Elitserien Omgång 10 Väs - Dac
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1255
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1255
+- - '2012-07-17'
+  - Elitserien Omgång 10 ElitV - Val
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1256
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1256
+- - '2012-07-24'
+  - Elitserien Omgång 11 Val - Ind
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1257
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1257
+- - '2012-07-24'
+  - Elitserien Omgång 11 Dac - Var
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1258
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1258
+- - '2012-07-24'
+  - Elitserien Omgång 11 Pir - Ham
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1259
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1259
+- - '2012-07-24'
+  - Elitserien Omgång 11 Väs - ElitV
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1260
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1260
+- - '2012-07-31'
+  - Elitserien Omgång 12 Ham - Val
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1261
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1261
+- - '2012-07-31'
+  - Elitserien Omgång 12 Ind - Väs
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1262
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1262
+- - '2012-07-31'
+  - Elitserien Omgång 12 Var - Pir
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1263
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1263
+- - '2012-07-31'
+  - Elitserien Omgång 12 ElitV - Dac
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1264
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1264
+- - '2012-08-14'
+  - Elitserien Omgång 13 Ham - Väs
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1265
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1265
+- - '2012-08-14'
+  - Elitserien Omgång 13 Dac - Ind
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1266
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1266
+- - '2012-08-14'
+  - Elitserien Omgång 13 Pir - ElitV
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1267
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1267
+- - '2012-08-14'
+  - Elitserien Omgång 13 Var - Val
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1268
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1268
+- - '2012-08-21'
+  - Elitserien Omgång 14 Val - Dac
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1269
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1269
+- - '2012-08-21'
+  - Elitserien Omgång 14 Ind - Ham
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1270
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1270
+- - '2012-08-21'
+  - Elitserien Omgång 14 Väs - Pir
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1271
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1271
+- - '2012-08-21'
+  - Elitserien Omgång 14 ElitV - Var
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1272
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1272
+- - '2012-08-28'
+  - Elitserien Kvartsfinal 1 Dac - Väs
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1697
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1697
+- - '2012-08-28'
+  - Elitserien Kvartsfinal 2 Ham - Ind
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1699
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1699
+- - '2012-09-04'
+  - Elitserien Kvartsfinal 1 Väs - Dac
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1698
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1698
+- - '2012-09-05'
+  - Elitserien Kvartsfinal 2 Ind - Ham
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1700
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1700
+- - '2012-09-11'
+  - Elitserien Semifinal 1 Ind - ElitV
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1701
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1701
+- - '2012-09-11'
+  - Elitserien Semifinal 2 Dac - Pir
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1703
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1703
+- - '2012-09-18'
+  - Elitserien Semifinal 1 ElitV - Ind
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1702
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1702
+- - '2012-09-19'
+  - Elitserien Semifinal 2 Pir - Dac
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1704
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1704
+- - '2012-10-02'
+  - Elitserien Final 1 Pir - ElitV
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1705
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1705
+- - '2012-10-03'
+  - Elitserien Final 1 ElitV - Pir
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatSchema.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1706
+  - https://ta.svemo.se/Public/Pages/Competition/DrivingSchedule/CompetitionHeatResult.aspx?Branch=Speedway&Season=2012&Serie=Elitserien&Resultfilter=APPROVED&Columns=FromDateShort,Name,HeatSchema,HeatResult&pagesize=50&CompetitionId=1706

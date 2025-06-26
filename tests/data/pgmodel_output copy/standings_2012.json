@@ -1,0 +1,180 @@
+{
+    "po1": [
+        [
+            "FINAL",
+            "2012-10-02",
+            "Piraterna",
+            "46",
+            "Elit Vetlanda",
+            "44"
+        ],
+        [
+            "FINAL",
+            "2012-10-03",
+            "Elit Vetlanda",
+            "52",
+            "Piraterna",
+            "37"
+        ]
+    ],
+    "po2": [
+        [
+            "Semifinal 1",
+            "2012-09-11",
+            "Indianerna",
+            "50",
+            "Elit Vetlanda",
+            "40"
+        ],
+        [
+            "Semifinal 1",
+            "2012-09-18",
+            "Elit Vetlanda",
+            "58",
+            "Indianerna",
+            "32"
+        ],
+        [
+            "Semifinal 2",
+            "2012-09-11",
+            "Dackarna",
+            "44",
+            "Piraterna",
+            "46"
+        ],
+        [
+            "Semifinal 2",
+            "2012-09-19",
+            "Piraterna",
+            "51",
+            "Dackarna",
+            "39"
+        ]
+    ],
+    "po3": [
+        [
+            "Kvartsfinal 1",
+            "2012-08-28",
+            "Dackarna",
+            "53",
+            "Västervik",
+            "37"
+        ],
+        [
+            "Kvartsfinal 1",
+            "2012-09-04",
+            "Västervik",
+            "43",
+            "Dackarna",
+            "47"
+        ],
+        [
+            "Kvartsfinal 2",
+            "2012-08-28",
+            "Hammarby",
+            "46",
+            "Indianerna",
+            "44"
+        ],
+        [
+            "Kvartsfinal 2",
+            "2012-09-05",
+            "Indianerna",
+            "56",
+            "Hammarby",
+            "34"
+        ] 
+    ],
+    "regular": [
+        [
+            "Lag",
+            "Antal matcher",
+            "V",
+            "O",
+            "F",
+            "Lagbonus",
+            "Summa poäng",
+            "Lagpoäng"
+        ],
+        [
+            "Elit Vetlanda",
+            "14",
+            "11",
+            "0",
+            "3",
+            "7",
+            "681 - 573",
+            "29"
+        ],
+        [
+            "Piraterna",
+            "14",
+            "10",
+            "0",
+            "4",
+            "4",
+            "671 - 587",
+            "24"
+        ],
+        [
+            "Dackarna",
+            "14",
+            "9",
+            "0",
+            "5",
+            "5",
+            "658 - 599",
+            "23"
+        ],
+        [
+            "Indianerna",
+            "14",
+            "6",
+            "1",
+            "7",
+            "3",
+            "654 - 604",
+            "16"
+        ],
+        [
+            "Hammarby",
+            "14",
+            "6",
+            "0",
+            "8",
+            "3",
+            "603 - 657",
+            "15"
+        ],
+        [
+            "Västervik",
+            "14",
+            "5",
+            "0",
+            "9",
+            "2",
+            "583 - 677",
+            "12"
+        ],
+        [
+            "Valsarna",
+            "14",
+            "4",
+            "1",
+            "9",
+            "2",
+            "588 - 665",
+            "11"
+        ],
+        [
+            "Vargarna",
+            "14",
+            "4",
+            "0",
+            "10",
+            "2",
+            "591 - 667",
+            "10"
+        ]
+    ]
+}
