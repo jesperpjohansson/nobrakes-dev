@@ -4,27 +4,34 @@ import sys
 
 from scripts._utils import check_dependencies_installed
 
-DEPENDENCIES = {
+PARSER = argparse.ArgumentParser()
+PARSER.add_argument(
+    "-o",
+    "--opargs",
+    nargs="+",
+    help='optional pytest args, without the "--" prefix',
+    default=(),
+)
+ARGS = PARSER.parse_args()
+
+dependencies = {
     "nobrakes": "nobrakes",
     "pytest": "pytest",
     "pytest-asyncio": "pytest_asyncio",
-    "pytest-cov": "pytest_cov",
     "aiohttp": "aiohttp",
     "httpx": "httpx",
     "pyyaml": "yaml",
 }
 
-check_dependencies_installed("test", DEPENDENCIES)
+if any(str.startswith(arg, "cov") for arg in ARGS.opargs):
+    dependencies |= {"pytest-cov": "pytest_cov"}
 
-
-parser = argparse.ArgumentParser()
-parser.add_argument("-o", "--opargs", help="optional pytest args as a string")
-args = parser.parse_args()
+check_dependencies_installed("test", dependencies)
 
 input_ = ["pytest", "tests"]
 
-if args.opargs:
-    input_.extend(args.opargs.split(" "))
+if ARGS.opargs:
+    input_.extend("--" + arg for arg in ARGS.opargs)
 
 code = subprocess.run(input_, check=False).returncode
 sys.exit(code)
