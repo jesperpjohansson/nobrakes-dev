@@ -19,7 +19,6 @@ dev = [
   "aiohttp",
   "httpx",
   "lxml-stubs",
-  "tox",
   "ruff",
   "mypy",
   "pytest",
@@ -92,29 +91,3 @@ testpaths = ["tests"]
   
 [tool.coverage.report]
 exclude_also = ["if TYPE_CHECKING:"]
-
-# ≡≡≡ tox ≡≡≡
-
-[tool.tox]
-requires = ["tox>=4.19"]
-skipsdist = false
-env_list = ["format", "lint", "typecheck", "test"]
-
-[tool.tox.env.format]
-deps = ["ruff"]
-commands = [
-  ["ruff", "check", "nobrakes", "tests", "--fix-only"],
-  ["ruff", "format", "nobrakes", "tests"]
-]
-
-[tool.tox.env.lint]
-deps = ["ruff", "aiohttp", "httpx"]
-commands = [["ruff", "check", "nobrakes", "tests"]]
-
-[tool.tox.env.typecheck]
-deps = ["mypy", "aiohttp", "httpx", "lxml-stubs"]
-commands = [["mypy", "nobrakes"]]
-
-[tool.tox.env.test]
-deps = ["pytest", "pytest-asyncio", "pytest-cov", "aiohttp", "httpx", "pyyaml"]
-commands = [["pytest", "tests", "--cov=nobrakes", "--cov-report=term-missing"]]

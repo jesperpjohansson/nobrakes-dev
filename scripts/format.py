@@ -1,0 +1,33 @@
+import argparse
+import subprocess
+import sys
+
+from scripts._utils import check_dependencies_installed
+
+DEPENDENCIES = {"ruff": "ruff"}
+check_dependencies_installed("format", DEPENDENCIES)
+
+DIRS = ["nobrakes", "tests"]
+
+TASKS = {
+    "format": [sys.executable, "-m", "ruff", "format", *DIRS],
+    "lint fix": [sys.executable, "-m", "ruff", "check", *DIRS, "--fix-only"],
+}
+
+PARSER = argparse.ArgumentParser()
+PARSER.add_argument("--ff", action="store_true", help="fail fast")
+ARGS = PARSER.parse_args()
+
+failed = False
+for task, cmd in TASKS.items():
+    code = subprocess.run(cmd, check=False).returncode
+    status = "OK" if code == 0 else "FAIL"
+    print(f"[{task}] code {code} | status {status}", flush=True)
+
+    if status == "FAIL" and not failed:
+        failed = True
+        if ARGS.ff:
+            break
+
+
+sys.exit(int(failed))
