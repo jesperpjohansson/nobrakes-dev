@@ -20,7 +20,6 @@ test = [
   "httpx",
   "pytest",
   "pytest-asyncio",
-  "pytest-cov",
   "pyyaml",
 ]
 dev = [
