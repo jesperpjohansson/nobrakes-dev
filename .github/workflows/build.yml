@@ -16,11 +16,12 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 3.12
+        cache: pip
 
     - name: Upgrade pip and install build tools
       run: |
         python -m pip install --upgrade pip
-        pip install build twine
+        python -m pip install build
 
     - name: Build sdist and wheel
       run: |
@@ -28,14 +29,26 @@ jobs:
 
     - name: Check distributions with twine
       run: |
-        twine check dist/*
+        python -m pip install twine
+        python -m twine check dist/*
 
-    - name: Create virtualenv for test
+    - name: Test build
       run: |
         python -m venv .venv
         source .venv/bin/activate
-        pip install dist/*.whl pytest pytest-asyncio
-        pytest tests/
+        python -m pip install dist/*.whl pytest pytest-asyncio pytest-cov
+        python -m scripts.test --opargs cov=nobrakes cov-report=json
+    
+    - name: Update README coverage badge
+      run: python -m scripts.update_coverage_badge
+
+    - name: Commit and push updated README
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add README.md
+        git diff --cached --quiet || git commit -m "Update coverage badge"
+        git push
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
