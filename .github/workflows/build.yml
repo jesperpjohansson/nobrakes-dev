@@ -36,7 +36,7 @@ jobs:
       run: |
         python -m venv .venv
         source .venv/bin/activate
-        python -m pip install dist/*.whl pytest pytest-asyncio pytest-cov aiohttp, httpx, pyyaml
+        python -m pip install dist/*.whl pytest pytest-asyncio pytest-cov aiohttp httpx pyyaml
         python -m scripts.test --opargs cov=nobrakes cov-report=json
     
     - name: Update README coverage badge
