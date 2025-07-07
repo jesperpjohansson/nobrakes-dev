@@ -1,0 +1,44 @@
+name: Build Python Package
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build distributions
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: 3.12
+
+    - name: Upgrade pip and install build tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+
+    - name: Build sdist and wheel
+      run: |
+        python -m build
+
+    - name: Check distributions with twine
+      run: |
+        twine check dist/*
+
+    - name: Create virtualenv for test
+      run: |
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install dist/*.whl pytest pytest-asyncio
+        pytest tests/
+
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: python-package-distributions
+        path: dist/
