@@ -10,17 +10,17 @@ from typing import TYPE_CHECKING, Final
 from nobrakes._element_utils import xpath
 from nobrakes._models import HashableMapping, TagSignature
 from nobrakes._scraper.pgfetch import extract_elements
-from nobrakes._typing import URL, NamedTargetTags
 from nobrakes.exceptions import (
     ElementError,
     FetchError,
 )
+from nobrakes.typing._typing import URL, NamedTargetTags
 
 if TYPE_CHECKING:
     from collections.abc import Iterator, Mapping
 
-    from nobrakes._api.typing import ETreeElement, Tier
     from nobrakes._session.base import SessionAdapter
+    from nobrakes.typing import ETreeElement, Tier
 
 
 @dataclass

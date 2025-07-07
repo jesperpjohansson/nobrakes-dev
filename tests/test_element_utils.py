@@ -5,9 +5,9 @@ import re
 from lxml import etree
 import pytest
 
-from nobrakes._api.typing import ETreeElement
 from nobrakes._element_utils import string, table, xpath
 from nobrakes.exceptions import ElementError
+from nobrakes.typing import ETreeElement
 
 
 class TestString:

@@ -12,7 +12,7 @@ from nobrakes.exceptions import ElementError
 if TYPE_CHECKING:
     from collections.abc import Callable, Iterator, Mapping, Sequence
 
-    from nobrakes._api.typing import ETreeElement
+    from nobrakes.typing import ETreeElement
 
 
 def column(tbody: ETreeElement, i: int) -> list[ETreeElement]:

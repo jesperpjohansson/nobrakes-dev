@@ -46,7 +46,7 @@ nobrakes.pgmodel :
     Defines ready-to-use page data transformation models.
 """
 
-from nobrakes._pgelements import (
+from nobrakes.pgelements._pgelements import (
     Attendance,
     Events,
     PgElements,

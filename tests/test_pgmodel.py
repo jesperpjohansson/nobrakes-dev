@@ -12,8 +12,8 @@ from lxml import etree
 import pytest
 import yaml
 
-from nobrakes import _pgmodel
 from nobrakes.exceptions import ElementError
+from nobrakes.pgmodel import _pgmodel
 from tests.conftest import element_from_string
 
 _DATA_DIR = Path(__file__).parent / "data"
@@ -87,7 +87,7 @@ def test__create_raises_when_data_contains_non_element_value():
 
 def test__create_adds_none_to_fields():
     with patch(
-        "nobrakes._pgmodel.PgModel._get_model_field_names",
+        "nobrakes.pgmodel._pgmodel.PgModel._get_model_field_names",
         new_callable=lambda: ("field_name",),
     ):
 
@@ -99,7 +99,7 @@ def test__create_adds_none_to_fields():
                 pass
 
     data = {"field_name": None}
-    with patch("nobrakes._pgmodel.is_element", lambda _: False):
+    with patch("nobrakes.pgmodel._pgmodel.is_element", lambda _: False):
         ConcreteModel._create(data)
         assert data["field_name"] is None
 

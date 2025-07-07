@@ -9,7 +9,7 @@ from nobrakes.exceptions import ElementError
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
-    from nobrakes._api.typing import ETreeElement
+    from nobrakes.typing import ETreeElement
 
 
 def href(elem: ETreeElement) -> str | None:

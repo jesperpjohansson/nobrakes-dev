@@ -7,16 +7,16 @@ from dataclasses import dataclass
 from types import MappingProxyType
 from typing import TYPE_CHECKING, Final
 
-from nobrakes._api.typing import ETreeElement, SquadPgDataLabel
 from nobrakes._element_utils import xpath
 from nobrakes._models import HashableMapping, TagSignature
 from nobrakes._scraper.pgfetch import extract_elements
+from nobrakes.typing import ETreeElement, SquadPgDataLabel
 
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
     from nobrakes._session.base import SessionAdapter
-    from nobrakes._typing import URL, NamedTargetTags
+    from nobrakes.typing._typing import URL, NamedTargetTags
 
 
 @dataclass

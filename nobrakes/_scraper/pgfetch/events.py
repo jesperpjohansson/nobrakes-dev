@@ -9,11 +9,11 @@ import re
 from types import MappingProxyType
 from typing import TYPE_CHECKING, Final
 
-from nobrakes._api.typing import ETreeElement, EventsPgDataLabel
 from nobrakes._models import TagSignature
 from nobrakes._scraper.table_browser import TableBrowser
-from nobrakes._typing import URL, TBTargetTags, TBXPaths, is_element
 from nobrakes.exceptions import ElementError, TablePageLimitError
+from nobrakes.typing import ETreeElement, EventsPgDataLabel
+from nobrakes.typing._typing import URL, TBTargetTags, TBXPaths, is_element
 
 if TYPE_CHECKING:
     from nobrakes._session.base import SessionAdapter

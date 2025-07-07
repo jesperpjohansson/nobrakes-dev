@@ -11,10 +11,10 @@ from nobrakes.exceptions import ElementError
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
-    from nobrakes._api.typing import ETreeElement, PgDataLabel
     from nobrakes._models import TagSignature
     from nobrakes._session.base import SessionAdapter
-    from nobrakes._typing import URL, NamedTargetTags
+    from nobrakes.typing import ETreeElement, PgDataLabel
+    from nobrakes.typing._typing import URL, NamedTargetTags
 
 __all__ = (
     "attendance",
