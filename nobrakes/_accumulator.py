@@ -14,7 +14,7 @@ from nobrakes._models import TagSignature
 if TYPE_CHECKING:
     from collections.abc import AsyncIterator, ItemsView, Iterator
 
-    from nobrakes._api.typing import ETreeElement
+    from nobrakes.typing import ETreeElement
 
 
 class ElementAccumulator:

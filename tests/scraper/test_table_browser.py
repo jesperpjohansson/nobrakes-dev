@@ -6,12 +6,12 @@ from unittest.mock import AsyncMock, Mock, patch
 
 import pytest
 
-from nobrakes._api.typing import ETreeElement
 from nobrakes._models import TagSignature
 from nobrakes._scraper.table_browser import TableBrowser, TBTargetTags, TBXPaths
 from nobrakes.exceptions import (
     ElementError,
 )
+from nobrakes.typing import ETreeElement
 from tests.conftest import element_from_string
 
 MODULEPATH = "nobrakes._scraper.table_browser"

@@ -6,7 +6,6 @@ import importlib
 from types import MappingProxyType
 from typing import TYPE_CHECKING, Final, get_args
 
-from nobrakes._api.typing import ETreeElement, Language, Tier
 from nobrakes._constants import FIRST_AVAILABLE_SEASON
 from nobrakes._element_utils import (
     string as string_utils,
@@ -14,8 +13,14 @@ from nobrakes._element_utils import (
     xpath as xpath_utils,
 )
 from nobrakes._session.utils import with_delay, with_jitter
-from nobrakes._typing import URL, PgDataLabel, PgFetchModuleProtocol, SupportedClient
 from nobrakes.exceptions import ElementError, UnsupportedClientError
+from nobrakes.typing import ETreeElement, Language, Tier
+from nobrakes.typing._typing import (
+    URL,
+    PgDataLabel,
+    PgFetchModuleProtocol,
+    SupportedClient,
+)
 
 if TYPE_CHECKING:
     import asyncio

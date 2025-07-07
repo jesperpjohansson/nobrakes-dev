@@ -9,7 +9,7 @@ import re
 from lxml import etree
 import pytest
 
-from nobrakes._api.typing import ETreeElement
+from nobrakes.typing import ETreeElement
 
 _DATA_DIR = Path(__file__).parent / "data"
 

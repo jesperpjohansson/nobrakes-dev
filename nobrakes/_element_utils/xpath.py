@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from nobrakes._typing import is_element_list, is_str, is_str_list
 from nobrakes.exceptions import ElementError
+from nobrakes.typing._typing import is_element_list, is_str, is_str_list
 
 if TYPE_CHECKING:
-    from nobrakes._api.typing import ETreeElement
+    from nobrakes.typing import ETreeElement
 
 
 def element_list(elem: ETreeElement, xpath: str) -> list[ETreeElement]:

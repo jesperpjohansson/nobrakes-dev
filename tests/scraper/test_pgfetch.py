@@ -21,12 +21,12 @@ from nobrakes._scraper.pgfetch import (
     standings,
     teams,
 )
-from nobrakes._typing import TabPgModuleLabel
 from nobrakes.exceptions import (
     ElementError,
     FetchError,
     TablePageLimitError,
 )
+from nobrakes.typing._typing import TabPgModuleLabel
 from tests.conftest import normalize_markup, normalize_url
 
 SUBPKGPATH = "nobrakes._scraper.pgfetch"

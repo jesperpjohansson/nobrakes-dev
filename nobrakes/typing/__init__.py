@@ -7,7 +7,7 @@ nobrakes.pgelements :
     `TypedDict`-based modeling of the data produced by `nobrakes.SVEMOScraper`.
 """
 
-from nobrakes._typing import (
+from nobrakes.typing._typing import (
     AttendancePgDataLabel,
     ETreeElement,
     EventsPgDataLabel,

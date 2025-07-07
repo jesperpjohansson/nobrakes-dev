@@ -18,7 +18,8 @@ from nobrakes._scraper.helpers import (
     validate_launch_args,
 )
 from nobrakes._session.base import SessionAdapter
-from nobrakes._typing import (
+from nobrakes.exceptions import FetchError, ScraperError
+from nobrakes.typing._typing import (
     URL,
     PgCache,
     PgFetchModuleProtocol,
@@ -26,13 +27,12 @@ from nobrakes._typing import (
     URLCache,
     is_element,
 )
-from nobrakes.exceptions import FetchError, ScraperError
 
 if TYPE_CHECKING:
     from collections.abc import Awaitable, Callable
 
-    from nobrakes._api import pgelements
-    from nobrakes._api.typing import (
+    from nobrakes import pgelements
+    from nobrakes.typing import (
         AttendancePgDataLabel,
         ETreeElement,
         EventsPgDataLabel,

@@ -8,14 +8,14 @@ from typing import TYPE_CHECKING, Concatenate, Literal, Self, TypedDict, cast
 
 from nobrakes._accumulator import ElementAccumulator
 from nobrakes._element_utils import xpath
-from nobrakes._typing import URL, TBTargetTags, TBXPaths, is_element
 from nobrakes.exceptions import ElementError
+from nobrakes.typing._typing import URL, TBTargetTags, TBXPaths, is_element
 
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-    from nobrakes._api.typing import ETreeElement
     from nobrakes._session.base import ResponseAdapter, SessionAdapter
+    from nobrakes.typing import ETreeElement
 
 
 class _ButtonTexts(TypedDict):

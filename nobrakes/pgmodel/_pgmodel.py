@@ -14,12 +14,12 @@ from dataclasses import dataclass
 import re
 from typing import Any, ClassVar, Self, cast, final, override
 
-from nobrakes._api import pgelements
-from nobrakes._api.typing import ETreeElement, RowFuncs
+from nobrakes import pgelements
 from nobrakes._constants import TA_DOMAIN
 from nobrakes._element_utils import string, table, xpath
-from nobrakes._typing import is_element, is_str_tuple
 from nobrakes.exceptions import ElementError
+from nobrakes.typing import ETreeElement, RowFuncs
+from nobrakes.typing._typing import is_element, is_str_tuple
 
 
 def _url_from_href(elem: ETreeElement) -> str:

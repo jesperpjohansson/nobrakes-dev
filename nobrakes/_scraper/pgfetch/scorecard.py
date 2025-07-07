@@ -6,13 +6,13 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import TYPE_CHECKING, Final
 
-from nobrakes._api.typing import ETreeElement, ScorecardPgDataLabel
 from nobrakes._models import HashableMapping, TagSignature
 from nobrakes._scraper.pgfetch import extract_elements
+from nobrakes.typing import ETreeElement, ScorecardPgDataLabel
 
 if TYPE_CHECKING:
     from nobrakes._session.base import SessionAdapter
-    from nobrakes._typing import URL, NamedTargetTags
+    from nobrakes.typing._typing import URL, NamedTargetTags
 
 from types import MappingProxyType
 

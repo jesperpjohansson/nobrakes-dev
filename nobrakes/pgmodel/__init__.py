@@ -43,7 +43,7 @@ nobrakes.pgelements
     Contains the HTML-element based data structures used as input to these models.
 """
 
-from nobrakes._pgmodel import (
+from nobrakes.pgmodel._pgmodel import (
     Attendance,
     Events,
     PgModel,

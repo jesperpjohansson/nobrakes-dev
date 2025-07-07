@@ -9,14 +9,14 @@ from typing import TYPE_CHECKING, Final, TypedDict
 
 from nobrakes._models import HashableMapping, TagSignature
 from nobrakes._scraper.pgfetch import extract_elements
-from nobrakes._typing import URL, NamedTargetTags, TabPgModuleLabel
 from nobrakes.exceptions import ElementError
+from nobrakes.typing._typing import URL, NamedTargetTags, TabPgModuleLabel
 
 if TYPE_CHECKING:
     from collections.abc import Iterator
 
-    from nobrakes._api.typing import ETreeElement
     from nobrakes._session.base import SessionAdapter
+    from nobrakes.typing import ETreeElement
 
 
 class _XPathSelectors(TypedDict):

@@ -12,7 +12,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, TypedDict
 
 if TYPE_CHECKING:
-    from nobrakes._api.typing import ETreeElement
+    from nobrakes.typing import ETreeElement
 
 
 class PgElements(TypedDict, total=False):
