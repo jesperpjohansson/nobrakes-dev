@@ -1,14 +1,14 @@
 [build-system]
-requires = ["setuptools>=61.0"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling >= 1.27", "hatch-vcs"]
+build-backend = "hatchling.build"
 
 [project]
 name = "nobrakes"
-version = "0.1.0-beta"
-description = "An interface for mining Swedish speedway data."
-readme = { file = "README.md", content-type = "text/markdown" }
+dynamic = ["version"]
+description = "An interface for fetching, parsing and transforming Swedish speedway data."
+readme = "README.md"
 requires-python = ">=3.12.0"
-license = {file = "LICENSE"}
+license = "BSD-3-Clause"
 authors = [{ name="Jesper Johansson", email="jesperpjohansson@gmail.com" }]
 dependencies = ["lxml>=5.3.0", "lxml-stubs>=0.2.0"]
 
@@ -34,9 +34,15 @@ dev = [
   "pyyaml",
 ]
 
+# ≡≡≡ hatch ≡≡≡
+
+[tool.hatch.version]
+source = "vcs"
+
 # ≡≡≡ ruff ≡≡≡
 
 [tool.ruff]
+target-version = "py312"
 output-format = "pylint"
 
 [tool.ruff.lint]
@@ -44,26 +50,25 @@ output-format = "pylint"
 select = ["ALL"]
 
 ignore = [
-  "ANN003", # missing-type-kwargs
-  "COM812", # missing-trailing-comma
-  "D203", # incorrect-blank-line-before-class
-  "D212", # multi-line-summary-first-line
+  "ANN003",  # missing-type-kwargs
+  "COM812",  # missing-trailing-comma
+  "D203",    # incorrect-blank-line-before-class
+  "D212",    # multi-line-summary-first-line
   "PLR0913", # too-many-arguments
-  "S311", # suspicious-non-cryptographic-random-usage
+  "S311",    # suspicious-non-cryptographic-random-usage
 ]
 
 [tool.ruff.lint.per-file-ignores]
 "tests/**" = [
-  "ANN", # flake8-annotations
-  "D", # pydocstyle
-
-  "BLE001", # blind-except
-  "C901", # complex-structure
+  "ANN",     # flake8-annotations
+  "D",       # pydocstyle
+  "BLE001",  # blind-except
+  "C901",    # complex-structure
   "PLR2004", # magic-value-comparison
-  "S101", # assert
-  "S506", # unsafe-yaml-load
-  "SLF001", # private-member-access
-  "TRY002", # raise-vanilla-class
+  "S101",    # assert
+  "S506",    # unsafe-yaml-load
+  "SLF001",  # private-member-access
+  "TRY002",  # raise-vanilla-class
 ]
 
 [tool.ruff.lint.isort]
@@ -76,7 +81,7 @@ convention = "numpy"
 # ≡≡≡ mypy ≡≡≡
 
 [tool.mypy]
-python_version = "3.13"
+python_version = "3.12"
 warn_unused_configs = true
 disallow_subclassing_any = true
 disallow_untyped_calls = true
