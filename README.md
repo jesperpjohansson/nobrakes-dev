@@ -1,7 +1,7 @@
 # nobrakes
 [![Python Version](https://img.shields.io/badge/python-3.12%2B-blue.svg)]()
 [![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)]()
-[![Coverage](https://img.shields.io/badge/coverage-0.0%25-brightgreen)]()
+[![Coverage](https://img.shields.io/badge/coverage-100.0%25-brightgreen)]()
 
 A high-level user API for asynchronous fetching, parsing and transformation of Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
 
