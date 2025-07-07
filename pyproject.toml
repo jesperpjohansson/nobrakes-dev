@@ -1,10 +1,10 @@
 [build-system]
-requires = ["hatchling >= 1.27"]
+requires = ["hatchling >= 1.27", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
 name = "nobrakes"
-version = "0.1.0"
+dynamic = ["version"]
 description = "An interface for fetching, parsing and transforming Swedish speedway data."
 readme = "README.md"
 requires-python = ">=3.12.0"
@@ -33,6 +33,11 @@ dev = [
   "pytest-cov",
   "pyyaml",
 ]
+
+# ≡≡≡ hatch ≡≡≡
+
+[tool.hatch.version]
+source = "vcs"
 
 # ≡≡≡ ruff ≡≡≡
 
