@@ -44,7 +44,7 @@ jobs:
       
   test-cov-wheel:
     name: Test wheel distribution with coverage
-    needs: build
+    needs: build-dist
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
