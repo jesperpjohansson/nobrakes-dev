@@ -3,58 +3,104 @@ name: Build Python Package
 on:
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
-  build:
+  call-pre-build-ci-workflow:
+    name: Call pre-build CI workflow
+    uses: ./.github/workflows/ci.yml
+
+  build-dist:
     name: Build distributions
+    needs: call-pre-build-ci-workflow
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout source
-      uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: 3.12
-        cache: pip
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+          cache: pip
 
-    - name: Upgrade pip and install build tools
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install build
+      - name: Upgrade pip
+        run: |
+          python -m pip install --upgrade pip
+          
+      - name: Build sdist and wheel
+        run: |
+          python -m pip install build
+          python -m build
 
-    - name: Build sdist and wheel
-      run: |
-        python -m build
+      - name: Check distributions with twine
+        run: |
+          python -m pip install twine
+          python -m twine check dist/*
+      
+      - name: Upload distribution artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: distributions
+          path: dist/
+      
+  test-cov-wheel:
+    name: Test wheel distribution with coverage
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
 
-    - name: Check distributions with twine
-      run: |
-        python -m pip install twine
-        python -m twine check dist/*
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      
+      - name: Download distribution artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: distributions
+          path: .
 
-    - name: Test build
-      run: |
-        python -m venv .venv
-        source .venv/bin/activate
-        python -m pip install dist/*.whl pytest pytest-asyncio pytest-cov aiohttp httpx pyyaml
-        python -m scripts.test --opargs cov=nobrakes cov-report=json
-    
-    - name: Update README coverage badge
-      run: python -m scripts.update_coverage_badge
+      - name: Run tests and generate coverage
+        run: |
+          python -m pip install dist/*.whl pytest pytest-asyncio pytest-cov aiohttp httpx pyyaml
+          python -m scripts.test --opargs cov=nobrakes cov-report=json
 
-    - name: Commit and push updated README
-      run: |
-        git config user.name "github-actions[bot]"
-        git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add README.md
-        git diff --cached --quiet || git commit -m "Update coverage badge"
-        git push
+      - name: Upload coverage JSON
+        id: upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-json
+          path: coverage.json
 
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: python-package-distributions
-        path: dist/
+  update-cov-badge:
+    name: Update Coverage Badge
+    needs: test-cov-build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.12
+      
+      - name: Download coverage JSON
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-json
+          path: .
+
+      - name: Update README coverage badge
+        run: python -m scripts.update_coverage_badge
+
+      - name: Commit and push updated README
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --cached --quiet || git commit -m "Update coverage badge"
+          git push
