@@ -5,6 +5,7 @@ on:
     branches:
       - main
   workflow_dispatch:
+  workflow_call:
 
 permissions:
   contents: read
@@ -111,6 +112,7 @@ jobs:
       - name: Run test
         run: python -m scripts.test
 
+  # Flag to use in status checks
   ok-flag:
     name: OK Flag
     needs: [lint, typecheck, test-cov, test-cross-compat]
