@@ -64,7 +64,7 @@ jobs:
       - name: Run tests and generate coverage
         run: |
           python -m pip install dist/*.whl pytest pytest-asyncio pytest-cov aiohttp httpx pyyaml
-          python -m scripts.test --opargs cov=nobrakes cov-report=json
+          python -m scripts.covreport json
 
       - name: Upload coverage JSON
         id: upload
