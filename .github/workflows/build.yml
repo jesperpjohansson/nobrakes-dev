@@ -75,7 +75,7 @@ jobs:
 
   update-cov-badge:
     name: Update Coverage Badge
-    needs: test-cov-build
+    needs: test-cov-wheel
     runs-on: ubuntu-latest
     permissions:
       contents: write
