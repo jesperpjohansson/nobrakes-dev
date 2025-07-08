@@ -5,7 +5,7 @@ on:
 
 jobs:
   call-pre-build-ci-workflow:
-    name: Call pre-build CI workflow
+    name: Pre-build CI
     uses: ./.github/workflows/ci.yml
 
   build-dist:
