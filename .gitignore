@@ -6,6 +6,11 @@ dist/
 *.egg
 .eggs/
 .coverage
+coverage.json
+coverage.xml
+coverage.lcov
+htmlcov/
+*.py,cover
 .mypy_cache/
 .pytest_cache/
 .ruff_cache/
