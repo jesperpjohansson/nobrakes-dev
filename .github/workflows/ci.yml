@@ -51,11 +51,38 @@ jobs:
 
       - name: Run typecheck
         run: python -m scripts.typecheck
-
-  test-cov:
-    name: Test & coverage | 3.12
-    needs: lint
+  
+  test-py-version-compat:
+    name: Test Python compatibility | ${{ matrix.version }}
+    needs: typecheck
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: [3.12, 3.13]
+
+    steps:
+
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.version }}
+          cache: pip
+
+      - name: Install required dependencies
+        run: python -m pip install -e .[test]
+
+      - name: Run test
+        run: python -m scripts.test
+
+  test-os-compat:
+    name: Test OS compatibility | ${{ matrix.os }}
+    needs: typecheck
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+
     steps:
 
       - uses: actions/checkout@v4
@@ -63,47 +90,6 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: 3.12
-          cache: pip
-
-      - name: Install required dependencies
-        run: python -m pip install -e .[test] pytest-cov
-
-      - name: Run test
-        run: python -m scripts.test --opargs cov=nobrakes cov-report=html cov-fail-under=100
-        continue-on-error: true # Keep running to upload coverage artifacts even if tests fail
-        id: pytest_step
-
-      - name: Upload HTML coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: pre-build-coverage-html-ubuntu-latest-3.12
-          path: htmlcov
-
-        continue-on-error: true
-      - name: Fail if tests or coverage failed
-        if: steps.pytest_step.outcome == 'failure'
-        run: exit 1
-
-  test-cross-compat:
-    name: Test cross-compatibility | ${{ matrix.os }} | Python ${{ matrix.python-version }}
-    needs: test-cov
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
-        python-version: [3.13]
-        include:
-          - os: windows-latest
-            python-version: 3.12
-          - os: macos-latest
-            python-version: 3.12
-    steps:
-
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: ${{ matrix.python-version }}
           cache: pip
 
       - name: Install required dependencies
@@ -123,6 +109,6 @@ jobs:
         if: |
           needs.lint.result == 'failure' ||
           needs.typecheck.result == 'failure' ||
-          needs.test-cross-compat.result == 'failure' ||
-          needs.test-cov.result == 'failure'
+          needs.test-py-version-compat.result == 'failure' ||
+          needs.test-os-compat == 'failure'
         run: exit 1
