@@ -4,8 +4,8 @@ import sys
 
 from scripts._utils import check_dependencies_installed
 
-DEPENDENCIES = {"ruff": "ruff"}
-check_dependencies_installed("format", DEPENDENCIES)
+
+check_dependencies_installed("format")
 
 DIRS = ["nobrakes", "tests"]
 

@@ -1,16 +1,21 @@
-# Requirements to run scripts/test.py
-# NOTE: This file excludes `nobrakes` because it is installed
-#       separately from multiple sources in CI (editable/.whl/.tar.gz).
+# Packages required to run `scripts/test.py`
+#
+# Notes:
+# - `# import: name` specifies the import name of a dependency. It is a directive
+#   comment used to verify that all dependencies have been installed.
+#   See `scripts/_utils.py`.
+# - This file excludes `nobrakes` because it is installed
+#   separately from multiple sources in CI (editable/.whl/.tar.gz).
 
 # TOOL
-pytest
+pytest # import: pytest
 
 # PLUGINS
-pytest-asyncio
+pytest-asyncio # import: pytest_asyncio
 
 # SOFT DEPENDENCIES (nobrakes)
-aiohttp # supported client
-httpx   # supported client
+aiohttp # import: aiohttp | supported client
+httpx   # import: httpx | supported client
 
 # MISC.
-pyyaml  # used to load test data from tests/data/pgmodel_output/*.yml
+pyyaml  # import: yaml | used to load test data from tests/data/pgmodel_output/*.yml
