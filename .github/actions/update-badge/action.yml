@@ -11,6 +11,7 @@ runs:
   steps:
     - name: Update ${{ inputs.badge-name }} badge in README.md
       run: python -m scripts.update_${{ inputs.badge-name }}_badge
+      shell: bash
 
     - name: Commit and push README.md
       run: |
