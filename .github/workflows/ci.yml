@@ -14,6 +14,8 @@ jobs:
   call-pre-build-ci-workflow:
     name: Pre-build CI
     uses: ./.github/workflows/pre-build-ci.yml
+    with:
+      called_by_workflow_call: true
 
   build-dist:
     name: Build and check distributions
@@ -22,7 +24,7 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-        
+
       - name: Set Up Python Environment
         uses: ./.github/actions/set-up-python-env
       

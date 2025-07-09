@@ -10,6 +10,11 @@ on:
       - 'pyproject.toml'
   workflow_dispatch:
   workflow_call:
+    inputs:
+      called_by_workflow_call:
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -106,13 +111,14 @@ jobs:
   ok-flag:
     name: OK Flag
     needs: [lint, typecheck, test-py-version-compat, test-os-compat]
-    if: ${{ always() && github.event_name != 'workflow_call' }}
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - name: Debug
         run: |
           echo ${{ github.event_name }}
           echo ${{ github.event.workflow_call }}
+          echo ${{ !inputs.called_by_workflow_call }}
       - name: Fail if any job failed
         if: |
           needs.lint.result == 'failure' ||
