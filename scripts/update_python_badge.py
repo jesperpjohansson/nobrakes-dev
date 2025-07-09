@@ -7,10 +7,10 @@ import sys
 from collections import UserString
 from typing import Literal
 
-SUPPORTED_OPERATORS = {">=", "<="}
+SUPPORTED_OPERATORS = {">=", "<"}
 BADGE_URL_TEMPLATE = "https://img.shields.io/badge/python-{}-blue.svg"
 MINOR_VERSION_RE = re.compile(r"^3\.[0-9]+$")
-SPECIFIER_RE = re.compile(r"(?P<operator>>=|<=)(?P<version>3\.[0-9]+)")
+SPECIFIER_RE = re.compile(r"(?P<operator>>=|<)(?P<version>3\.[0-9]+)")
 PYTHON_BADGE_RE = r"(?<=\[\!\[Python\]\()[^)]*(?=\)\])"
 README_PATH = Path(__file__).parents[1] / "README.md"
 PYPROJECT_PATH = Path(__file__).parents[1] / "pyproject.toml"
@@ -88,15 +88,15 @@ def generate_badge_url(specifiers: list[dict[str, str]]) -> str:
             sys.exit(1)
         return BADGE_URL_TEMPLATE.format(f"{spec['version']}%2B")  # "+" encoded
 
-    # Two-spec range: >= and <=
+    # Two-spec range: >= and <
     operators = {s["operator"] for s in specifiers}
-    if operators != {">=", "<="}:
-        _print("Expected a range using '>=' and '<='")
+    if operators != {">=", "<"}:
+        _print("Expected a range using '>=' and '<'")
         sys.exit(1)
 
     sorted_specs = sorted(specifiers, key=lambda s: Version(s["version"]))
     vmin, vmax = (Version(s["version"]) for s in sorted_specs)
-    versions = (f"3.{minor}" for minor in range(vmin.minor, vmax.minor + 1))
+    versions = (f"3.{minor}" for minor in range(vmin.minor, vmax.minor))
     return BADGE_URL_TEMPLATE.format("%20%7C%20".join(versions))  # " | " encoded
 
 def get_old_badge_url(readme):
