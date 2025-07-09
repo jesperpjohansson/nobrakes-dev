@@ -1,0 +1,17 @@
+# Requirements to run scripts/covreport.py
+# NOTE: This file excludes `nobrakes` because it is installed
+#       separately from multiple sources in CI (editable/.whl/.tar.gz).
+
+# TOOL
+pytest
+
+# PLUGINS
+pytest-asyncio
+pytest-cov
+
+# SOFT DEPENDENCIES (nobrakes)
+aiohttp # supported client
+httpx   # supported client
+
+# MISC.
+pyyaml  # used to load test data from tests/data/pgmodel_output/*.yml
