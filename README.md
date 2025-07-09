@@ -1,5 +1,5 @@
 # nobrakes
-[![Python Version](https://img.shields.io/badge/python-3.12%2B-blue.svg)]()
+[![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)]()
 [![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)]()
 [![Coverage](https://img.shields.io/badge/coverage-100.0%25-brightgreen)]()
 
