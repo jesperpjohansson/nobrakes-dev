@@ -1,10 +1,14 @@
 name: CI
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
+    paths:
+      - 'nobrakes/**'
+      - 'tests/**'
+      - 'pyproject.toml'
+  workflow_dispatch:
 
 jobs:
   call-pre-build-ci-workflow:
@@ -12,34 +16,30 @@ jobs:
     uses: ./.github/workflows/pre-build-ci.yml
 
   build-dist:
-    name: Build distributions
+    name: Build and check distributions
     needs: call-pre-build-ci-workflow
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
-          cache: pip
-
-      - name: Upgrade pip
-        run: |
-          python -m pip install --upgrade pip
-          
-      - name: Build sdist and wheel
+      - name: Set Up Python Environment
+        uses: ./.github/actions/set-up-python-env
+      
+      - name: Install build
         run: |
           python -m pip install build
+
+      - name: Build distributions
+        run: |
           python -m build
 
-      - name: Check distributions with twine
+      - name: Install Twine
         run: |
           python -m pip install twine
+
+      - name: Check distributions
+        run: |
           python -m twine check dist/*
       
-      - name: Upload distribution artifact
+      - name: Upload distributions artifact
         uses: actions/upload-artifact@v4
         with:
           name: distributions
@@ -50,15 +50,10 @@ jobs:
     needs: build-dist
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: 3.12
+      - name: Set Up Python Environment
+        uses: ./.github/actions/set-up-python-env
       
-      - name: Download distribution artifact
+      - name: Download distributions artifact
         uses: actions/download-artifact@v4
         with:
           name: distributions
@@ -69,11 +64,11 @@ jobs:
           python -m pip install dist/*.whl
           python -m pip install -r requirements/covreport.txt
 
-      - name: Run tests and generate coverage
+      - name: Run scripts.covreport
         run: |
           python -m scripts.covreport json
 
-      - name: Upload coverage JSON
+      - name: Upload JSON coverage report
         id: upload
         uses: actions/upload-artifact@v4
         with:
@@ -87,27 +82,18 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set Up Python Environment
+        uses: ./.github/actions/set-up-python-env
         with:
-          python-version: 3.12
+          upgrade-pip: 'false'
       
-      - name: Download coverage JSON
+      - name: Download JSON coverage report
         uses: actions/download-artifact@v4
         with:
           name: coverage-json
           path: .
 
-      - name: Update README coverage badge
-        run: python -m scripts.update_coverage_badge
-
-      - name: Commit and push updated README
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git diff --cached --quiet || git commit -m "Update coverage badge"
-          git push
+      - name: Update Coverage Badge
+        uses: ./.github/actions/update-badge
+        with:
+          badge-name: 'coverage'

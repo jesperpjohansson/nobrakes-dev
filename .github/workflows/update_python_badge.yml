@@ -14,21 +14,12 @@ jobs:
     permissions:
       contents: write
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Set Up Python Environment
+        uses: ./.github/actions/set-up-python-env
         with:
-          python-version: 3.12
+          upgrade-pip: 'false'
 
-      - name: Update README python badge
-        run: python -m scripts.update_python_badge
-
-      - name: Commit and push updated README
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add README.md
-          git diff --cached --quiet || git commit -m "Update python badge"
-          git push
+      - name: Update Python Badge
+        uses: ./.github/actions/update-badge
+        with:
+          badge-name: 'python'
