@@ -20,6 +20,9 @@ jobs:
     needs: call-pre-build-ci-workflow
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        
       - name: Set Up Python Environment
         uses: ./.github/actions/set-up-python-env
       
@@ -50,6 +53,9 @@ jobs:
     needs: build-dist
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
       - name: Set Up Python Environment
         uses: ./.github/actions/set-up-python-env
       
@@ -82,6 +88,9 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
       - name: Set Up Python Environment
         uses: ./.github/actions/set-up-python-env
         with:
