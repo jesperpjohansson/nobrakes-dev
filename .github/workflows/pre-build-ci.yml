@@ -106,9 +106,11 @@ jobs:
   ok-flag:
     name: OK Flag
     needs: [lint, typecheck, test-py-version-compat, test-os-compat]
-    if: always() && github.event_name != 'workflow_call'
+    if: ${{ always() && github.event_name != 'workflow_call' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Debug
+        run: echo ${{ github.event_name }}
       - name: Fail if any job failed
         if: |
           needs.lint.result == 'failure' ||
