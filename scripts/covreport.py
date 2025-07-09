@@ -1,5 +1,5 @@
-import json
 import argparse
+import json
 from pathlib import Path
 import subprocess
 import sys
@@ -13,7 +13,7 @@ def _print(*values, **kwargs):
 
 REPORT_TYPES = ["term-missing", "json", "html"]
 REPORT_PATHS = [".coverage", "coverage.json", "htmlcov"]
-REPORT_TYPE_TO_PATH = dict(zip(REPORT_TYPES, REPORT_PATHS))
+REPORT_TYPE_TO_PATH = dict(zip(REPORT_TYPES, REPORT_PATHS, strict=False))
 
 parser = argparse.ArgumentParser()
 parser.add_argument("type", choices=REPORT_TYPES, help="report type")

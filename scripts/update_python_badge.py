@@ -1,11 +1,8 @@
-import tomllib
-import sys
+from collections import UserString
 from pathlib import Path
-
 import re
 import sys
-from collections import UserString
-from typing import Literal
+import tomllib
 
 SUPPORTED_OPERATORS = {">=", "<"}
 BADGE_URL_TEMPLATE = "https://img.shields.io/badge/python-{}-blue.svg"
@@ -31,12 +28,14 @@ class Version(UserString):
 def _print(*values, **kwargs):
     print("[scripts.update_python_badge]", *values, **kwargs, flush=True)
 
+
 def load_files():
     readme = README_PATH.read_text(encoding="utf-8")
     with PYPROJECT_PATH.open("rb") as stream:
         pyproject = tomllib.load(stream)
-    
+
     return readme, pyproject
+
 
 def get_requires_python(pyproject):
     project_table = pyproject.get("project")
@@ -48,7 +47,7 @@ def get_requires_python(pyproject):
     if not isinstance(requires_python, str):
         _print("missing expected key 'requires-python' in 'project'")
         sys.exit(1)
-    
+
     return requires_python
 
 
@@ -99,13 +98,15 @@ def generate_badge_url(specifiers: list[dict[str, str]]) -> str:
     versions = (f"3.{minor}" for minor in range(vmin.minor, vmax.minor))
     return BADGE_URL_TEMPLATE.format("%20%7C%20".join(versions))  # " | " encoded
 
+
 def get_old_badge_url(readme):
     m = re.search(PYTHON_BADGE_RE, readme)
     if not m:
         _print("did not find python badge in README.md")
         sys.exit(1)
-    
+
     return m.group()
+
 
 if __name__ == "__main__":
     readme, pyproject = load_files()
