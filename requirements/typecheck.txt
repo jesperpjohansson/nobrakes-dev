@@ -1,0 +1,9 @@
+# Requirements to run scripts/typecheck.py
+
+# TOOL
+mypy
+
+# TYPING DEPENDENCIES
+aiohttp
+httpx
+lxml-stubs

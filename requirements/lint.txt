@@ -1,0 +1,4 @@
+# Requirements to run scripts/format.py and scripts/lint.py
+
+# TOOL
+ruff
