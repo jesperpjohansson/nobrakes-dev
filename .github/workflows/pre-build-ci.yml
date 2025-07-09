@@ -110,7 +110,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Debug
-        run: echo ${{ github.event_name }}
+        run: |
+          echo ${{ github.event_name }}
+          echo ${{ github.event.workflow_call }}
       - name: Fail if any job failed
         if: |
           needs.lint.result == 'failure' ||
