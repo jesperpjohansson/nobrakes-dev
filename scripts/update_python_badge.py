@@ -4,11 +4,14 @@ import re
 import sys
 import tomllib
 
+N_SPECS = {"min": 1, "max": 2}
 SUPPORTED_OPERATORS = {">=", "<"}
 BADGE_URL_TEMPLATE = "https://img.shields.io/badge/python-{}-blue.svg"
+
 MINOR_VERSION_RE = re.compile(r"^3\.[0-9]+$")
 SPECIFIER_RE = re.compile(r"(?P<operator>>=|<)(?P<version>3\.[0-9]+)")
 PYTHON_BADGE_RE = r"(?<=\[\!\[Python\]\()[^)]*(?=\)\])"
+
 README_PATH = Path(__file__).parents[1] / "README.md"
 PYPROJECT_PATH = Path(__file__).parents[1] / "pyproject.toml"
 
@@ -76,8 +79,8 @@ def parse_specifiers(requires_python: str) -> list[dict[str, str]]:
 
 
 def generate_badge_url(specifiers: list[dict[str, str]]) -> str:
-    if not 1 <= len(specifiers) <= 2:
-        _print("Expected between 1 and 2 specifiers")
+    if not N_SPECS["min"] <= len(specifiers) <= N_SPECS["max"]:
+        _print(f"Expected between {N_SPECS['min']} and {N_SPECS['max']} specifiers")
         sys.exit(1)
 
     if len(specifiers) == 1:

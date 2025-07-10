@@ -14,6 +14,9 @@ README_PATH = Path(__file__).parents[1] / "README.md"
 # Regular expression matching the coverage badge in README.md
 COVERAGE_BADGE_RE = r"(?<=\[\!\[Coverage\]\()[^)]*(?=\)\])"
 
+# Threshold (cov %) and badge color
+BADGE_COLOR = {100: "brightgreen", 90: "yellow", 0: "red"}
+
 # Extract total percent covered from coverage.json
 
 if not COVREPORT_PATH.is_file():
@@ -35,9 +38,8 @@ if not isinstance(pct, float):
 
 # Make coverage badge url
 
-color = "brightgreen" if pct == 100 else "yellow" if pct >= 90 else "red"
+color = BADGE_COLOR[max(threshold for threshold in BADGE_COLOR if pct >= threshold)]
 new_badge_url = f"https://img.shields.io/badge/coverage-{pct:.1f}%25-{color}"
-
 
 # Replace the coverage badge url in README.md
 
