@@ -21,7 +21,6 @@ A high-level user API for asynchronous fetching, parsing and transformation of S
 ## Table of Contents
 - [License](#license)
 - [Features](#features)
-- [Dependencies](#dependencies)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Advanced Usage](#advanced-usage)
@@ -29,11 +28,6 @@ A high-level user API for asynchronous fetching, parsing and transformation of S
 ## License
 
 This project is licensed under the 3-Clause BSD License. See the [LICENSE](https://github.com/jesperpjohansson/nobrakes-dev/tree/main?tab=License-1-ov-file) file for details.
-
-## Dependencies
-
-- Python >= 3.12.0
-- lxml >= 5.3.0
 
 ## Features
 - **Efficient Web Scraping:** Fetch and parse raw HTML content from the SVEMO website
