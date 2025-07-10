@@ -1,3 +1,23 @@
+"""
+Format codebase.
+
+This script applies in-place formatting and safe lint fixes to python code in
+`nobrakes/`, `tests/` and `scripts/`.
+
+Intended Use Cases
+------------------
+- Local development.
+- CI workflows.
+
+Optional Arguments
+------------------
+--ff : store_true
+    Stop execution after the first failed task (fail fast).
+
+Usage
+-----
+python -m scripts.format --ff
+"""
 import argparse
 import subprocess
 import sys

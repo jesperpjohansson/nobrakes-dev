@@ -1,3 +1,23 @@
+"""
+Update the Python version badge in README.md.
+
+This script parses the `requires-python` field from `pyproject.toml` and updates the
+Python version badge in `README.md` accordingly.
+
+Intended Use Cases
+------------------
+- Github workflows
+
+Usage
+-----
+python -m scripts.update_python_badge
+
+Notes
+-----
+This script assumes that `requires-python` uses minor versions,
+a lower boundary `>=` and (optionally) an upper boundary `<=`,
+i.e. `>=major.minor` or `>=major.minor,<=major.minor`.
+"""
 from collections import UserString
 from pathlib import Path
 import re
@@ -70,7 +90,7 @@ def parse_specifiers(requires_python: str) -> list[dict[str, str]]:
 
         if not MINOR_VERSION_RE.match(version):
             _print(f"Unsupported version format: {version}")
-            _print("Only minor versions like '3.8' or '3.12' are supported")
+            _print("Only minor versions are supported")
             sys.exit(1)
 
         specifiers.append({"operator": operator, "version": version})

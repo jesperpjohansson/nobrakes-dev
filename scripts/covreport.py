@@ -1,3 +1,29 @@
+"""
+Produce a coverage report.
+
+This script silently runs the test suite and write a coverage report to
+the projects root directory.
+
+Intended Use Cases
+------------------
+- Local development.
+- CI workflows.
+
+Positional Arguments
+--------------------
+type : {"term-missing", "json", "html"}
+    Coverage report type.
+
+Usage
+-----
+python -m scripts.update_coverage_badge TYPE
+
+Notes
+-----
+If the selected report type is `json`, the output is reformatted with indentation
+for improved readability.
+
+"""
 import argparse
 import json
 from pathlib import Path
