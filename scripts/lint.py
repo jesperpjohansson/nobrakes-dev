@@ -7,11 +7,9 @@ from scripts._utils import check_dependencies_installed
 
 check_dependencies_installed("lint")
 
-TARGETS = ["nobrakes", "tests"]
-
 TASKS = {
-    "format diff": [sys.executable, "-m", "ruff", "format", "--diff", *TARGETS],
-    "lint check": [sys.executable, "-m", "ruff", "check", *TARGETS],
+    "format diff": [sys.executable, "-m", "ruff", "format", "--diff"],
+    "lint check": [sys.executable, "-m", "ruff", "check"],
 }
 
 PARSER = argparse.ArgumentParser()

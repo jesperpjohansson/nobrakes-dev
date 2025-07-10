@@ -7,11 +7,9 @@ from scripts._utils import check_dependencies_installed
 
 check_dependencies_installed("format")
 
-DIRS = ["nobrakes", "tests"]
-
 TASKS = {
-    "format": [sys.executable, "-m", "ruff", "format", *DIRS],
-    "lint fix": [sys.executable, "-m", "ruff", "check", *DIRS, "--fix-only"],
+    "format": [sys.executable, "-m", "ruff", "format"],
+    "lint fix": [sys.executable, "-m", "ruff", "check", "--fix-only"],
 }
 
 PARSER = argparse.ArgumentParser()

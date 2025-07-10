@@ -24,7 +24,7 @@ check_dependencies_installed("covreport")
 _print(f"running tests and saving {args.type} report")
 
 code = subprocess.run(
-    ["pytest", "tests", "--cov=nobrakes", f"--cov-report={args.type}"],
+    ["pytest", "--cov=nobrakes", f"--cov-report={args.type}"],
     check=False,
     capture_output=True,
 ).returncode
