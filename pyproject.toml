@@ -93,7 +93,7 @@ convention = "numpy"
 
 [tool.mypy]
 python_version = "3.12"
-packages = "nobrakes"
+packages = ["nobrakes", "scripts"]
 
 warn_unused_configs = true
 disallow_subclassing_any = true

@@ -73,6 +73,6 @@ if new_badge_url == old_badge_url:
     _print("coverage has not changed")
     sys.exit(0)
 
-readme = readme.replace(old_badge_url, new_badge_url, count=1)
+readme = readme.replace(old_badge_url, new_badge_url, 1)
 README_PATH.write_text(readme, encoding="utf-8")
 _print(f"new badge url: {new_badge_url}")

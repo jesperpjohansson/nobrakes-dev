@@ -1,6 +1,6 @@
 """Internal utilities."""
 
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from functools import partial
 import importlib.util
 from pathlib import Path
@@ -39,13 +39,25 @@ def _make_requirements_mapping(filename: str) -> dict[str, str]:
     `import:`, followed by the import name of the corresponding distribution,
     for example: `my-package # import: my_package`.
     """
+
+    def parse_lines(stream: Iterator[str]) -> Iterator[tuple[str, str]]:
+        for line in stream:
+            if m := DEPENDENCY_RE.match(line):
+                distribution_name, import_name = m.groups()
+                if isinstance(distribution_name, str) and isinstance(import_name, str):
+                    yield distribution_name, import_name
+                else:
+                    exc_msg = "Expected stream to yield str."
+                    raise ValueError(exc_msg)
+
     with (REQUIREMENTS_DIR / filename).open("r", encoding="utf-8") as stream:
-        return dict(m.groups() for line in stream if (m := DEPENDENCY_RE.match(line)))
+        return dict(parse_lines(stream))
 
 
 def check_dependencies_installed(script_name: str) -> None:
     """Exit with code 1 if not all required dependencies are installed."""
     requirements = _make_requirements_mapping(REQUIREMENTS_FILE[script_name])
+
     if script_name in REQUIRES_NOBRAKES:
         requirements["nobrakes"] = "nobrakes"
 
