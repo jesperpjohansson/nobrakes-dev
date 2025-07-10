@@ -24,13 +24,15 @@ REQUIREMENTS_DIR = Path(__file__).parents[1] / "requirements"
 
 # Regular expression used when parsing requirements/*.txt files
 DEPENDENCY_RE = re.compile(
-    r"([\w\.-]+?)"  # Distribution name
-    r"\s*#\s*import:\s*"
+    r"([\w\.-]+)"  # Distribution name
+    r".+#\s*import:\s*"
     r"([\w\.-]+)"  # Import name
 )
 
+REFERENCE_RE = re.compile(r"-r ([^\s]+)")
 
-def _make_requirements_mapping(filename: str) -> dict[str, str]:
+
+def _get_requirements(filename: str) -> tuple[tuple[str, str], ...]:
     """
     Extract and map aliases of all dependencies listed in requirements/`filename`.
 
@@ -40,23 +42,32 @@ def _make_requirements_mapping(filename: str) -> dict[str, str]:
     for example: `my-package # import: my_package`.
     """
 
+    def get_match_groups(m: re.Match[str]) -> Iterator[str]:
+        for value in m.groups():
+            if isinstance(value, str):
+                yield value
+            else:
+                exc_msg = "Match group contains non-str value."
+                raise TypeError(exc_msg)
+
     def parse_lines(stream: Iterator[str]) -> Iterator[tuple[str, str]]:
         for line in stream:
-            if m := DEPENDENCY_RE.match(line):
-                distribution_name, import_name = m.groups()
-                if isinstance(distribution_name, str) and isinstance(import_name, str):
-                    yield distribution_name, import_name
-                else:
-                    exc_msg = "Expected stream to yield str."
-                    raise ValueError(exc_msg)
+            if m := REFERENCE_RE.match(line):
+                reference_name, *_ = get_match_groups(m)
+
+                yield from _get_requirements(reference_name)
+            elif m := DEPENDENCY_RE.match(line):
+                distribution_name, import_name = get_match_groups(m)
+
+                yield distribution_name, import_name
 
     with (REQUIREMENTS_DIR / filename).open("r", encoding="utf-8") as stream:
-        return dict(parse_lines(stream))
+        return tuple(parse_lines(stream))
 
 
 def check_dependencies_installed(script_name: str) -> None:
     """Exit with code 1 if not all required dependencies are installed."""
-    requirements = _make_requirements_mapping(REQUIREMENTS_FILE[script_name])
+    requirements = dict(_get_requirements(REQUIREMENTS_FILE[script_name]))
 
     if script_name in REQUIRES_NOBRAKES:
         requirements["nobrakes"] = "nobrakes"

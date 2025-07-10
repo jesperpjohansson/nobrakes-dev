@@ -8,10 +8,10 @@
 #   separately from multiple sources in CI (editable/.whl/.tar.gz).
 
 # TOOL
-pytest # import: pytest
+pytest>=8.4.1 # import: pytest
 
 # PLUGINS
-pytest-asyncio # import: pytest_asyncio
+pytest-asyncio>=1.0.0 # import: pytest_asyncio
 
 # SOFT DEPENDENCIES (nobrakes)
 aiohttp # import: aiohttp | supported client

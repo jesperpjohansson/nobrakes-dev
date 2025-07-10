@@ -7,16 +7,8 @@
 # - This file excludes `nobrakes` because it is installed
 #   separately from multiple sources in CI (editable/.whl/.tar.gz).
 
-# TOOL
-pytest # import: pytest
+
+-r test.txt
 
 # PLUGINS
-pytest-asyncio # import: pytest_asyncio
-pytest-cov     # import: pytest_cov
-
-# SOFT DEPENDENCIES (nobrakes)
-aiohttp # import: aiohttp | supported client
-httpx   # import: httpx | supported client
-
-# MISC.
-pyyaml  # import: yaml | used to load test data from tests/data/pgmodel_output/*.yml
+pytest-cov>=6.2.1 # import: pytest_cov
