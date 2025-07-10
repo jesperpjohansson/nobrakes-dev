@@ -1,6 +1,6 @@
 # nobrakes
 [![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)]()
-[![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)](https://github.com/jesperpjohansson/nobrakes-dev/tree/main?tab=License-1-ov-file)
+[![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE)
 [![Coverage](https://img.shields.io/badge/coverage-100.0%25-brightgreen)](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/ci.yml)
 [![CI](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/ci.yml)
 
@@ -19,15 +19,12 @@ A high-level user API for asynchronous fetching, parsing and transformation of S
 > respect SVEMO's terms of service.
 
 ## Table of Contents
-- [License](#license)
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Advanced Usage](#advanced-usage)
-
-## License
-
-This project is licensed under the 3-Clause BSD License. See the [LICENSE](https://github.com/jesperpjohansson/nobrakes-dev/tree/main?tab=License-1-ov-file) file for details.
+- [SVEMO Overview](#svemo-overview)
+- [License](#license)
 
 ## Features
 - **Efficient Web Scraping:** Fetch and parse raw HTML content from the SVEMO website
@@ -63,7 +60,7 @@ The package is not yet available on PyPI.
     # On Windows (cmd):
     .\.venv\Scripts\activate.bat
     ```
-3. Install development dependencies (including an editable install):
+3. Install development dependencies and the package in editable mode:
     ```bash
     pip install -e .[dev]
     ```
@@ -79,11 +76,14 @@ import aiohttp
 from nobrakes import SVEMOScraper, pgmodel
 
 async def main():
-    seasons = (2023,)
     async with aiohttp.ClientSession() as session:
-        scraper = SVEMOScraper(session)
 
-        # The scraper is configured to extract Bauhausligan 2023 data in English.
+        scraper = SVEMOScraper(session) # Initialize the scraper with an aiohttp session
+
+        seasons = (2023,) # Specify the season(s) to scrape
+
+        # The launched scraper is configured to enable extraction of 
+        # Bauhausligan (tier 1) data from season 2023 in English.
         await scraper.launch(*seasons, tier=1, language="en-us")
 
         # The attendance page hosts two extractable sections, a paragraph containing the
@@ -91,10 +91,13 @@ async def main():
         # figures. Here, only the paragraph is fetched.
         pg_data = await scraper.attendance("average", season=2023)
     
-    # The page model transforms the parsed page data and extracts relevant information.
+    # The page model transforms the parsed page data and extracts relevant information
     pg_model = pgmodel.Attendance.from_pgelements(pg_data)
 
+    # Output the average attendance value
     print(f"Average Attendance 2023: {pg_model.average}")
+
+    # Output the attendance table (None in this example, since only paragraph was fetched)
     print(f"Attendance Table 2023: {pg_model.table}")
 
 if __name__ == "__main__":
@@ -109,7 +112,7 @@ Attendance Table 2023: None
 ## Advanced Usage
 
 ### Custom Session Adapters
-The nobrakes library natively supports two asynchronous HTTP clients,
+The `nobrakes` library natively supports two asynchronous HTTP clients,
 `aiohttp.ClientSession` and `httpx.AsyncClient`. Support for additional asynchronous
 HTTP clients can be implemented by subclassing the `SessionAdapter` and
 `ResponseAdapter` base classes.
@@ -148,6 +151,8 @@ class MyAdapter(AIOHTTPSessionAdapter):
         self.semaphore = semaphore
         super().__init__(session)
 
+    # Requests must be returned as asynchronous context managers to be
+    # compatible with the internal infrastructure of the package.
     def request(self, method: str, url: str, **kwargs):
         @asynccontextmanager
         async def acm():
@@ -157,7 +162,7 @@ class MyAdapter(AIOHTTPSessionAdapter):
             ):
                 yield response
 
-        return acm()
+        return acm() 
 
 async def main():
     async with aiohttp.ClientSession() as session:
@@ -168,3 +173,94 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 ```
+
+## SVEMO Overview
+
+This section outlines the structure of the SVEMO website and the types of data available for scraping.
+
+### Page Hierarchy
+
+Below is a tree structure that illustrates the hierarchy of pages from which navigates through and extracts data.
+
+```plaintext
+home
+├── results
+│   ├── events
+│   │   ├── scorecard
+│   │   ├── scorecard
+│   │   └── ...
+│   ├── standings
+│   ├── teams
+│   │   ├── squad
+│   │   ├── squad
+│   │   └── ...
+│   ├── rider averages
+│   └── attendance
+├── results
+└── ...
+```
+
+### Results Page
+
+Data is extracted from various [results pages](https://www.svemo.se/vara-sportgrenar/start-speedway/resultat-speedway/resultat-bauhausligan-speedway?language=en-us), grouped by league and season. Each results page acts as a central hub, containing five tabs. Each tab displays data directly, links to subpages, or both.
+
+![Tabs](/assets/images/tabs.jpg)
+
+The table below maps the SVEMO tab names to their corresponding API equivalents.
+
+<table style="border-collapse: collapse; width: 100%; max-width: 800px; margin: 1em 0; font-family: Arial, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; color: #222;">
+  <tbody>
+    <tr style="background-color: #f5f5f5;">
+      <td style="font-weight: 600; padding: 8px 12px; border: 1px solid #ccc;">SVEMO Tab</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Matchresultat</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Serietabell</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Aktuella snitt</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Snittlista</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Publikstatistik</td>
+    </tr>
+    <tr style="background-color: #ffffff;">
+      <td style="font-weight: 600; padding: 8px 12px; border: 1px solid #ccc;">API Equivalent</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Events</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Standings</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Teams</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Rider Averages</td>
+      <td style="padding: 8px 12px; border: 1px solid #ccc;">Attendance</td>
+    </tr>
+  </tbody>
+</table>
+
+### Tab Overview
+
+Each tab on the results page corresponds to a specific category of data.
+
+#### Events
+
+Lists basic match details and provides links to **Scorecard** pages with detailed match data.
+
+![Scorecard Links](/assets/images/events-highlighted.jpg)
+
+---
+#### Standings
+
+Displays the regular season table and play-off trees.
+
+---
+#### Teams
+
+Lists team information and provides links to **Squad** pages containing rider data.
+
+![Squad Links](/assets/images/teams-highlighted.jpg)
+
+---
+#### Rider Averages
+
+Displays riders sorted by their average heat score in descending order.
+
+---
+#### Attendance
+
+Provides a link to a standalone page that displays attendance figures.
+
+## License
+
+This project is licensed under the 3-Clause BSD License. See the [LICENSE](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE) file for details.
