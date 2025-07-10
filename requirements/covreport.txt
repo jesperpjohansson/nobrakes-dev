@@ -11,4 +11,4 @@
 -r test.txt
 
 # PLUGINS
-pytest-cov>=6.2.1 # import: pytest_cov
+pytest-cov # import: pytest_cov
