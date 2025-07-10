@@ -1,15 +1,38 @@
+"""
+Produce a coverage report.
+
+This script silently runs the test suite and writes a coverage report to
+the project root directory.
+
+Intended Use Cases
+------------------
+- Local development
+- GitHub workflows
+
+Positional Arguments
+--------------------
+type : {"term-missing", "json", "html"}
+    Coverage report type.
+
+Usage
+-----
+python -m scripts.update_coverage_badge TYPE
+
+Notes
+-----
+If the selected report type is `json`, the output file is reformatted with indentation
+for improved readability.
+"""
+
 import argparse
 import json
 from pathlib import Path
 import subprocess
 import sys
 
-from scripts._utils import check_dependencies_installed
+from scripts._utils import check_dependencies_installed, print_func_factory
 
-
-def _print(*values, **kwargs):
-    print("[scripts.update_coverage_badge]", *values, **kwargs, flush=True)
-
+_print = print_func_factory("covreport")
 
 REPORT_TYPES = ["term-missing", "json", "html"]
 REPORT_PATHS = [".coverage", "coverage.json", "htmlcov"]

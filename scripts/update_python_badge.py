@@ -1,14 +1,39 @@
+"""
+Update the Python version badge in README.md.
+
+This script parses the `requires-python` field from `pyproject.toml` and updates the
+Python version badge in `README.md` accordingly.
+
+Intended Use Cases
+------------------
+- GitHub workflows
+
+Usage
+-----
+python -m scripts.update_python_badge
+
+Notes
+-----
+This script assumes that `requires-python` uses minor versions only, with a lower
+bound (`>=`) and (optionally) an upper bound (`<`), e.g. `>=3.8` or `>=3.8,<3.12`.
+"""
+
 from collections import UserString
 from pathlib import Path
 import re
 import sys
 import tomllib
 
+from scripts._utils import print_func_factory
+
+N_SPECS = {"min": 1, "max": 2}
 SUPPORTED_OPERATORS = {">=", "<"}
 BADGE_URL_TEMPLATE = "https://img.shields.io/badge/python-{}-blue.svg"
+
 MINOR_VERSION_RE = re.compile(r"^3\.[0-9]+$")
 SPECIFIER_RE = re.compile(r"(?P<operator>>=|<)(?P<version>3\.[0-9]+)")
 PYTHON_BADGE_RE = r"(?<=\[\!\[Python\]\()[^)]*(?=\)\])"
+
 README_PATH = Path(__file__).parents[1] / "README.md"
 PYPROJECT_PATH = Path(__file__).parents[1] / "pyproject.toml"
 
@@ -25,11 +50,10 @@ class Version(UserString):
         return self.minor < Version(other_data).minor
 
 
-def _print(*values, **kwargs):
-    print("[scripts.update_python_badge]", *values, **kwargs, flush=True)
+_print = print_func_factory("update_python_badge")
 
 
-def load_files():
+def load_files() -> tuple[str, dict]:
     readme = README_PATH.read_text(encoding="utf-8")
     with PYPROJECT_PATH.open("rb") as stream:
         pyproject = tomllib.load(stream)
@@ -37,7 +61,7 @@ def load_files():
     return readme, pyproject
 
 
-def get_requires_python(pyproject):
+def get_requires_python(pyproject: dict) -> str:
     project_table = pyproject.get("project")
     if not isinstance(project_table, dict):
         _print("missing expected key 'project' in pyproject.json")
@@ -67,7 +91,7 @@ def parse_specifiers(requires_python: str) -> list[dict[str, str]]:
 
         if not MINOR_VERSION_RE.match(version):
             _print(f"Unsupported version format: {version}")
-            _print("Only minor versions like '3.8' or '3.12' are supported")
+            _print("Only minor versions are supported")
             sys.exit(1)
 
         specifiers.append({"operator": operator, "version": version})
@@ -76,8 +100,8 @@ def parse_specifiers(requires_python: str) -> list[dict[str, str]]:
 
 
 def generate_badge_url(specifiers: list[dict[str, str]]) -> str:
-    if not 1 <= len(specifiers) <= 2:
-        _print("Expected between 1 and 2 specifiers")
+    if not N_SPECS["min"] <= len(specifiers) <= N_SPECS["max"]:
+        _print(f"Expected between {N_SPECS['min']} and {N_SPECS['max']} specifiers")
         sys.exit(1)
 
     if len(specifiers) == 1:
@@ -99,7 +123,7 @@ def generate_badge_url(specifiers: list[dict[str, str]]) -> str:
     return BADGE_URL_TEMPLATE.format("%20%7C%20".join(versions))  # " | " encoded
 
 
-def get_old_badge_url(readme):
+def get_old_badge_url(readme: str) -> str:
     m = re.search(PYTHON_BADGE_RE, readme)
     if not m:
         _print("did not find python badge in README.md")
@@ -116,7 +140,7 @@ if __name__ == "__main__":
     old_badge_url = get_old_badge_url(readme)
 
     if new_badge_url == old_badge_url:
-        _print("coverage has not changed")
+        _print("version metadata has not changed")
         sys.exit(0)
 
     readme = readme.replace(old_badge_url, new_badge_url, 1)
