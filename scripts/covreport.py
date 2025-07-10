@@ -30,12 +30,9 @@ from pathlib import Path
 import subprocess
 import sys
 
-from scripts._utils import check_dependencies_installed
+from scripts._utils import check_dependencies_installed, print_func_factory
 
-
-def _print(*values: object, **kwargs) -> None:
-    print("[scripts.update_coverage_badge]", *values, **kwargs, flush=True)
-
+_print = print_func_factory("covreport")
 
 REPORT_TYPES = ["term-missing", "json", "html"]
 REPORT_PATHS = [".coverage", "coverage.json", "htmlcov"]

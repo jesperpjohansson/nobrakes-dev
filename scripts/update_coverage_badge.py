@@ -22,10 +22,9 @@ from pathlib import Path
 import re
 import sys
 
+from scripts._utils import print_func_factory
 
-def _print(*values: object, **kwargs) -> None:
-    print("[scripts.update_coverage_badge]", *values, **kwargs, flush=True)
-
+_print = print_func_factory("update_coverage_badge")
 
 COVREPORT_PATH = Path(__file__).parents[1] / "coverage.json"
 README_PATH = Path(__file__).parents[1] / "README.md"

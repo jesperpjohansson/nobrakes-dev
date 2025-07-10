@@ -1,5 +1,7 @@
 """Internal utilities."""
 
+from collections.abc import Callable
+from functools import partial
 import importlib.util
 from pathlib import Path
 import re
@@ -59,3 +61,7 @@ def check_dependencies_installed(script_name: str) -> None:
             flush=True,
         )
         sys.exit(1)
+
+
+def print_func_factory(script_name: str) -> Callable[..., None]:
+    return partial(print, f"[scripts.{script_name}]", flush=True)

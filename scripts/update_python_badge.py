@@ -24,6 +24,8 @@ import re
 import sys
 import tomllib
 
+from scripts._utils import print_func_factory
+
 N_SPECS = {"min": 1, "max": 2}
 SUPPORTED_OPERATORS = {">=", "<"}
 BADGE_URL_TEMPLATE = "https://img.shields.io/badge/python-{}-blue.svg"
@@ -48,8 +50,7 @@ class Version(UserString):
         return self.minor < Version(other_data).minor
 
 
-def _print(*values: object, **kwargs) -> None:
-    print("[scripts.update_python_badge]", *values, **kwargs, flush=True)
+_print = print_func_factory("update_python_badge")
 
 
 def load_files() -> tuple[str, dict]:
@@ -139,7 +140,7 @@ if __name__ == "__main__":
     old_badge_url = get_old_badge_url(readme)
 
     if new_badge_url == old_badge_url:
-        _print("coverage has not changed")
+        _print("version metadata has not changed")
         sys.exit(0)
 
     readme = readme.replace(old_badge_url, new_badge_url, 1)
