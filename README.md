@@ -1,7 +1,7 @@
 # nobrakes
 [![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)]()
-[![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)]()
-[![Coverage](https://img.shields.io/badge/coverage-100.0%25-brightgreen)]()
+[![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE)
+[![Coverage](https://img.shields.io/badge/coverage-100.0%25-brightgreen)](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/ci.yml)
 [![CI](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/ci.yml)
 
 A high-level user API for asynchronous fetching, parsing and transformation of Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
@@ -31,7 +31,7 @@ A high-level user API for asynchronous fetching, parsing and transformation of S
 
 ## License
 
-This project is licensed under the 3-Clause BSD License. See the LICENSE file for details.
+This project is licensed under the 3-Clause BSD License. See the [LICENSE](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE) file for details.
 
 ## Dependencies
 
