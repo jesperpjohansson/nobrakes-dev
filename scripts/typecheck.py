@@ -1,19 +1,18 @@
 """
 Typecheck codebase.
 
-This script runs static type analysis on python code in `nobrakes/` and `scripts/`.
+This script runs static type analysis on Python code in `nobrakes/` and `scripts/`.
 
 Intended Use Cases
 ------------------
-- Local development.
-- CI workflows.
+- Local development
+- GitHub workflows
 
 Usage
 -----
 python -m scripts.typecheck
-
-
 """
+
 import subprocess
 import sys
 

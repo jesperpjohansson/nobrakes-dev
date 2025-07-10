@@ -1,13 +1,12 @@
 """
 Format codebase.
 
-This script applies in-place formatting and safe lint fixes to python code in
-`nobrakes/`, `tests/` and `scripts/`.
+This script applies in-place formatting and safe lint fixes to Python code in
+`nobrakes/`, `tests/`, and `scripts/`.
 
 Intended Use Cases
 ------------------
-- Local development.
-- CI workflows.
+- Local development
 
 Optional Arguments
 ------------------
@@ -18,6 +17,7 @@ Usage
 -----
 python -m scripts.format --ff
 """
+
 import argparse
 import subprocess
 import sys

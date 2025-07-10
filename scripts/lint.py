@@ -1,13 +1,13 @@
 """
 Lint codebase.
 
-This script checks for formatting and linting rule violations in python code
-in `nobrakes/`, `tests/` and `scripts/`
+This script checks for formatting and linting rule violations in Python code
+in `nobrakes/`, `tests/`, and `scripts/`.
 
 Intended Use Cases
 ------------------
-- Local development.
-- CI workflows.
+- Local development
+- GitHub workflows
 
 Usage
 -----
@@ -17,6 +17,7 @@ Notes
 -----
 Paths and rules should be configured in `pyproject.toml` under `[tool.ruff]`.
 """
+
 import argparse
 import subprocess
 import sys

@@ -1,13 +1,12 @@
 """
 Update the coverage badge in README.md.
 
-This script reads `coverage.json` and extract the total percentage of code
-covered by the test suite. It then updates the coverage badge in the `README.md`
-file if the coverage has changed.
+This script reads `coverage.json` to extract the total test coverage percentage.
+If the percentage has changed, it updates the coverage badge in the `README.md` file.
 
 Intended Use Cases
 ------------------
-- Github workflows
+- GitHub workflows
 
 Usage
 -----
@@ -17,6 +16,7 @@ Notes
 -----
 This script assumes that `coverage.json` already exists.
 """
+
 import json
 from pathlib import Path
 import re

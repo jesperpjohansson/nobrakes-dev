@@ -5,19 +5,18 @@ This script executes the `tests/` test suite.
 
 Intended Use Cases
 ------------------
-- Local development.
-- CI workflows.
+- Local development
+- GitHub workflows
 
 Usage
 -----
 python -m scripts.test
 
-
-
 Notes
 -----
-Before running, it checks that all necessary testing dependencies are installed.
+Before running, this script checks that all required testing dependencies are installed.
 """
+
 import subprocess
 
 from scripts._utils import check_dependencies_installed

@@ -6,7 +6,7 @@ Python version badge in `README.md` accordingly.
 
 Intended Use Cases
 ------------------
-- Github workflows
+- GitHub workflows
 
 Usage
 -----
@@ -14,10 +14,10 @@ python -m scripts.update_python_badge
 
 Notes
 -----
-This script assumes that `requires-python` uses minor versions,
-a lower boundary `>=` and (optionally) an upper boundary `<=`,
-i.e. `>=major.minor` or `>=major.minor,<=major.minor`.
+This script assumes that `requires-python` uses minor versions only, with a lower
+bound (`>=`) and (optionally) an upper bound (`<`), e.g. `>=3.8` or `>=3.8,<3.12`.
 """
+
 from collections import UserString
 from pathlib import Path
 import re
