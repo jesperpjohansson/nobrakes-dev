@@ -6,20 +6,17 @@
 
 A high-level user API for asynchronous fetching, parsing and transformation of Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
 
-> [!IMPORTANT]
-> `nobrakes` is an independent project and **is not affiliated with, endorsed by, or sponsored
-> by SVEMO**. This library provides an unofficial
-> API for accessing publicly available speedway data from SVEMO’s website for convenience and
-> research purposes only. Use responsibly and respect SVEMO’s terms of service.
+> [!NOTE]
+> Although the API is functional, `nobrakes` is in its **development phase**; hence:
+> - The API should not yet be considered stable.
+> - Breaking changes may occur without prior notice or appropriate versioning.
+> - Documentation may be incomplete or evolving.
 
 > [!IMPORTANT]
-> `nobrakes` is currently in **beta**. This means:
-> - The API and features are still under active development and may change without prior notice.
-> - Some functionality might be incomplete or unstable.
-> - There could be bugs or unexpected behavior, especially with edge cases or less common use 
-    patterns.
-> - Documentation may be incomplete or evolving.
-> - Your feedback is highly valuable to help improve the package and fix issues.
+> `nobrakes` is an independent project and **is not affiliated with, endorsed by, or
+> sponsored by SVEMO**. This library provides an unofficial API for accessing publicly
+> available speedway data from SVEMO's website for convenience. Use responsibly and
+> respect SVEMO's terms of service.
 
 ## Table of Contents
 - [License](#license)
@@ -124,7 +121,7 @@ HTTP clients can be implemented by subclassing the `SessionAdapter` and
 `ResponseAdapter` base classes.
 
 
-To ensure your custom session adapter will integrate smoothly with nobrakes’
+To ensure your custom session adapter will integrate smoothly with nobrakes'
 scraping infrastructure, keep the following in mind:
 - The underlying HTTP session **must** automatically follow HTTP redirects.
 - Upon awaiting `SVEMOScraper.launch()`, the library automatically adds or replaces
