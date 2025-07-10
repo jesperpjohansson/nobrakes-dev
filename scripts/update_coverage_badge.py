@@ -4,7 +4,7 @@ import re
 import sys
 
 
-def _print(*values, **kwargs):
+def _print(*values: object, **kwargs) -> None:
     print("[scripts.update_coverage_badge]", *values, **kwargs, flush=True)
 
 

@@ -7,7 +7,7 @@ import sys
 from scripts._utils import check_dependencies_installed
 
 
-def _print(*values, **kwargs):
+def _print(*values: object, **kwargs) -> None:
     print("[scripts.update_coverage_badge]", *values, **kwargs, flush=True)
 
 

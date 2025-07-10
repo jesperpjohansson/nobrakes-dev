@@ -25,11 +25,11 @@ class Version(UserString):
         return self.minor < Version(other_data).minor
 
 
-def _print(*values, **kwargs):
+def _print(*values: object, **kwargs) -> None:
     print("[scripts.update_python_badge]", *values, **kwargs, flush=True)
 
 
-def load_files():
+def load_files() -> tuple[str, dict]:
     readme = README_PATH.read_text(encoding="utf-8")
     with PYPROJECT_PATH.open("rb") as stream:
         pyproject = tomllib.load(stream)
@@ -37,7 +37,7 @@ def load_files():
     return readme, pyproject
 
 
-def get_requires_python(pyproject):
+def get_requires_python(pyproject: dict) -> str:
     project_table = pyproject.get("project")
     if not isinstance(project_table, dict):
         _print("missing expected key 'project' in pyproject.json")
@@ -99,7 +99,7 @@ def generate_badge_url(specifiers: list[dict[str, str]]) -> str:
     return BADGE_URL_TEMPLATE.format("%20%7C%20".join(versions))  # " | " encoded
 
 
-def get_old_badge_url(readme):
+def get_old_badge_url(readme: str) -> str:
     m = re.search(PYTHON_BADGE_RE, readme)
     if not m:
         _print("did not find python badge in README.md")

@@ -1,7 +1,7 @@
 import importlib.util
-import sys
-import re
 from pathlib import Path
+import re
+import sys
 
 # Names of scripts that requires nobrakes
 REQUIRES_NOBRAKES = frozenset(("covreport", "test"))
@@ -12,7 +12,7 @@ REQUIREMENTS_FILE = {
     "format": "lint.txt",
     "lint": "lint.txt",
     "test": "test.txt",
-    "typecheck": "typecheck.txt"
+    "typecheck": "typecheck.txt",
 }
 
 # Absolute path to the requirements directory
@@ -20,15 +20,16 @@ REQUIREMENTS_DIR = Path(__file__).parents[1] / "requirements"
 
 # Regular expression used when parsing requirements/*.txt files
 DEPENDENCY_RE = re.compile(
-    r"([\w\.-]+?)" # Distribution name
+    r"([\w\.-]+?)"  # Distribution name
     r"\s*#\s*import:\s*"
     r"([\w\.-]+)"  # Import name
 )
 
+
 def _make_requirements_mapping(filename: str) -> dict[str, str]:
     """
     Extract and map aliases of all dependencies listed in requirements/`filename`.
-    
+
     This function reads and parses a `.txt` file listing script dependencies. Each
     specified distribution name is assumed to be followed by a comment starting with
     `import:`, followed by the import name of the corresponding distribution,
@@ -38,7 +39,7 @@ def _make_requirements_mapping(filename: str) -> dict[str, str]:
         return dict(m.groups() for line in stream if (m := DEPENDENCY_RE.match(line)))
 
 
-def check_dependencies_installed(script_name: str):
+def check_dependencies_installed(script_name: str) -> None:
     """Exit with code 1 if not all required dependencies are installed."""
     requirements = _make_requirements_mapping(REQUIREMENTS_FILE[script_name])
     if script_name in REQUIRES_NOBRAKES:
