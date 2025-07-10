@@ -37,6 +37,7 @@ source = "vcs"
 [tool.ruff]
 target-version = "py312"
 output-format = "pylint"
+include = ["pyproject.toml", "nobrakes/**/*.py", "tests/**/*.py"]
 
 [tool.ruff.lint]
 
@@ -75,6 +76,8 @@ convention = "numpy"
 
 [tool.mypy]
 python_version = "3.12"
+packages = "nobrakes"
+
 warn_unused_configs = true
 disallow_subclassing_any = true
 disallow_untyped_calls = true
