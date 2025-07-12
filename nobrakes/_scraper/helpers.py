@@ -12,8 +12,8 @@ from nobrakes._element_utils import (
     table as table_utils,
     xpath as xpath_utils,
 )
-from nobrakes._session.utils import with_delay, with_jitter
 from nobrakes.exceptions import ElementError, UnsupportedClientError
+from nobrakes.session._utils import with_delay, with_jitter
 from nobrakes.typing import ETreeElement, Language, Tier
 from nobrakes.typing._typing import (
     URL,
@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     import asyncio
     from collections.abc import Callable, Iterable, Iterator, Mapping
 
-    from nobrakes._session.base import SessionAdapter
+    from nobrakes.session._base import SessionAdapter
 
 _AVAILABLE_TIERS: Final[frozenset[Tier]] = frozenset(
     get_args(Tier.__value__),  # pylint: disable=no-member
@@ -193,7 +193,9 @@ def session_adapter_factory(session: SupportedClient) -> SessionAdapter:
         exc_msg = f"'{cls_name}' from library '{lib_name}' is not a supported session."
         raise UnsupportedClientError(exc_msg)
 
-    adapter_module = importlib.import_module(f"nobrakes._session.adapters.{lib_name}")
+    adapter_module = importlib.import_module(
+        f"nobrakes.session._concrete_adapters.{lib_name}"
+    )
     adapter_type: type[SessionAdapter] = getattr(adapter_module, adapter_name)
     return adapter_type(session)
 

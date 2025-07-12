@@ -15,7 +15,7 @@ from nobrakes.typing import ETreeElement, StandingsPgDataLabel
 if TYPE_CHECKING:
     from collections.abc import Mapping
 
-    from nobrakes._session.base import SessionAdapter
+    from nobrakes.session._base import SessionAdapter
     from nobrakes.typing._typing import URL, NamedTargetTags
 
 

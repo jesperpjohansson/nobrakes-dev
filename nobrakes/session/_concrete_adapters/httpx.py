@@ -17,8 +17,8 @@ from typing import override
 
 import httpx
 
-from nobrakes._session.base import ResponseAdapter, SessionAdapter
-from nobrakes._session.utils import DummyCookieJar
+from nobrakes.session._base import ResponseAdapter, SessionAdapter
+from nobrakes.session._utils import DummyCookieJar
 
 __all__ = ["HTTPXResponseAdapter", "HTTPXSessionAdapter"]
 
