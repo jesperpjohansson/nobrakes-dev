@@ -17,8 +17,8 @@ from nobrakes._scraper.helpers import (
     session_adapter_factory,
     validate_launch_args,
 )
-from nobrakes._session.base import SessionAdapter
 from nobrakes.exceptions import FetchError, ScraperError
+from nobrakes.session._base import SessionAdapter
 from nobrakes.typing._typing import (
     URL,
     PgCache,

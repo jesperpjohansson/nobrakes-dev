@@ -1,10 +1,10 @@
-"""Tests for `nobrakes._session.base`."""
+"""Tests for `nobrakes.session.base`."""
 
 from unittest.mock import MagicMock, Mock, patch
 
 import pytest
 
-from nobrakes._session.base import SessionAdapter
+from nobrakes.session._base import SessionAdapter
 
 
 @pytest.fixture

@@ -12,7 +12,7 @@ if TYPE_CHECKING:
     from collections.abc import Iterator
 
     from nobrakes._models import TagSignature
-    from nobrakes._session.base import SessionAdapter
+    from nobrakes.session._base import SessionAdapter
     from nobrakes.typing import ETreeElement, PgDataLabel
     from nobrakes.typing._typing import URL, NamedTargetTags
 

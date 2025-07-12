@@ -1,4 +1,4 @@
-"""Tests for `nobrakes._session.adapters`."""
+"""Tests for `nobrakes.session._concrete_adapters`."""
 
 import importlib
 import sys
@@ -7,8 +7,8 @@ from unittest.mock import AsyncMock, MagicMock, Mock
 import aiohttp
 import pytest
 
-from nobrakes._session.adapters import aiohttp as a_aiohttp, httpx as a_httpx
-from nobrakes._session.utils import DummyCookieJar
+from nobrakes.session._concrete_adapters import aiohttp as a_aiohttp, httpx as a_httpx
+from nobrakes.session._utils import DummyCookieJar
 
 
 @pytest.fixture
@@ -22,17 +22,36 @@ def markup():
     """
 
 
+@pytest.mark.parametrize(
+    ("lib", "class_name"),
+    [
+        ("aiohttp", "AIOHTTPResponseAdapter"),
+        ("aiohttp", "AIOHTTPSessionAdapter"),
+        ("httpx", "HTTPXResponseAdapter"),
+        ("httpx", "HTTPXSessionAdapter"),
+    ],
+)
+def test_adapter_raises_if_missing_dependency(monkeypatch, lib, class_name):
+    monkeypatch.setattr(
+        importlib.util, "find_spec", lambda name: None if name == lib else "not_none"
+    )
+
+    sys.modules.pop("nobrakes.session._concrete_adapters", None)
+    module = importlib.import_module("nobrakes.session._concrete_adapters")
+    missing_class = getattr(module, class_name)
+    with pytest.raises(ImportError, match=f"{class_name}.*{lib}"):
+        missing_class()
+
+
 @pytest.mark.parametrize("lib", ["aiohttp", "httpx"])
-def test_raises_if_dependency_is_not_installed(lib, monkeypatch):
-    module_path = f"nobrakes._session.adapters.{lib}"
+def test_module_raises_if_missing_dependency(lib, monkeypatch):
+    module_path = f"nobrakes.session._concrete_adapters.{lib}"
 
     # Ensure a fresh import
     sys.modules.pop(module_path, None)
+    monkeypatch.setattr(importlib.util, "find_spec", lambda _: None)
 
     # Patch the correct path to find_spec inside the target module
-    find_spec_path = f"{module_path}.importlib.util.find_spec"
-    monkeypatch.setattr(find_spec_path, lambda _: None)
-
     with pytest.raises(ImportError, match=f"Missing required dependency '{lib}'"):
         importlib.import_module(module_path)
 

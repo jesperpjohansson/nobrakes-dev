@@ -11,7 +11,7 @@ from nobrakes._scraper.pgfetch import extract_elements
 from nobrakes.typing import ETreeElement, ScorecardPgDataLabel
 
 if TYPE_CHECKING:
-    from nobrakes._session.base import SessionAdapter
+    from nobrakes.session._base import SessionAdapter
     from nobrakes.typing._typing import URL, NamedTargetTags
 
 from types import MappingProxyType

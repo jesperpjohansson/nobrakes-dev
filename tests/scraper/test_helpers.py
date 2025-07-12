@@ -216,7 +216,7 @@ class TestSessionAdapterFactory:
 
         monkeypatch.setitem(
             sys.modules,
-            f"nobrakes._session.adapters.{module_name}",
+            f"nobrakes.session._concrete_adapters.{module_name}",
             types.SimpleNamespace(**{adapter_name: DummyAdapter}),
         )
 
