@@ -1,0 +1,16 @@
+version: 2
+
+build:
+  os: ubuntu-latest
+  tools:
+    python: "3.12"
+
+python:
+  install:
+    - requirements: requirements/docs.txt
+
+sphinx:
+  configuration: false
+
+mkdocs:
+  configuration: mkdocs.yml
