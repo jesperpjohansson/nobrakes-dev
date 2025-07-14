@@ -21,8 +21,8 @@ class ResponseAdapter[ResponseT](ABC):
 
     """
 
-    def __init__(self, response: ResponseT) -> None:
-        self.response = response
+    def __init__(self, adaptee: ResponseT) -> None:
+        self.adaptee = adaptee
 
     @abstractmethod
     async def read(self) -> bytes:
@@ -76,13 +76,13 @@ class SessionAdapter[ClientT, ResponseT](ABC):
 
     Parameters
     ----------
-    session : ClientT
+    adaptee : ClientT
         The adaptee.
 
     """
 
-    def __init__(self, session: ClientT) -> None:
-        self.session = session
+    def __init__(self, adaptee: ClientT) -> None:
+        self.adaptee = adaptee
 
     @property
     @abstractmethod
