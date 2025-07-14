@@ -1,5 +1,9 @@
 # Contributing
 
+> [!important]
+> This `CONTIBUTING.md` is a draft. Everything may be subject to change.
+> This project does **not currently accept external contributions**.
+
 Thank you for your interest in contributing to `nobrakes`! We welcome contributions from the community and appreciate your help to make this project better.
 
 ## Code of Conduct
