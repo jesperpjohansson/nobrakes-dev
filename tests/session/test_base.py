@@ -17,7 +17,7 @@ def session_adapter():
         def request(self, method: str, url: str, **kwargs):
             pass
 
-    return ImplementedSessionAdapter(session=Mock())
+    return ImplementedSessionAdapter(adaptee=Mock())
 
 
 @pytest.mark.parametrize(

@@ -122,7 +122,7 @@ class TestResponseAdapters:
     @pytest.mark.asyncio
     async def test_calls_session_raise_for_status(response_adapter_type):
         mock_response = MagicMock()
-        response_adapter = response_adapter_type(response=mock_response)
+        response_adapter = response_adapter_type(adaptee=mock_response)
         response_adapter.raise_for_status()
         mock_response.raise_for_status.assert_called_once()
 
