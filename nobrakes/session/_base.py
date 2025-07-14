@@ -16,7 +16,7 @@ class ResponseAdapter[ResponseT](ABC):
 
     Parameters
     ----------
-    response : ResponseT
+    adaptee : ResponseT
         The adaptee.
 
     """

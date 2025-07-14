@@ -339,9 +339,10 @@ class Scorecard(PgModel):
 
     Notes
     -----
-    The ordering of the teams in `result` is language-dependent.
-        - Swedish - team1 = home team, team2 = away team
-        - English - team1 = away team, team2 = home team
+    The ordering of the teams in `result` is language-dependent:
+
+    - **Swedish**: 1. Home, 2. Away
+    - **English**: 1. Away, 2. Home
 
     There are inconsistencies in the source data regarding the location of the character
     representing a riders helmet color (R/B/V/G). This is handled internally. In
@@ -515,25 +516,25 @@ class Standings(PgModel):
     play-off tree of a standings page:
 
     ```
-    ┌───────────────────────────────────────┐
-    │ PLAYOFFS                        POINTS│
-    ├────────────────────────────────┬──────┤
-    │ Semifinal                      │      │
-    │ ├── Semifinal 1                │      │
-    │ │   ├── YYYY-MM-01             │      │
-    │ │   │   ├── Team A (home team) │  46  │
-    │ │   │   └── Team B             │  44  │
-    │ │   └── YYYY-MM-02             │      │
-    │ │       ├── Team B (home team) │  47  │
-    │ │       └── Team A             │  43  │
-    │ └── Semifinal 2                │      │
-    │     ├── YYYY-MM-03             │      │
-    │     │   ├── Team C (home team) │  51  │
-    │     │   └── Team D             │  39  │
-    │     └── YYYY-MM-04             │      │
-    │         ├── Team D (home team) │  42  │
-    │         └── Team C             │  48  │
-    └────────────────────────────────┴──────┘
+    ┌────────────────────────────────────────┐
+    │ PLAYOFFS                        POINTS │
+    ├────────────────────────────────┬───────┤
+    │ Semifinal                      │       │
+    │ ├── Semifinal 1                │       │
+    │ │   ├── YYYY-MM-01             │       │
+    │ │   │   ├── Team A (home team) │    46 │
+    │ │   │   └── Team B             │    44 │
+    │ │   └── YYYY-MM-02             │       │
+    │ │       ├── Team B (home team) │    47 │
+    │ │       └── Team A             │    43 │
+    │ └── Semifinal 2                │       │
+    │     ├── YYYY-MM-03             │       │
+    │     │   ├── Team C (home team) │    51 │
+    │     │   └── Team D             │    39 │
+    │     └── YYYY-MM-04             │       │
+    │         ├── Team D (home team) │    42 │
+    │         └── Team C             │    48 │
+    └────────────────────────────────┴───────┘
     ```
 
     is transformed into the following records:
