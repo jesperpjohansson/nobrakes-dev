@@ -11,7 +11,7 @@ Intended Use Cases
 
 Positional Arguments
 --------------------
-type : {"term-missing", "json", "html"}
+type : {"term-missing", "json", "xml", "html"}
     Coverage report type.
 
 Usage
@@ -34,8 +34,8 @@ from scripts._utils import check_dependencies_installed, print_func_factory
 
 _print = print_func_factory("covreport")
 
-REPORT_TYPES = ["term-missing", "json", "html"]
-REPORT_PATHS = [".coverage", "coverage.json", "htmlcov"]
+REPORT_TYPES = ["term-missing", "json", "xml", "html"]
+REPORT_PATHS = [".coverage", "coverage.json", "coverage.xml", "htmlcov"]
 REPORT_TYPE_TO_PATH = dict(zip(REPORT_TYPES, REPORT_PATHS, strict=False))
 
 parser = argparse.ArgumentParser()
