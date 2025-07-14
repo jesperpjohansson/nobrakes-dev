@@ -74,7 +74,7 @@ jobs:
 
       - name: Run scripts.covreport
         run: |
-          python -m scripts.covreport json
+          python -m scripts.covreport term-missing
 
       - name: Upload coverage report
         id: upload
