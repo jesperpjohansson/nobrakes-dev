@@ -34,7 +34,7 @@ This project is licensed under the BSD 3-Clause License. See [LICENSE](https://g
 
 ## Documentation
 
-User-oriented documentation is available [here]() (add link when available).
+User-oriented documentation is available [here](https://nobrakes.readthedocs.io/en/latest/).
 
 ## Installation
 
