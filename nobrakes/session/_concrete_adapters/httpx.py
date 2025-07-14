@@ -28,33 +28,33 @@ class HTTPXResponseAdapter(ResponseAdapter["httpx.Response"]):
 
     @override
     def raise_for_status(self) -> "httpx.Response":
-        return self.response.raise_for_status()
+        return self.adaptee.raise_for_status()
 
     @override
     def iter_chunks(self, n: int | None = None) -> AsyncIterator[bytes]:
-        return self.response.aiter_bytes(n)
+        return self.adaptee.aiter_bytes(n)
 
     @override
     def iter_lines(self) -> AsyncIterator[bytes]:
         async def _iter_lines() -> AsyncIterator[bytes]:
-            async for line in self.response.aiter_lines():
+            async for line in self.adaptee.aiter_lines():
                 yield line.encode("utf-8")
 
         return _iter_lines()
 
     @override
     async def read(self) -> bytes:
-        return await self.response.aread()
+        return await self.adaptee.aread()
 
 
 class HTTPXSessionAdapter(SessionAdapter[httpx.AsyncClient, httpx.Response]):
     """Adapter for `httpx.AsyncClient`."""
 
     @override
-    def __init__(self, session: httpx.AsyncClient) -> None:
-        session.cookies.jar = DummyCookieJar()
-        session.follow_redirects = True
-        super().__init__(session)
+    def __init__(self, adaptee: httpx.AsyncClient) -> None:
+        adaptee.cookies.jar = DummyCookieJar()
+        adaptee.follow_redirects = True
+        super().__init__(adaptee)
 
     @override
     def request(
@@ -65,7 +65,7 @@ class HTTPXSessionAdapter(SessionAdapter[httpx.AsyncClient, httpx.Response]):
     ) -> AbstractAsyncContextManager[HTTPXResponseAdapter]:
         @asynccontextmanager
         async def context_manager() -> AsyncIterator[HTTPXResponseAdapter]:
-            async with self.session.stream(method, url, **kwargs) as response:
+            async with self.adaptee.stream(method, url, **kwargs) as response:
                 yield HTTPXResponseAdapter(response)
 
         return context_manager()
@@ -73,4 +73,4 @@ class HTTPXSessionAdapter(SessionAdapter[httpx.AsyncClient, httpx.Response]):
     @override
     @property
     def headers(self) -> MutableMapping:
-        return self.session.headers
+        return self.adaptee.headers
