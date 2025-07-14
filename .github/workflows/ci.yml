@@ -19,7 +19,7 @@ jobs:
 
   build-dist:
     name: Build and check distributions
-    needs: call-pre-build-ci-workflow
+    #needs: call-pre-build-ci-workflow
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
