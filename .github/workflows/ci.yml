@@ -11,11 +11,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  call-pre-build-ci-workflow:
-    name: Pre-build CI
-    uses: ./.github/workflows/pre-build-ci.yml
-    with:
-      called_by_workflow_call: true
+  #call-pre-build-ci-workflow:
+  #  name: Pre-build CI
+  #  uses: ./.github/workflows/pre-build-ci.yml
+  #  with:
+  #    called_by_workflow_call: true
 
   build-dist:
     name: Build and check distributions
@@ -112,8 +112,8 @@ jobs:
           name: coverage-report
           path: .
 
-      - name: Report to Coveralls
-        env:
-          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
-        run: |
-          coveralls
+      - name: Upload coverage to Coveralls
+        uses: coverallsapp/github-action@v2
+        with:
+          format: cobertura
+          file: coverage.xml
