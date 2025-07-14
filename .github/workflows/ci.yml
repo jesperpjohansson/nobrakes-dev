@@ -75,6 +75,11 @@ jobs:
       - name: Run scripts.covreport
         run: |
           python -m scripts.covreport term-missing
+      
+      - name: Debug current directory and files
+        run: |
+          pwd
+          ls -la
 
       - name: Upload coverage report
         id: upload
