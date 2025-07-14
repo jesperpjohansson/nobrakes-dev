@@ -11,32 +11,6 @@ is twofold:
     2. Provide detailed information on the parsed data, facilitating the implementation
        of custom data transformations.
 
-Classes
--------
-PgElements : typing.TypedDict
-    Base class for all page element dictionaries.
-
-Attendance : PgElements
-    Elements fetched from attendance pages.
-
-RiderAverages : PgElements
-    Elements fetched from rider averages pages.
-
-Events : PgElements
-    Elements fetched from events pages.
-
-Scorecard : PgElements
-    Elements fetched from scorecard pages.
-
-Squad : PgElements
-    Elements fetched from squad pages.
-
-Standings : PgElements
-    Elements fetched from standings pages.
-
-Teams : PgElements
-    Elements fetched from teams pages.
-
 See Also
 --------
 nobrakes.SVEMOScraper :

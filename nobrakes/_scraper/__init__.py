@@ -17,7 +17,12 @@ from nobrakes._scraper.helpers import (
     session_adapter_factory,
     validate_launch_args,
 )
-from nobrakes.exceptions import FetchError, ScraperError
+from nobrakes.exceptions import (
+    FetchError,
+    ScraperError,
+    TablePageLimitError,
+    UnsupportedClientError,
+)
 from nobrakes.session._base import SessionAdapter
 from nobrakes.typing._typing import (
     URL,
@@ -93,6 +98,7 @@ class SVEMOScraper:
     session : SupportedClient
         An instance of `nobrakes.SessionAdapter` or any of the following supported
         third-party clients:
+
         - `aiohttp.ClientSession`
         - `httpx.AsyncClient`
 
@@ -108,11 +114,14 @@ class SVEMOScraper:
         self._url_cache: URLCache = {}
         self._pg_cache: PgCache = {}
 
-        self._session: SessionAdapter = (
-            session
-            if isinstance(session, SessionAdapter)
-            else session_adapter_factory(session)
-        )
+        try:
+            self._session: SessionAdapter = (
+                session
+                if isinstance(session, SessionAdapter)
+                else session_adapter_factory(session)
+            )
+        except UnsupportedClientError:  # noqa: TRY203
+            raise  # Re-raise the exception to ensure cross-references work in API docs
 
     async def launch(
         self,
@@ -127,14 +136,16 @@ class SVEMOScraper:
         ----------
         *seasons : int
             Seasons to scrape. From 2011 and onwards.
-        tier : Tier, default 1
-            The league tier to scrape, by default 1.
+        tier : Tier
+            The league tier to scrape.
+
             - 1 : Bauhausligan/Elitserien
             - 2 : Allsvenskan.
-        language : Language, default "sv-se"
+        language : Language
             Language header.
-            - "sv-se" - Swedish
-            - "en-us" - English
+
+            - 'sv-se' : Swedish
+            - 'en-us' : English
 
         Returns
         -------
@@ -146,7 +157,7 @@ class SVEMOScraper:
         ExceptionGroup
             If one or more of the input arguments are invalid (unsupported
             season, tier, or language).
-        ScrapingError
+        ScraperError
             If the scraper has already been launched.
         FetchError
             If not all page URLs could be fetched.
@@ -220,11 +231,11 @@ class SVEMOScraper:
         ----------
         season : int
             The season to fetch data for.
-        cache : bool, default False
-            Whether or not to add the fetched data to the cache.
-        pagesize : int, default 50
+        cache : bool
+            Whether or not to cache the fetched data.
+        pagesize : int
             Number of rows per page, by default 50.
-        pagelimit : int, default 5
+        pagelimit : int
             Maximum number of expected pages, by default 5.
 
         Returns
@@ -250,16 +261,18 @@ class SVEMOScraper:
         -----
         Under normal circumstances, `pagesize` and `pagelimit` are best left alone.
 
-
         """
-        return await self._fetch_tab_pg_data(
-            "table",
-            pg="events",
-            season=season,
-            cache=cache,
-            pagesize=pagesize,
-            pagelimit=pagelimit,
-        )
+        try:
+            return await self._fetch_tab_pg_data(
+                "table",
+                pg="events",
+                season=season,
+                cache=cache,
+                pagesize=pagesize,
+                pagelimit=pagelimit,
+            )
+        except TablePageLimitError:  # noqa: TRY203
+            raise  # Re-raise the exception to ensure cross-references work in API docs
 
     async def standings(
         self,
@@ -273,10 +286,11 @@ class SVEMOScraper:
         ----------
         *data : StandingsPgDataLabel
             Page data to extract.
-            - "po1" - Results from the finals.
-            - "po2" - Results from the semifinals, or equivalent.
-            - "po3" - Results from the semifinals, or equivalent.
-            - "regular" - The regular season table.
+
+            - 'po1' : Results from the finals.
+            - 'po2' : Results from the semifinals, or equivalent.
+            - 'po3' : Results from the semifinals, or equivalent.
+            - 'regular' : The regular season table.
         season : int
             Target season.
 
@@ -309,8 +323,8 @@ class SVEMOScraper:
         ----------
         season : int
             Target season.
-        cache : bool, default False
-            Whether or not to add the fetched data to the cache.
+        cache : bool
+            Whether or not to cache the fetched data.
 
         Returns
         -------
@@ -376,8 +390,9 @@ class SVEMOScraper:
         ----------
         *data : AttendancePgDataLabel
             Page data to extract.
-            - "average" - The average attendance figure.
-            - "table" - Attendance figures by event.
+
+            - 'average' : The average attendance figure.
+            - 'table' : Attendance figures by event.
         season : int
             Target season.
 
@@ -418,9 +433,10 @@ class SVEMOScraper:
         ----------
         *data : ScorecardPgDataLabel
             Page data to extract.
-            - "result" - Team names and points.
-            - "attendance" - The attendance figure.
-            - "table" - A scorecard containing heat data.
+
+            - 'result' : Team names and points.
+            - 'attendance' : The attendance figure.
+            - 'table' : A scorecard containing heat data.
         season : int
             Target season.
         date_query : Callable[[str], bool], optional
@@ -503,8 +519,9 @@ class SVEMOScraper:
         ----------
         *data : SquadPgDataLabel
             Page data to extract.
-            - "riders" - A table containing information about non-guest riders.
-            - "guests" - A table containing information about guest riders.
+
+            - 'riders' : A table containing information about non-guest riders.
+            - 'guests' : A table containing information about guest riders.
         season : int
             Target season.
         team_query : Callable[[str], bool], optional

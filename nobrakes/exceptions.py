@@ -3,8 +3,8 @@ Exceptions used throughout the `nobrakes` library.
 
 All exceptions inherit from the base `NoBrakesError` class.
 
+```
 Exception Hierarchy
--------------------
 
 NoBrakesError
 ├── ScraperError
@@ -12,6 +12,7 @@ NoBrakesError
 ├── FetchError
 │   └── TablePageLimitError
 └── ElementError
+```
 """
 
 __all__ = [
