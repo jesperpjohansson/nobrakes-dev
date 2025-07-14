@@ -76,12 +76,12 @@ jobs:
         run: |
           python -m scripts.covreport json
 
-      - name: Upload JSON coverage report
+      - name: Upload coverage report
         id: upload
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-json
-          path: coverage.json
+          name: coverage-report
+          path: .coverage
 
   update-cov-badge:
     name: Update Coverage Badge
@@ -98,13 +98,17 @@ jobs:
         with:
           upgrade-pip: 'false'
       
-      - name: Download JSON coverage report
+      - name: Install coveralls
+        run: python -m pip install coveralls
+      
+      - name: Download coverage report
         uses: actions/download-artifact@v4
         with:
-          name: coverage-json
+          name: coverage-report
           path: .
 
-      - name: Update Coverage Badge
-        uses: ./.github/actions/update-badge
-        with:
-          badge-name: 'coverage'
+      - name: Report to Coveralls
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          coveralls
