@@ -225,7 +225,7 @@ class SVEMOScraper:
         pagelimit: int = 5,
     ) -> pgelements.Events:
         """
-        Fetch events page data for a given season.....
+        Fetch events page data for a given season.
 
         Parameters
         ----------
