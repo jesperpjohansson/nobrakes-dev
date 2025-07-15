@@ -271,7 +271,7 @@ class SVEMOScraper:
                 pagesize=pagesize,
                 pagelimit=pagelimit,
             )
-        except TablePageLimitError:  # noqa: TRY203
+        except TablePageLimitError:  # noqa: TRY203 # pragma: no cover
             raise  # Re-raise the exception to ensure cross-references work in API docs
 
     async def standings(
