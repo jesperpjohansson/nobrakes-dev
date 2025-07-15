@@ -6,11 +6,13 @@ A high-level user API for asynchronous fetching, parsing and transformation of S
 
 !!! note
     Although the API is functional, `nobrakes` is still in its **development phase**; hence:
-
+    
+    - The package is not yet available on PyPI.
     - The API should not yet be considered stable.
     - Breaking changes may occur without prior notice or appropriate versioning.
     - Documentation may be incomplete and contain errors.
-    - The package is not yet available on PyPI.
+    - Contributing guidelines may be incomplete and contain errors.
+    - Code of Conduct may be incomplete and contain errors.
 
 !!! warning
     `nobrakes` is an independent project and **is not affiliated with, endorsed by, or
