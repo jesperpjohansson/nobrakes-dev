@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
+import json
 from pathlib import Path
 import re
 from typing import Any, ClassVar
@@ -10,7 +11,6 @@ from unittest.mock import patch
 
 from lxml import etree
 import pytest
-import json
 
 from nobrakes.exceptions import ElementError
 from nobrakes.pgmodel import _pgmodel
