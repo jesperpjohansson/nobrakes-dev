@@ -1,56 +1,44 @@
 # nobrakes
-<table style="border-collapse: collapse;">
+<table>
   <tbody>
     <tr>
-      <td style="border: 1px solid grey;">Package</td>
-      <td style="border: 1px solid grey;">
-        <div style="display: flex;">
-          <div>
-            <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
-          </div>
-        </div> 
+      <td>Package</td>
+      <td>
+        <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
       </td>
     </tr>
     <tr>
-      <td style="border: 1px solid grey;">Metadata</td>
-      <td  style="border: 1px solid grey;">
-        <div style="display: flex;">
-          <div style="margin-right: 10px;">
-            <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python" />
-          </div>
-          <div style="margin-right: 10px;">
-            <a href="https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE">
-              <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License" />
-            </a>
-          </div>
-        </div>
+      <td>Metadata</td>
+      <td>
+        <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python" />
+      </td>
+      <td>
+        <a href="https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE">
+            <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License" />
+        </a>
       </td>
     </tr>
     <tr>
-      <td style="border: 1px solid grey;">CI</td>
-      <td  style="border: 1px solid grey;">
-        <div style="display: flex;">
-          <div style="margin-right: 10px;">
-            <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml?branch=main">
-              <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint" />
-            </a>
-          </div>
-          <div style="margin-right: 10px;">
-            <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml?branch=main">
-              <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main" alt="Typecheck" />
-            </a>
-          </div>
-          <div style="margin-right: 10px;">
-            <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml?branch=main">
-              <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main" alt="Test" />
-            </a>
-          </div>
-          <div style="margin-right: 10px;">
-            <a href="https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main">
-              <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage" />
-            </a>
-          </div>
-        </div>
+      <td>CI</td>
+      <td>
+        <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml?branch=main">
+          <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint" />
+        </a>
+      </td>
+      <td>
+        <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml?branch=main">
+          <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main" alt="Typecheck" />
+        </a>
+      </td>
+      <td>
+        <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml?branch=main">
+          <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main" alt="Test" />
+        </a>
+      </td>
+      <td>
+        <a href="https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main">
+          <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage" />
+        </a>
       </td>
     </tr>
   </tbody>
