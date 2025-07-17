@@ -47,9 +47,8 @@ async def fetch[K: TabPgModuleLabel](
     *pg_names: K,
 ) -> dict[K, URL]:
     """Fetch URLs to the pages accessible via the tabs of a results page."""
-    tab_content = next(
-        await extract_elements(session, url, _CONFIG.target_tags, "tab_content"),
-    )
+    elements = await extract_elements(session, url, _CONFIG.target_tags, "tab_content")
+    tab_content = elements["tab_content"]
     tab_panels: list[ETreeElement] = tab_content.findall(_CONFIG.xpath["tab_panels"])
 
     if len(tab_panels) != len(pg_names):

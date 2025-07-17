@@ -647,7 +647,12 @@ class SVEMOScraper:
 
         pg_module = SVEMOScraper._import_pg_module(pg)
         try:
-            elements = await pg_module.fetch(self._session, url, *data, **kwargs)
+            elements = await pg_module.fetch(
+                self._session,
+                url,
+                *set(data),  # Drop duplicate labels
+                **kwargs,
+            )
         except Exception as exc:
             scraping_exc = FetchError("Failed fetching page data.")
             scraping_exc.add_note(f"URL: {url}")
@@ -727,7 +732,7 @@ class SVEMOScraper:
         try:
             async with asyncio.TaskGroup() as tg:
                 tasks = create_nested_pg_tasks(
-                    *data,
+                    *set(data),  # Drop duplicate labels
                     pg_module=pg_module,
                     tg=tg,
                     session=self._session,

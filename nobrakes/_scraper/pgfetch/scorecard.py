@@ -43,5 +43,4 @@ async def fetch[K: ScorecardPgDataLabel](
     *data: K,
 ) -> dict[K, ETreeElement]:
     """Fetch scorecard page data."""
-    elements = await extract_elements(session, url, _CONFIG.target_tags, *data)
-    return dict(zip(data, elements, strict=True))
+    return await extract_elements(session, url, _CONFIG.target_tags, *data)

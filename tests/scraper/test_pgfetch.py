@@ -77,34 +77,24 @@ async def test_extract_elements_raises_when_element_is_missing(
 
 
 @pytest.mark.asyncio
-async def test_extract_elements_returns_sorted_elements(
-    named_target_tags, make_mock_session
-):
+async def test_extract_elements_returns_elements(named_target_tags, make_mock_session):
     mock_session = make_mock_session()
-
-    labels_accumulated_order = list(named_target_tags.keys())
-    elements_accumulated_order = list(named_target_tags.values())
-
-    indexes = [2, 0, 1]
-
-    labels_requested_order = [labels_accumulated_order[i] for i in indexes]
-    elements_requested_order = [elements_accumulated_order[i] for i in indexes]
+    data_labels = list(named_target_tags.keys())
+    mock_elements = list(named_target_tags.values())
 
     mock_accumulator = Mock()
     mock_accumulator.remaining = ()
-    mock_accumulator.aiter_feed = AsyncMock(return_value=elements_accumulated_order)
+    mock_accumulator.aiter_feed = AsyncMock(return_value=mock_elements)
 
     with patch(f"{SUBPKGPATH}.ElementAccumulator", return_value=mock_accumulator):
-        result = list(
-            await pgfetch.extract_elements(
-                mock_session,
-                "https://example.com",
-                named_target_tags,
-                *labels_requested_order,
-            )
+        result = await pgfetch.extract_elements(
+            mock_session,
+            "https://example.com",
+            named_target_tags,
+            *data_labels,
         )
 
-    assert result == elements_requested_order
+    assert result == named_target_tags._wrapped
 
 
 @pytest.mark.parametrize(
@@ -140,18 +130,18 @@ async def test_fetch_finds_nodes(
 class TestFetchHome:
     @staticmethod
     @pytest.fixture
-    def patch_local():
+    def patch_local_func():
         @contextmanager
-        def _patch_local(target, *args, **kwargs):
+        def _patch_local_func(target, *args, **kwargs):
             with patch(f"{SUBPKGPATH}.home.{target}", *args, **kwargs):
                 yield
 
-        return _patch_local
+        return _patch_local_func
 
     @staticmethod
     @pytest.fixture
-    def patched_fetch(patch_local):
-        mock_extract_elements = AsyncMock(return_value=iter(["navbar"]))
+    def patched_fetch(patch_local_func):
+        mock_extract_elements = AsyncMock(return_value={"navbar": "navbar"})
         mock_select_accordion = Mock(return_value="accordion")
         mock_session = Mock()
         url = "http://example.com"
@@ -159,36 +149,36 @@ class TestFetchHome:
         tier = 1
 
         with (
-            patch_local("extract_elements", mock_extract_elements),
-            patch_local("_select_accordion", mock_select_accordion),
+            patch_local_func("extract_elements", mock_extract_elements),
+            patch_local_func("_select_accordion", mock_select_accordion),
         ):
             yield home.fetch(mock_session, url, season, tier=tier)
 
     @staticmethod
     @pytest.mark.parametrize("key", ["results", "previous_results"])
-    def test_select_accordion_raises_if_accordion_is_not_found(key, patch_local):
+    def test_select_accordion_raises_if_accordion_is_not_found(key, patch_local_func):
         mock_element = Mock()
         exc_msg = (
             f"Failed selecting the {key.replace('_', ' ')} "
             "accordion in the navigation bar."
         )
         with (
-            patch_local("xpath.first_element_e", Mock(side_effect=ElementError)),
+            patch_local_func("xpath.first_element_e", Mock(side_effect=ElementError)),
             pytest.raises(FetchError, match=re.escape(exc_msg)),
         ):
             home._select_accordion(mock_element, key)
 
     @staticmethod
-    def test_extract_previous_season_urls_raises_if_not_season(patch_local):
+    def test_extract_previous_season_urls_raises_if_not_season(patch_local_func):
         exc_msg = "Failed to extract season from hyperlink text."
         with (
-            patch_local("xpath.string", Mock(return_value=None)),
+            patch_local_func("xpath.string", Mock(return_value=None)),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             next(home._extract_previous_season_urls([Mock()], []))
 
     @staticmethod
-    def test_extract_previous_season_urls_raises_if_href_is_none(patch_local):
+    def test_extract_previous_season_urls_raises_if_href_is_none(patch_local_func):
         tier_alias = "League Name"
 
         def mock_xpath_string(_, selector):
@@ -196,32 +186,32 @@ class TestFetchHome:
 
         exc_msg = "Failed to extract URL from hyperlink href."
         with (
-            patch_local("xpath.string", mock_xpath_string),
+            patch_local_func("xpath.string", mock_xpath_string),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             next(home._extract_previous_season_urls([Mock()], [tier_alias]))
 
     @staticmethod
     def test_extract_previous_season_urls_raises_if_season_is_not_convertible_to_int(
-        patch_local,
+        patch_local_func,
     ):
         season = "twentytwenty"
         exc_msg = f'Failed converting season "{season}" to integer.'
         with (
-            patch_local("xpath.string", Mock(return_value=season)),
+            patch_local_func("xpath.string", Mock(return_value=season)),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             next(home._extract_previous_season_urls([Mock()], ["Elitserien"]))
 
     @staticmethod
     def test_extract_current_season_url_raises_if_current_season_url_is_not_found(
-        patch_local,
+        patch_local_func,
     ):
         tier_aliases = ["Elitserien"]
         exc_msg = f"Could not select any href using tier aliases: {tier_aliases}"
 
         with (
-            patch_local("xpath.string", Mock(return_value=None)),
+            patch_local_func("xpath.string", Mock(return_value=None)),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             home._extract_current_season_url(Mock(), tier_aliases)
@@ -241,12 +231,14 @@ class TestFetchHome:
     @staticmethod
     @pytest.mark.asyncio
     async def test_fetch_raises_if_extract_previous_season_urls_raises(
-        patched_fetch, patch_local
+        patched_fetch, patch_local_func
     ):
         exc_msg = "Failed fetching URLs to result pages of previous seasons."
 
         with (
-            patch_local("_extract_previous_season_urls", Mock(side_effect=Exception)),
+            patch_local_func(
+                "_extract_previous_season_urls", Mock(side_effect=Exception)
+            ),
             pytest.raises(FetchError, match=re.escape(exc_msg)),
         ):
             await patched_fetch
@@ -254,14 +246,16 @@ class TestFetchHome:
     @staticmethod
     @pytest.mark.asyncio
     async def test_fetch_raises_if_extract_current_season_url_raises(
-        patched_fetch, patch_local
+        patched_fetch, patch_local_func
     ):
         exc_msg = "Failed fetching the URL to the current season results page."
         with (
-            patch_local(
+            patch_local_func(
                 "_extract_previous_season_urls", Mock(return_value=[(2024, "url")])
             ),
-            patch_local("_extract_current_season_url", Mock(side_effect=Exception)),
+            patch_local_func(
+                "_extract_current_season_url", Mock(side_effect=Exception)
+            ),
             pytest.raises(FetchError, match=re.escape(exc_msg)),
         ):
             await patched_fetch
@@ -287,13 +281,13 @@ class TestFetchHome:
 class TestFetchResults:
     @staticmethod
     @pytest.fixture
-    def patch_local():
+    def patch_local_func():
         @contextmanager
-        def _patch_local(target, *args, **kwargs):
+        def _patch_local_func(target, *args, **kwargs):
             with patch(f"{SUBPKGPATH}.results.{target}", *args, **kwargs):
                 yield
 
-        return _patch_local
+        return _patch_local_func
 
     @staticmethod
     @pytest.fixture
@@ -301,16 +295,14 @@ class TestFetchResults:
         def _make_mock_extract_elements(tab_panels):
             mock_tab_content = MagicMock()
             mock_tab_content.findall.return_value = tab_panels
-            mock_elements = MagicMock()
-            mock_elements.__next__.return_value = mock_tab_content
-            return AsyncMock(return_value=mock_elements)
+            return AsyncMock(return_value={"tab_content": mock_tab_content})
 
         return _make_mock_extract_elements
 
     @staticmethod
     @pytest.mark.asyncio
     async def test_fetch_raises_when_missing_tabs(
-        patch_local, make_mock_extract_elements
+        patch_local_func, make_mock_extract_elements
     ):
         pg_names = ["pg1", "pg2", "pg3", "pg4", "pg5"]
         tab_panels = ["elem1", "elem2"]
@@ -320,7 +312,7 @@ class TestFetchResults:
 
         exc_msg = f"Expected {len(pg_names)} tabs, found {len(tab_panels)}."
         with (
-            patch_local("extract_elements", mock_extract_elements),
+            patch_local_func("extract_elements", mock_extract_elements),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             await results.fetch(mock_session, "http://example.com", *pg_names)
@@ -328,7 +320,7 @@ class TestFetchResults:
     @staticmethod
     @pytest.mark.asyncio
     async def test_fetch_raises_when_url_extraction_fails(
-        patch_local, make_mock_extract_elements
+        patch_local_func, make_mock_extract_elements
     ):
         pg_names = ["pg1", "pg2", "pg3", "pg4"]
         tab_panels = [
@@ -343,7 +335,7 @@ class TestFetchResults:
 
         exc_msg = "Failed extracting URL(s) for pages: ['pg1', 'pg4']"
         with (
-            patch_local("extract_elements", mock_extract_elements),
+            patch_local_func("extract_elements", mock_extract_elements),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             await results.fetch(mock_session, "http://example.com", *pg_names)

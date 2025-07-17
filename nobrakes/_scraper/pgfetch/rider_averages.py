@@ -38,5 +38,4 @@ async def fetch[K: RiderAveragesPgDataLabel](
     *data: K,
 ) -> dict[K, ETreeElement]:
     """Fetch rider averages page data."""
-    elements = await extract_elements(session, url, _CONFIG.target_tags, *data)
-    return {data[0]: next(elements)}
+    return await extract_elements(session, url, _CONFIG.target_tags, *data)

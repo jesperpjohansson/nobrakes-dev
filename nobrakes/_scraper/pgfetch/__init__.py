@@ -9,8 +9,6 @@ from nobrakes._accumulator import ElementAccumulator
 from nobrakes.exceptions import ElementError
 
 if TYPE_CHECKING:
-    from collections.abc import Iterator
-
     from nobrakes._models import TagSignature
     from nobrakes.session._base import SessionAdapter
     from nobrakes.typing import ETreeElement, PgDataLabel
@@ -52,20 +50,20 @@ def _get_sorting_indexes(
         raise ValueError(exc_msg) from exc
 
 
-async def extract_elements(
+async def extract_elements[K: PgDataLabel | Literal["tab_content", "navbar"]](
     session: SessionAdapter,
     url: URL,
     target_tags: NamedTargetTags,
-    *data: PgDataLabel | Literal["tab_content", "navbar"],
+    *data: K,
     n: int | None = None,
-) -> Iterator[ETreeElement]:
+) -> dict[K, ETreeElement]:
     """
     Fetch, parse and return requested elements.
 
-    Default mechanism for fetching and parsing requested elements. The returned elements
-    are sorted to ensure their order aligns with the order of the labels in `data`.
+    Default mechanism for fetching and parsing requested elements.
     """
-    accumulator = ElementAccumulator(*_get_target_tags_subset(target_tags, *data))
+    subset = _get_target_tags_subset(target_tags, *data)
+    accumulator = ElementAccumulator(*subset)
     async with session.get(url) as response:
         response.raise_for_status()
         chunks = response.iter_chunks(n)
@@ -80,4 +78,4 @@ async def extract_elements(
         raise e
 
     indexes = _get_sorting_indexes(target_tags, *data)
-    return (elements[i] for i in indexes)
+    return dict(zip(data, (elements[i] for i in indexes), strict=True))

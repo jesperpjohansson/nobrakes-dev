@@ -118,8 +118,8 @@ async def fetch[K: int](
     tier: Tier,
 ) -> dict[K, URL]:
     """Fetch URLs to results pages."""
-    iterator_ = await extract_elements(session, url, _CONFIG.target_tags, "navbar")
-    navbar: ETreeElement = next(iterator_)
+    elements = await extract_elements(session, url, _CONFIG.target_tags, "navbar")
+    navbar: ETreeElement = elements["navbar"]
     results: ETreeElement = _select_accordion(navbar, "results")
     previous_results: ETreeElement = _select_accordion(results, "previous_results")
 

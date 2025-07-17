@@ -49,5 +49,8 @@ async def fetch[K: SquadPgDataLabel](
 ) -> dict[K, ETreeElement]:
     """Fetch squad page data."""
     elements = await extract_elements(session, url, _CONFIG.target_tags, *data)
-    tables = (xpath.first_element_e(e, _CONFIG.xpath["table"]) for e in elements)
-    return dict(zip(data, tables, strict=True))
+
+    for k in elements:
+        elements[k] = xpath.first_element_e(elements[k], _CONFIG.xpath["table"])
+
+    return elements

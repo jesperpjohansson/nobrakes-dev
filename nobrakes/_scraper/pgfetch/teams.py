@@ -38,5 +38,4 @@ async def fetch[K: TeamsPgDataLabel](
     *data: K,
 ) -> dict[K, ETreeElement]:
     """Fetch teams page data."""
-    elements = await extract_elements(session, url, _CONFIG.target_tags, *data)
-    return {data[0]: next(elements)}
+    return await extract_elements(session, url, _CONFIG.target_tags, *data)

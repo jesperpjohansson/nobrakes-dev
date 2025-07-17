@@ -63,9 +63,10 @@ async def fetch[K: StandingsPgDataLabel](
     *data: K,
 ) -> dict[K, ETreeElement]:
     """Fetch standings page data."""
-    elements = list(await extract_elements(session, url, _CONFIG.target_tags, *data))
+    elements = await extract_elements(session, url, _CONFIG.target_tags, *data)
 
-    for index in (i for i, s in enumerate(data) if s.startswith("po")):
-        elements[index] = xpath.first_element_e(elements[index], "table")
+    for k in elements:
+        if k.startswith("po"):
+            elements[k] = xpath.first_element_e(elements[k], "table")
 
-    return dict(zip(data, elements, strict=True))
+    return elements
