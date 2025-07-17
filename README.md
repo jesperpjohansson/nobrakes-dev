@@ -1,8 +1,60 @@
 # nobrakes
-[![Python](https://img.shields.io/badge/python-3.12%20%7C%203.13-blue.svg)]()
-[![License](https://img.shields.io/badge/license-BSD%203--Clause-blue.svg)](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE)
-[![Coverage](https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main)](https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main)
-[![CI](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/ci.yml)
+<table border-collapse: collapse;>
+  <tbody>
+    <tr>
+      <td style="border: 1px solid grey;">Package</td>
+      <td style="border: 1px solid grey;">
+        <div style="display: flex;">
+          <div>
+            <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
+          </div>
+        </div> 
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid grey;">Metadata</td>
+      <td  style="border: 1px solid grey;">
+        <div style="display: flex;">
+          <div style="margin-right: 10px;">
+            <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python" />
+          </div>
+          <div style="margin-right: 10px;">
+            <a href="https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE">
+              <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License" />
+            </a>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td style="border: 1px solid grey;">CI</td>
+      <td  style="border: 1px solid grey;">
+        <div style="display: flex;">
+          <div style="margin-right: 10px;">
+            <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml?branch=main">
+              <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint" />
+            </a>
+          </div>
+          <div style="margin-right: 10px;">
+            <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml?branch=main">
+              <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main" alt="Typecheck" />
+            </a>
+          </div>
+          <div style="margin-right: 10px;">
+            <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml?branch=main">
+              <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main" alt="Test" />
+            </a>
+          </div>
+          <div style="margin-right: 10px;">
+            <a href="https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main">
+              <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage" />
+            </a>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 A high-level user API for asynchronous fetching, parsing and transformation of Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
 
