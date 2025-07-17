@@ -1,29 +1,39 @@
 """Tests for `nobrakes._scraper.__init__`."""
 
+import asyncio
 from copy import deepcopy
 import re
+import sys
+import types
 from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 import aiohttp
 import httpx
+from lxml import etree
 import pytest
 import pytest_asyncio
 
-from nobrakes._scraper import SVEMOScraper, _ensure_launched
-from nobrakes.exceptions import FetchError, ScraperError, UnsupportedClientError
+from nobrakes import _scraper
+from nobrakes._constants import FIRST_AVAILABLE_SEASON
+from nobrakes.exceptions import (
+    ElementError,
+    FetchError,
+    ScraperError,
+    UnsupportedClientError,
+)
 
 MODULEPATH = "nobrakes._scraper"
 
 
 @pytest.fixture
-def initialized_scraper(mock_session) -> SVEMOScraper:
-    with patch(f"{MODULEPATH}.session_adapter_factory", return_value=mock_session):
-        return SVEMOScraper("session")
+def initialized_scraper(mock_session) -> _scraper.SVEMOScraper:
+    with patch(f"{MODULEPATH}._session_adapter_factory", return_value=mock_session):
+        return _scraper.SVEMOScraper("session")
 
 
 @pytest_asyncio.fixture
-def launch_scraper(monkeypatch) -> SVEMOScraper:
-    async def _launch_scraper(scraper: SVEMOScraper):
+def launch_scraper(monkeypatch) -> _scraper.SVEMOScraper:
+    async def _launch_scraper(scraper: _scraper.SVEMOScraper):
         mock_home_fetch = AsyncMock(return_value={2023: "https://example.com/2023"})
         mock_results_fetch = AsyncMock(
             return_value={"events": "https://example.com/2023/events"}
@@ -45,13 +55,15 @@ def launch_scraper(monkeypatch) -> SVEMOScraper:
 
 
 @pytest_asyncio.fixture
-async def launched_scraper(launch_scraper, initialized_scraper) -> SVEMOScraper:
+async def launched_scraper(
+    launch_scraper, initialized_scraper
+) -> _scraper.SVEMOScraper:
     return await launch_scraper(deepcopy(initialized_scraper))
 
 
 @pytest.mark.asyncio
 async def test_init_expected_state(initialized_scraper, mock_session):
-    assert isinstance(initialized_scraper, SVEMOScraper)
+    assert isinstance(initialized_scraper, _scraper.SVEMOScraper)
     assert initialized_scraper._launched is False
     assert initialized_scraper._url_cache == {}
     assert initialized_scraper._pg_cache == {}
@@ -64,7 +76,7 @@ async def test_init_raises_when_called_with_unsupported_session(mock_session):
         "'MockSession' from library 'tests' is not a supported session."
     )
     with pytest.raises(UnsupportedClientError, match=exc_msg):
-        _ = SVEMOScraper(mock_session)
+        _ = _scraper.SVEMOScraper(mock_session)
 
 
 def test_launch_sets_launched(launched_scraper):
@@ -82,7 +94,7 @@ async def test_launch_updates_session_headers(launch_scraper, lib, client_name):
     }
 
     async with getattr(lib, client_name)() as session:
-        scraper = SVEMOScraper(session)
+        scraper = _scraper.SVEMOScraper(session)
         await launch_scraper(scraper)
         assert not expected_headers.items() - scraper._session.headers.items()
 
@@ -95,7 +107,7 @@ async def test_launch_updates_url_cache(launch_scraper, lib, client_name):
     expected = {("events", 2023): "https://example.com/2023/events"}
 
     async with getattr(lib, client_name)() as session:
-        scraper = SVEMOScraper(session)
+        scraper = _scraper.SVEMOScraper(session)
         await launch_scraper(scraper)
         assert scraper._url_cache == expected
 
@@ -136,7 +148,7 @@ async def test_launch_raises_if_tab_pg_url_fetch_fails(initialized_scraper):
     exc_msg = re.escape("Failed fetching URLs from all results pages.")
     with (
         pytest.raises(FetchError, match=exc_msg),
-        patch.object(SVEMOScraper, "_import_pg_module", mock_import_pg_module),
+        patch.object(_scraper.SVEMOScraper, "_import_pg_module", mock_import_pg_module),
     ):
         await initialized_scraper.launch(2023)
 
@@ -198,9 +210,9 @@ async def test__fetch_nested_pg_data_returns_expected_items(launched_scraper):
     full_columns = [*key_columns, href_column]
 
     with (
-        patch(f"{MODULEPATH}.get_filtered_column_data", return_value=full_columns),
+        patch(f"{MODULEPATH}._filtered_column_data", return_value=full_columns),
         patch(f"{MODULEPATH}.TA_DOMAIN", "https://example.com"),
-        patch(f"{MODULEPATH}.create_nested_pg_tasks") as mock_create_tasks,
+        patch(f"{MODULEPATH}._create_nested_pg_tasks") as mock_create_tasks,
         patch(f"{MODULEPATH}.is_element", return_value=True),
     ):
         fake_task_1 = MagicMock()
@@ -235,12 +247,12 @@ async def test__fetch_nested_pg_data_raises_when_fetch_fails(launched_scraper):
     exc_msg = "Failed fetching data from page(s)."
     with (
         patch(
-            f"{MODULEPATH}.get_filtered_column_data",
+            f"{MODULEPATH}._filtered_column_data",
             return_value=[["2025"], ["Team A"], ["https://example.com/scorecard"]],
         ),
         patch(f"{MODULEPATH}.TA_DOMAIN", "https://example.com"),
         patch(
-            f"{MODULEPATH}.create_nested_pg_tasks",
+            f"{MODULEPATH}._create_nested_pg_tasks",
             side_effect=ExceptionGroup("group", [RuntimeError("fail")]),
         ),
         patch(f"{MODULEPATH}.is_element", return_value=True),
@@ -267,7 +279,7 @@ async def test__fetch_nested_pg_data_raises_when_cached_table_is_not_an_element(
     exc_msg = "Unexpected cached/fetched table type: <class 'str'>"
     with (
         patch(
-            f"{MODULEPATH}.get_filtered_column_data",
+            f"{MODULEPATH}._filtered_column_data",
             return_value=[["2025"], ["Team A"], ["https://example.com/scorecard"]],
         ),
         patch(f"{MODULEPATH}.TA_DOMAIN", "https://example.com"),
@@ -290,7 +302,7 @@ async def test__fetch_nested_pg_data_raises_when_cached_table_is_not_an_element(
 async def test__ensure_launched_raises_when_not_launched(initialized_scraper):
     initialized_scraper._launched = False
 
-    @_ensure_launched
+    @_scraper._ensure_launched
     async def decorated_method(_):
         pass
 
@@ -302,7 +314,7 @@ async def test__ensure_launched_raises_when_not_launched(initialized_scraper):
 async def test__ensure_launched_does_not_raise_when_launched(initialized_scraper):
     initialized_scraper._launched = True
 
-    @_ensure_launched
+    @_scraper._ensure_launched
     async def decorated_method(_):
         pass
 
@@ -365,3 +377,183 @@ async def test_get_method_returns_pg_data(
     ) as mock_fetch:
         mock_fetch.return_value = method_name
         assert await method(*data_labels, season=2011) == method_name
+
+
+def test_import_pg_module_returns_module(monkeypatch):
+    dummy_module = types.SimpleNamespace()
+    monkeypatch.setitem(sys.modules, "nobrakes._scraper.pgfetch.testpg", dummy_module)
+
+    result = _scraper.SVEMOScraper._import_pg_module("testpg")
+    assert result is dummy_module
+
+
+def test_get_hyperlink_href_returns_href():
+    elem = etree.fromstring(
+        """
+        <td>
+            <a href="http://example.com">Link</a>
+        </td>
+        """
+    )
+    assert _scraper._get_hyperlink_href(elem) == "http://example.com"
+
+
+class TestValidateLaunchArgs:
+    @staticmethod
+    def test_does_not_raise_when_args_are_valid():
+        seasons = (FIRST_AVAILABLE_SEASON,)
+        tier = next(iter(_scraper._AVAILABLE_TIERS))
+        language = next(iter(_scraper._AVAILABLE_LANGUAGES))
+        _scraper._validate_launch_args(seasons, tier, language)
+
+    @staticmethod
+    def test_raises_if_args_are_invalid():
+        seasons = (FIRST_AVAILABLE_SEASON, FIRST_AVAILABLE_SEASON - 1)
+        tier = "S1"
+        language = "EN"
+        with pytest.raises(ExceptionGroup) as exc_group:
+            _scraper._validate_launch_args(seasons, tier, language)
+
+        excs = exc_group.value.exceptions
+        assert str(exc_group.value).startswith("Invalid launch arg")
+        assert [type(e) for e in excs] == 3 * [ValueError]
+
+        if seasons:
+            unavailable = sorted(filter(lambda s: s < FIRST_AVAILABLE_SEASON, seasons))
+            assert str(excs[0]) == f"Unavailable seasons: {unavailable}"
+
+        assert str(excs[1]) == f"Unavailable tier: {tier}"
+        assert str(excs[2]) == f"Unavailable language: {language}"
+
+
+class TestCreateNestedPgTasks:
+    @staticmethod
+    @pytest.mark.asyncio
+    async def test_returns_expected_value():
+        mock_pg_module = Mock()
+        mock_pg_module.fetch = AsyncMock(return_value="result")
+        mock_session = Mock()
+        async with asyncio.TaskGroup() as tg:
+            tasks = _scraper._create_nested_pg_tasks(
+                pg_module=mock_pg_module,
+                tg=tg,
+                session=mock_session,
+                urls=["http://example.com"],
+                delay=None,
+                jitter=None,
+            )
+
+        assert len(tasks) == 1
+        result = tasks[0].result()
+        assert result == "result"
+
+    @staticmethod
+    @pytest.mark.asyncio
+    async def test_coro_is_called_with_delay():
+        mock_pg_module = Mock()
+        mock_pg_module.fetch = Mock()
+        mock_session = Mock()
+        with patch(
+            f"{MODULEPATH}.with_delay", new_callable=AsyncMock
+        ) as mock_delay_func:
+            async with asyncio.TaskGroup() as tg:
+                _ = _scraper._create_nested_pg_tasks(
+                    pg_module=mock_pg_module,
+                    tg=tg,
+                    session=mock_session,
+                    urls=["http://example.com"],
+                    delay=1,
+                    jitter=None,
+                )
+            mock_delay_func.assert_called_once()
+
+    @staticmethod
+    @pytest.mark.asyncio
+    async def test_coro_is_called_with_jitter():
+        mock_pg_module = Mock()
+        mock_pg_module.fetch = Mock()
+        mock_session = Mock()
+        with patch(
+            f"{MODULEPATH}.with_jitter", new_callable=AsyncMock
+        ) as mock_jitter_func:
+            async with asyncio.TaskGroup() as tg:
+                _ = _scraper._create_nested_pg_tasks(
+                    pg_module=mock_pg_module,
+                    tg=tg,
+                    session=mock_session,
+                    urls=["http://example.com"],
+                    delay=None,
+                    jitter=(0, 1),
+                )
+            mock_jitter_func.assert_called_once()
+
+
+class TestGetFilteredColumnData:
+    @staticmethod
+    def test_returns_expected_values():
+        table = etree.fromstring(
+            """
+            <table>
+                <tbody>
+                    <tr><td>R1C1</td><td>R1C2</td></tr>
+                    <tr><td>R2C1</td><td>R2C2</td></tr>
+                    <tr><td>R3C1</td><td>R3C2</td></tr>
+                </tbody>
+            </table>
+        """
+        )
+
+        pred = {1: lambda s: int(s[1]) > 1}
+        extr = {1: lambda el: el.text, 2: lambda el: el.text[::-1]}
+        columns = _scraper._filtered_column_data(table, pred, extr)
+        values = list(map(tuple, columns))
+        assert values == [("R2C1", "R3C1"), ("2C2R", "2C3R")]
+
+    @staticmethod
+    def test_raises_when_table_has_no_tbody():
+        table = etree.fromstring("<table></table>")
+        with pytest.raises(ElementError):
+            list(_scraper._filtered_column_data(table, {}, {}))
+
+
+class TestSessionAdapterFactory:
+    @staticmethod
+    @pytest.mark.parametrize(
+        ("module_name", "client_name"),
+        [("aiohttp", "NotClientSession"), ("notaiohttp", "ClientSession")],
+    )
+    def test_raises_if_adaptee_is_not_supported(module_name, client_name):
+        class DummySession:
+            __module__ = module_name
+
+        DummySession.__name__ = client_name
+
+        with pytest.raises(UnsupportedClientError):
+            _scraper._session_adapter_factory(DummySession())
+
+    @staticmethod
+    @pytest.mark.parametrize(
+        ("module_name", "client_name"),
+        [("aiohttp", "ClientSession"), ("httpx", "AsyncClient")],
+    )
+    def test_returns_wrapped_adaptee(monkeypatch, module_name, client_name):
+        class DummySession:
+            __module__ = module_name
+
+        DummySession.__name__ = client_name
+
+        class DummyAdapter:
+            def __init__(self, session):
+                self.session = session
+
+        adapter_name = f"{module_name.upper()}SessionAdapter"
+
+        monkeypatch.setitem(
+            sys.modules,
+            f"nobrakes.session._concrete_adapters.{module_name}",
+            types.SimpleNamespace(**{adapter_name: DummyAdapter}),
+        )
+
+        result = _scraper._session_adapter_factory(DummySession())
+        assert isinstance(result, DummyAdapter)
+        assert isinstance(result.session, DummySession)

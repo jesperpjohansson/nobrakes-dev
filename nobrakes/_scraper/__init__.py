@@ -6,50 +6,62 @@ import asyncio
 from copy import deepcopy
 from functools import wraps
 import importlib
-from typing import TYPE_CHECKING, Concatenate, Literal, Self, cast, get_args, overload
+from types import MappingProxyType
+from typing import (
+    TYPE_CHECKING,
+    Concatenate,
+    Final,
+    Literal,
+    Self,
+    cast,
+    get_args,
+    overload,
+)
 
-from nobrakes._constants import HOME_DOMAIN, TA_DOMAIN
-from nobrakes._element_utils import string
-from nobrakes._scraper.helpers import (
-    create_nested_pg_tasks,
-    get_filtered_column_data,
-    get_hyperlink_href,
-    session_adapter_factory,
-    validate_launch_args,
+from nobrakes._constants import FIRST_AVAILABLE_SEASON, HOME_DOMAIN, TA_DOMAIN
+from nobrakes._element_utils import (
+    string,
+    string as string_utils,
+    table as table_utils,
+    xpath as xpath_utils,
 )
 from nobrakes.exceptions import (
+    ElementError,
     FetchError,
     ScraperError,
     TablePageLimitError,
     UnsupportedClientError,
 )
 from nobrakes.session._base import SessionAdapter
+from nobrakes.session._utils import with_delay, with_jitter
+from nobrakes.typing import Language, Tier
 from nobrakes.typing._typing import (
     URL,
     PgCache,
+    PgDataLabel,
     PgFetchModuleProtocol,
+    SupportedClient,
     TabPgModuleLabel,
     URLCache,
     is_element,
 )
 
 if TYPE_CHECKING:
-    from collections.abc import Awaitable, Callable
+    from collections.abc import Awaitable, Callable, Iterable, Iterator, Mapping
 
     from nobrakes import pgelements
     from nobrakes.typing import (
         AttendancePgDataLabel,
         ETreeElement,
         EventsPgDataLabel,
-        Language,
         RiderAveragesPgDataLabel,
         ScorecardPgDataLabel,
         SquadPgDataLabel,
         StandingsPgDataLabel,
         SupportedClient,
         TeamsPgDataLabel,
-        Tier,
     )
+
 
 __all__ = ["SVEMOScraper"]
 
@@ -68,6 +80,199 @@ def _ensure_launched[T: SVEMOScraper, **P, R](
         return func(self, *args, **kwargs)
 
     return cast("Callable[Concatenate[T, P], R]", wrapper)
+
+
+_AVAILABLE_TIERS: Final[frozenset[Tier]] = frozenset(
+    get_args(Tier.__value__),  # pylint: disable=no-member
+)
+_AVAILABLE_LANGUAGES: Final[frozenset[Language]] = frozenset(
+    get_args(Language.__value__),  # pylint: disable=no-member
+)
+
+
+def _validate_launch_args(
+    seasons: tuple[int, ...],
+    tier: Tier,
+    language: Language,
+) -> None:
+    """
+    Validate arguments passed to `SVEMOScraper.launch()`.
+
+    Checks that the seasons tuple is not empty and contains only supported seasons,
+    and verifies that the provided tier and language are available.
+
+    Raises
+    ------
+    ExceptionGroup
+        If one or more input values are invalid, an ExceptionGroup containing
+        all relevant exceptions is raised.
+    """
+    exceptions = []
+
+    if unavailable_seasons := [s for s in seasons if s < FIRST_AVAILABLE_SEASON]:
+        exceptions.append(ValueError(f"Unavailable seasons: {unavailable_seasons}"))
+
+    if tier not in _AVAILABLE_TIERS:
+        exceptions.append(ValueError(f"Unavailable tier: {tier}"))
+
+    if language not in _AVAILABLE_LANGUAGES:
+        exceptions.append(ValueError(f"Unavailable language: {language}"))
+
+    if exceptions:
+        exc_msg = "Invalid launch arg(s)."
+        raise ExceptionGroup(exc_msg, exceptions)
+
+
+def _create_nested_pg_tasks[T: PgDataLabel](
+    *data: PgDataLabel,
+    pg_module: PgFetchModuleProtocol[T],
+    tg: asyncio.TaskGroup,
+    session: SessionAdapter,
+    urls: Iterable[URL],
+    delay: float | None,
+    jitter: tuple[float, float] | None,
+) -> list[asyncio.Task[T]]:
+    """
+    Create and schedule asynchronous fetch tasks for nested pages.
+
+    Parameters
+    ----------
+    *data : PgDataLabel
+        Data labels specifying what to fetch from each page.
+    pg_module : PgFetchModuleProtocol[T]
+        The page fetch module providing a `fetch` coroutine.
+    tg : asyncio.TaskGroup
+        The task group to which the fetch tasks will be added.
+    session : SessionAdapter
+        The session adapter used to perform HTTP requests.
+    urls : Iterable[URL]
+        URLs of pages to fetch data from.
+    delay : float | None
+        Optional delay (in seconds) between task start times to stagger requests.
+    jitter : tuple[float, float] | None
+        Optional (min, max) jitter range (in seconds) to randomize task start times.
+
+    Returns
+    -------
+    list[asyncio.Task[T]]
+        List of asyncio tasks created and scheduled within the given task group.
+    """
+    tasks: list[asyncio.Task[T]] = []
+
+    for i, url in enumerate(urls):
+        coro = pg_module.fetch(session, url, *data)
+
+        if jitter:
+            coro = with_jitter(*jitter, coro=coro)
+
+        if delay:
+            coro = with_delay(i * delay, coro=coro)
+
+        tasks.append(tg.create_task(coro))
+
+    return tasks
+
+
+def _filtered_column_data(
+    table: ETreeElement,
+    predicates: dict[int, Callable[[str], bool]],
+    extractors: dict[int, Callable[[ETreeElement], str]],
+) -> Iterator[list[str]]:
+    """
+    Extract and yield data columns from a filtered `<tbody>`.
+
+    Applies predicates to filter rows of the table, then applies extractors
+    to specific columns of the filtered rows to retrieve string data.
+
+    Parameters
+    ----------
+    table : ETreeElement
+        The `<table>` element containing the data.
+    predicates : dict[int, Callable[[str], bool]]
+        Mapping of column indices to predicates used to filter rows by cell text.
+    extractors : dict[int, Callable[[ETreeElement], str]]
+        Mapping of column indices to functions extracting string data from cells.
+
+    Yields
+    ------
+    list[str]
+        Lists of extracted strings for each specified column.
+
+    Raises
+    ------
+    ElementError
+        If the table element does not contain a `<tbody>` child.
+    """
+    if (tbody := table.find("./tbody")) is not None:
+        subset = table_utils.filtered_tbody(tbody, predicates)
+    else:
+        exc_msg = "Expected child <tbody> is missing from <table>."
+        raise ElementError(exc_msg)
+
+    for i, f in extractors.items():
+        yield list(map(f, table_utils.column(subset, i)))
+
+
+_SESSION_ADAPTER_NAMES: Final[Mapping[tuple[str, str], str]] = MappingProxyType(
+    {
+        ("aiohttp", "ClientSession"): "AIOHTTPSessionAdapter",
+        ("httpx", "AsyncClient"): "HTTPXSessionAdapter",
+    },
+)
+
+
+def _session_adapter_factory(session: SupportedClient) -> SessionAdapter:
+    """
+    Return a `SessionAdapter` instance for the given HTTP client session.
+
+    Parameters
+    ----------
+    session : SupportedClient
+        Any of the following supported third-party clients:
+        - `aiohttp.ClientSession`
+        - `httpx.AsyncClient`
+
+    Raises
+    ------
+    UnsupportedClientError
+        If `session` is an unsupported client.
+    """
+    lib_name: str = session.__class__.__module__.split(".")[0]
+    cls_name: str = session.__class__.__name__
+
+    adapter_name: str | None = _SESSION_ADAPTER_NAMES.get((lib_name, cls_name))
+    if adapter_name is None:
+        exc_msg = f"'{cls_name}' from library '{lib_name}' is not a supported session."
+        raise UnsupportedClientError(exc_msg)
+
+    adapter_module = importlib.import_module(
+        f"nobrakes.session._concrete_adapters.{lib_name}"
+    )
+    adapter_type: type[SessionAdapter] = getattr(adapter_module, adapter_name)
+    return adapter_type(session)
+
+
+def _get_hyperlink_href(td_elem: ETreeElement) -> str:
+    """
+    Extract the href attribute from the first `<a>` element within `td_elem`.
+
+    Parameters
+    ----------
+    td_elem : ETreeElement
+        The `<td>` element expected to contain an `<a>` tag.
+
+    Returns
+    -------
+    str
+        The href value of the anchor tag inside the `<td>` element.
+
+    Raises
+    ------
+    ElementError
+        If the `<a>` element is not found or does not contain an href.
+    """
+    hyperlink = xpath_utils.first_element_e(td_elem, "./a")
+    return string_utils.href_e(hyperlink)
 
 
 class SVEMOScraper:
@@ -107,7 +312,7 @@ class SVEMOScraper:
             self._session: SessionAdapter = (
                 session
                 if isinstance(session, SessionAdapter)
-                else session_adapter_factory(session)
+                else _session_adapter_factory(session)
             )
         except UnsupportedClientError:  # noqa: TRY203
             raise  # Re-raise the exception to ensure cross-references work in API docs
@@ -156,7 +361,7 @@ class SVEMOScraper:
             raise ScraperError(exc_msg)
 
         seasons = (season, *additional_seasons)
-        validate_launch_args(seasons, tier, language)
+        _validate_launch_args(seasons, tier, language)
 
         self._session.headers.update(
             {
@@ -482,7 +687,7 @@ class SVEMOScraper:
                     (
                         string.stripped_text_e,
                         string.stripped_text_e,
-                        get_hyperlink_href,
+                        _get_hyperlink_href,
                     ),
                     1,
                 ),
@@ -556,7 +761,7 @@ class SVEMOScraper:
                 | {4: lambda s: s in {"Visa", "View"}}
             ),
             col_extractors=dict(
-                zip((1, 4), (string.stripped_text_e, get_hyperlink_href), strict=False),
+                zip((1, 4), (string.stripped_text_e, _get_hyperlink_href), strict=False)
             ),
             key_builder=lambda keys: keys[0],
             delay=delay,
@@ -624,10 +829,10 @@ class SVEMOScraper:
     async def _fetch_tab_pg_data(
         self,
         /,
-        *data: str,
-        pg: TabPgModuleLabel,
-        season: int,
-        cache: bool = False,
+        *data,
+        pg,
+        season,
+        cache=False,
         **kwargs,
     ):
         """
@@ -721,7 +926,7 @@ class SVEMOScraper:
             raise RuntimeError(exc_msg)
 
         *key_columns, href_column = await asyncio.to_thread(
-            get_filtered_column_data,
+            _filtered_column_data,
             table,
             col_predicates,
             col_extractors,
@@ -731,7 +936,7 @@ class SVEMOScraper:
 
         try:
             async with asyncio.TaskGroup() as tg:
-                tasks = create_nested_pg_tasks(
+                tasks = _create_nested_pg_tasks(
                     *set(data),  # Drop duplicate labels
                     pg_module=pg_module,
                     tg=tg,

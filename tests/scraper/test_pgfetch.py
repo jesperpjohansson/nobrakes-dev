@@ -8,7 +8,7 @@ from unittest.mock import AsyncMock, MagicMock, Mock, patch
 from lxml import etree
 import pytest
 
-from nobrakes._models import HashableMapping
+from nobrakes._models import HashableMapping, TagSignature
 from nobrakes._scraper import pgfetch
 from nobrakes._scraper.pgfetch import (
     attendance,
@@ -47,6 +47,27 @@ def labels_accumulated_order(named_target_tags):
 @pytest.fixture
 def elements_accumulated_order(named_target_tags):
     return list(named_target_tags.values())
+
+
+def test_get_target_tags_subset_returns_correct_subset():
+    tags = HashableMapping({"a": TagSignature("div"), "b": TagSignature("span")})
+    result = pgfetch._get_target_tags_subset(tags, "a")
+    assert result == (tags["a"],)
+
+
+class TestGetSortingIndexes:
+    @staticmethod
+    def test_get_sorting_indexes_returns_correct_indexes():
+        tags = HashableMapping({"x": TagSignature("a"), "y": TagSignature("b")})
+        indexes = pgfetch._get_sorting_indexes(tags, "x", "y")
+        assert indexes == (0, 1)
+
+    @staticmethod
+    def test_get_sorting_indexes_raises_when_key_is_not_in_mapping():
+        tags = HashableMapping({"key_A": TagSignature("a")})
+        exc_msg = "Invalid label in '*data'."
+        with pytest.raises(ValueError, match=re.escape(exc_msg)):
+            pgfetch._get_sorting_indexes(tags, "key_B")
 
 
 @pytest.mark.asyncio
