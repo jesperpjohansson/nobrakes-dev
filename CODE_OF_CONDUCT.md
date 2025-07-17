@@ -1,6 +1,6 @@
 # Code of Conduct
 > [!important]
-> This `CODE_OF_CONDUCT.md` is a draft. Everything may be subject to change.
+> This `CODE_OF_CONDUCT.md` is a draft. Everything is subject to change.
 
 > [!important]
 > By contributing to this project, you agree to
