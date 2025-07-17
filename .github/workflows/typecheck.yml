@@ -1,4 +1,4 @@
-name: Pre-build CI
+name: Typecheck
 
 on:
   pull_request:
