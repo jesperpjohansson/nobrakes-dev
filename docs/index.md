@@ -1,33 +1,7 @@
 # nobrakes
-<table style="border-collapse: collapse;">
-  <tbody>
-    <tr>
-      <td style="border: 1px solid grey;">Package</td>
-      <td style="border: 1px solid grey;">
-        <div style="display: flex;">
-          <div>
-            <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
-          </div>
-        </div> 
-      </td>
-    </tr>
-    <tr>
-      <td style="border: 1px solid grey;">Metadata</td>
-      <td  style="border: 1px solid grey;">
-        <div style="display: flex;">
-          <div style="margin-right: 10px;">
-            <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python" />
-          </div>
-          <div style="margin-right: 10px;">
-            <a href="https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE">
-              <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License" />
-            </a>
-          </div>
-        </div>
-      </td>
-    </tr>
-  </tbody>
-</table>
+![PyPI](https://img.shields.io/badge/PyPI-not%20available-red.svg)
+![Python](https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE)
 
 A high-level user API for asynchronous fetching, parsing and transformation of Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
 
