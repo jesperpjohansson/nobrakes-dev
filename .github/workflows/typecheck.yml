@@ -1,16 +1,6 @@
 name: Typecheck
 
 on:
-  pull_request:
-    branches:
-      - main
-    paths:
-      - 'pyproject.toml'
-      - 'nobrakes/**'
-      - 'scripts/**'
-      - 'requirements/typecheck.txt'
-      - '.github/workflows/typecheck.yml'
-      - '.github/actions/set-up-python-env/action.yml'
   push:
     branches:
       - main
@@ -22,6 +12,7 @@ on:
       - '.github/workflows/typecheck.yml'
       - '.github/actions/set-up-python-env/action.yml'
   workflow_dispatch:
+  workflow_call:
 
 jobs:
   typecheck:
