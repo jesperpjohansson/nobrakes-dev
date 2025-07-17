@@ -5,63 +5,16 @@ on:
     branches:
       - main
     paths:
+      - 'pyproject.toml'
       - 'nobrakes/**'
       - 'tests/**'
-      - 'pyproject.toml'
+      - 'requirements/test.txt'
+      - 'requirements/covreport.txt'
   workflow_dispatch:
-  workflow_call:
-    inputs:
-      called_by_workflow_call:
-        required: false
-        type: boolean
-        default: false
-
-permissions:
-  contents: read
 
 jobs:
-  lint:
-    name: Lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-      
-      - name: Set Up Python Environment
-        uses: ./.github/actions/set-up-python-env
-
-      - name: Install dependencies
-        run: python -m pip install -r requirements/lint.txt
-
-      - name: Run scripts.lint
-        run: python -m scripts.lint
-  
-  typecheck:
-    name: Typecheck | ${{ matrix.python-version }}
-    needs: lint
-    runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        python-version: ['3.12', '3.13'] # Oldest and latest supported versions
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set Up Python Environment
-        uses: ./.github/actions/set-up-python-env
-        with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install dependencies
-        run: python -m pip install -r requirements/typecheck.txt 
-
-      - name: Run scripts.typecheck
-        run: python -m scripts.typecheck
-  
   test-py-version-compat:
-    name: Test Python compatibility | ${{ matrix.python-version }}
-    needs: typecheck
+    name: Test Python version compatibility | ${{ matrix.python-version }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -86,7 +39,6 @@ jobs:
 
   test-os-compat:
     name: Test OS compatibility | ${{ matrix.os }}
-    needs: typecheck
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -110,14 +62,12 @@ jobs:
   # Flag to use in status checks
   ok-flag:
     name: OK Flag
-    needs: [lint, typecheck, test-py-version-compat, test-os-compat]
+    needs: [test-py-version-compat, test-os-compat]
     if: ${{ always() && !inputs.called_by_workflow_call }}
     runs-on: ubuntu-latest
     steps:
       - name: Fail if any job failed
         if: |
-          needs.lint.result == 'failure' ||
-          needs.typecheck.result == 'failure' ||
           needs.test-py-version-compat.result == 'failure' ||
-          needs.test-os-compat == 'failure'
+          needs.test-os-compat.result == 'failure'
         run: exit 1
