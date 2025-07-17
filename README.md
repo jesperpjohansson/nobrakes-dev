@@ -1,18 +1,18 @@
 # nobrakes
-<table style="border-collapse: collapse; width: auto;">
+<table>
   <tbody>
     <tr>
-      <td style="font-weight: bold; border: 1px solid grey; padding: 4px; vertical-align: middle;">Package</td>
-      <td style="border: 1px solid grey; padding: 4px;">
-        <div style="float: left; gap: 12px; align-items: center;">
+      <td>Package</td>
+      <td>
+        <div>
           <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
         </div>
       </td>
     </tr>
     <tr>
-      <td style="font-weight: bold; border: 1px solid grey; padding: 4px; vertical-align: middle;">Metadata</td>
-      <td style="border: 1px solid grey; padding: 4px;">
-        <div style="float: left; gap: 12px; align-items: center;">
+      <td>Metadata</td>
+      <td>
+        <div>
           <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python" />
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE">
             <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License" />
@@ -21,9 +21,9 @@
       </td>
     </tr>
     <tr>
-      <td style="font-weight: bold; border: 1px solid grey; padding: 4px; vertical-align: middle;">CI</td>
-      <td style="border: 1px solid grey; padding: 4px;">
-        <div style="float: left; flex-wrap: wrap; gap: 12px; align-items: center;">
+      <td>CI</td>
+      <td>
+        <div>
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml?branch=main">
             <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint" />
           </a>
