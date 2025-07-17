@@ -1,5 +1,5 @@
 site_name: nobrakes
-repo_url: https://github.com/jesperpjohansson/nobrakes
+repo_url: https://github.com/jesperpjohansson/nobrakes-dev
 theme:
   name: material
   features:
