@@ -16,6 +16,3 @@ pytest-asyncio # import: pytest_asyncio
 # SOFT DEPENDENCIES (nobrakes)
 aiohttp # import: aiohttp | supported client
 httpx   # import: httpx | supported client
-
-# MISC.
-pyyaml  # import: yaml | used to load test data from tests/data/pgmodel_output/*.yml

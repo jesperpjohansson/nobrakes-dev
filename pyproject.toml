@@ -24,7 +24,6 @@ dev = [
   "pytest",
   "pytest-asyncio",
   "pytest-cov",
-  "pyyaml",
 ]
 
 # ≡≡≡ hatch ≡≡≡
@@ -60,7 +59,6 @@ ignore = [
   "C901",    # complex-structure
   "PLR2004", # magic-value-comparison
   "S101",    # assert
-  "S506",    # unsafe-yaml-load
   "SLF001",  # private-member-access
   "TRY002",  # raise-vanilla-class
 ]

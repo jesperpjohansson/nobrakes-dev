@@ -10,7 +10,7 @@ from unittest.mock import patch
 
 from lxml import etree
 import pytest
-import yaml
+import json
 
 from nobrakes.exceptions import ElementError
 from nobrakes.pgmodel import _pgmodel
@@ -22,9 +22,9 @@ _DATA_DIR = Path(__file__).parent / "data"
 @pytest.fixture
 def load_pgmodel_output():
     def _load(filename: str) -> dict:
-        path = _DATA_DIR / f"pgmodel_output/{filename}.yml"
+        path = _DATA_DIR / f"pgmodel_output/{filename}.json"
         with path.open(encoding="utf-8") as stream:
-            return yaml.load(stream, yaml.Loader)
+            return json.load(stream)
 
     return _load
 
@@ -123,9 +123,12 @@ def test_model_assigns_expected_values_to_fields(
         k: element_from_string(v) for k, v in load_pgfetch_output(filename).items()
     }
 
-    assert asdict(model.from_pgelements(pgfetch_output)) == load_pgmodel_output(
-        filename
-    )
+    pgmodel_output = load_pgmodel_output(filename)
+
+    if model == _pgmodel.Scorecard:
+        pgmodel_output["result"] = tuple(tuple(x) for x in pgmodel_output["result"])
+
+    assert asdict(model.from_pgelements(pgfetch_output)) == pgmodel_output
 
 
 def test_attendance__average_raises_when_b_is_none():
