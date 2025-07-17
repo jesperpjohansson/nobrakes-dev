@@ -12,16 +12,6 @@
 
 A high-level user API for asynchronous fetching, parsing and transformation of Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
 
-> [!NOTE]
-> Although the API is functional, `nobrakes` is still in its **development phase**; hence:
-> - The package is not yet available on PyPI.
-> - The API should not yet be considered stable.
-> - Breaking changes may occur without prior notice or appropriate versioning.
-> - Documentation may be incomplete and contain errors.
-> - Contributing guidelines may be incomplete and contain errors.
-> - Code of Conduct may be incomplete and contain errors.
-
-
 > [!IMPORTANT]
 > `nobrakes` is an independent project and **is not affiliated with, endorsed by, or
 > sponsored by SVEMO**. This library provides an unofficial API for accessing publicly
@@ -64,6 +54,3 @@ pip install -e .[dev]
 ## Contributing
 
 See [CONTRIBUTING.md](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/CONTRIBUTING.md).
-
-> [!NOTE]
-> This project does **not yet accept external contributions**.
