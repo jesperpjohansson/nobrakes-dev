@@ -5,9 +5,11 @@ on:
     branches:
       - main
     paths:
+      - 'pyproject.toml'
       - 'nobrakes/**'
       - 'tests/**'
-      - 'pyproject.toml'
+      - '.github/workflows/build.yml'
+      - '.github/actions/set-up-python-env/action.yml'
   workflow_dispatch:
 
 jobs:
