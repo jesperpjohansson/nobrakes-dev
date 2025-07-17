@@ -1,41 +1,34 @@
 # nobrakes
 <table>
   <tbody>
-    <tr style="background-color: #151B23;">
-      <td>Metadata</td>
+    <tr>
+      <td>Package</td>
       <td>
         <div>
-          <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python" />
+          <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI"/>
+          <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python"/>
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE">
-            <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License" />
+            <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License"/>
           </a>
         </div>
       </td>
     </tr>
-    <tr style="background-color: #151B23;">
+    <tr>
       <td>CI</td>
       <td>
         <div>
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml?branch=main">
-            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint" />
+            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint"/>
           </a>
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml?branch=main">
-            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main" alt="Typecheck" />
+            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main" alt="Typecheck"/>
           </a>
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml?branch=main">
-            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main" alt="Test" />
+            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main" alt="Test"/>
           </a>
           <a href="https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main">
-            <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage" />
+            <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage"/>
           </a>
-        </div>
-      </td>
-    </tr>
-    <tr style="background-color: #151B23;">
-      <td>Package</td>
-      <td>
-        <div>
-          <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
         </div>
       </td>
     </tr>
