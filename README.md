@@ -2,14 +2,6 @@
 <table>
   <tbody>
     <tr style="background-color: #151B23;">
-      <td>Package</td>
-      <td>
-        <div>
-          <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
-        </div>
-      </td>
-    </tr>
-    <tr style="background-color: #151B23;">
       <td>Metadata</td>
       <td>
         <div>
@@ -36,6 +28,14 @@
           <a href="https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main">
             <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage" />
           </a>
+        </div>
+      </td>
+    </tr>
+    <tr style="background-color: #151B23;">
+      <td>Package</td>
+      <td>
+        <div>
+          <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
         </div>
       </td>
     </tr>
