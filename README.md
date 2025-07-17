@@ -5,8 +5,8 @@
       <td>Package</td>
       <td>
         <div>
-          <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI"/>
-          <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python"/>
+          <img src="https://img.shields.io/badge/PyPI-not%20available-red.svg" alt="PyPI"/>&nbsp;&nbsp;
+          <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python"/>&nbsp;&nbsp;
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE">
             <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License"/>
           </a>
@@ -18,16 +18,16 @@
       <td>
         <div>
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml?branch=main">
-            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint"/>
+            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint"/>&nbsp;&nbsp;
           </a>
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml?branch=main">
-            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main" alt="Typecheck"/>
+            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main" alt="Typecheck"/>&nbsp;&nbsp;
           </a>
           <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml?branch=main">
-            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main" alt="Test"/>
+            <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main" alt="Test"/>&nbsp;&nbsp;
           </a>
           <a href="https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main">
-            <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage"/>
+            <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage"/>&nbsp;&nbsp;
           </a>
         </div>
       </td>
