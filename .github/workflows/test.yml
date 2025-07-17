@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - main
-    paths: &paths
+    paths:
       - 'pyproject.toml'
       - 'nobrakes/**'
       - 'tests/**'
@@ -15,7 +15,14 @@ on:
   push:
     branches:
       - main
-    paths: *paths
+    paths:
+      - 'pyproject.toml'
+      - 'nobrakes/**'
+      - 'tests/**'
+      - 'requirements/test.txt'
+      - 'requirements/covreport.txt'
+      - '.github/workflows/test.yml'
+      - '.github/actions/set-up-python-env/action.yml'
   workflow_dispatch:
 
 jobs:
