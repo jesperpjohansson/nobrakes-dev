@@ -1,7 +1,7 @@
 # nobrakes
 <table>
   <tbody>
-    <tr>
+    <tr style="background-color: #151B23;">
       <td>Package</td>
       <td>
         <div>
@@ -9,7 +9,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr style="background-color: #151B23;">
       <td>Metadata</td>
       <td>
         <div>
@@ -20,7 +20,7 @@
         </div>
       </td>
     </tr>
-    <tr>
+    <tr style="background-color: #151B23;">
       <td>CI</td>
       <td>
         <div>
