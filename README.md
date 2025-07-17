@@ -1,5 +1,5 @@
 # nobrakes
-<table border-collapse: collapse;>
+<table style="border-collapse: collapse;">
   <tbody>
     <tr>
       <td style="border: 1px solid grey;">Package</td>
