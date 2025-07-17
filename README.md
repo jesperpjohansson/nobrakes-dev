@@ -6,6 +6,7 @@
 [![Lint](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main)](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml?branch=main)
 [![Typecheck](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main)](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml?branch=main)
 [![Test](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml?branch=main)
+[![Build](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/build.yml/badge.svg)](https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/build.yml)
 [![Coverage](https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main)](https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main)
 
 
