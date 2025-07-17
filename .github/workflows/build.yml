@@ -1,4 +1,4 @@
-name: CI
+name: Build
 
 on:
   push:
@@ -11,15 +11,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  #call-pre-build-ci-workflow:
-  #  name: Pre-build CI
-  #  uses: ./.github/workflows/pre-build-ci.yml
-  #  with:
-  #    called_by_workflow_call: true
-
   build-dist:
     name: Build and check distributions
-    #needs: call-pre-build-ci-workflow
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source
@@ -87,27 +80,6 @@ jobs:
         with:
           name: coverage-report
           path: coverage.xml
-
-  update-cov-badge:
-    name: Update Coverage Badge
-    needs: test-cov-wheel
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
-      - name: Set Up Python Environment
-        uses: ./.github/actions/set-up-python-env
-        with:
-          upgrade-pip: 'false'
       
-      - name: Download coverage report
-        uses: actions/download-artifact@v4
-        with:
-          name: coverage-report
-          path: .
-
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@v2
