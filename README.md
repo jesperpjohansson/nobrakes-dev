@@ -1,48 +1,45 @@
 # nobrakes
-<table>
-  <tbody>
-    <tr>
-      <td>Package</td>
-      <td>
-        <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
-      </td>
-    </tr>
-    <tr>
-      <td>Metadata</td>
-      <td>
-        <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python" />
-      </td>
-      <td>
-        <a href="https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE">
-            <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License" />
-        </a>
-      </td>
-    </tr>
-    <tr>
-      <td>CI</td>
-      <td>
-        <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml?branch=main">
-          <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint" />
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml?branch=main">
-          <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main" alt="Typecheck" />
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml?branch=main">
-          <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main" alt="Test" />
-        </a>
-      </td>
-      <td>
-        <a href="https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main">
-          <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage" />
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<!-- Package -->
+<div style="display: flex; margin-bottom: 8px; border-collapse: collapse;">
+  <div style="min-width: 75px; font-weight: bold; border: 1px solid;">Package</div>
+  <div style="border: 1px solid;">
+    <img src="https://img.shields.io/badge/PyPI-not%20yet%20available-red.svg" alt="PyPI" />
+  </div>
+</div>
+
+<!-- Metadata -->
+<div style="display: flex; margin-bottom: 8px; border-collapse: collapse;">
+  <div style="min-width: 75px; font-weight: bold; border: 1px solid;">Metadata</div>
+  <div style="display: flex; gap: 12px;  border: 1px solid;">
+    <div>
+      <img src="https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg" alt="Python" />
+    </div>
+    <a href="https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE">
+      <img src="https://img.shields.io/badge/License-BSD%203--Clause-blue.svg" alt="License" />
+    </a>
+  </div>
+</div>
+
+<!-- CI -->
+<div style="display: flex; border-collapse: collapse;">
+  <div style="min-width: 75px; font-weight: bold; border: 1px solid;">CI</div>
+  <div style="display: flex; gap: 12px; flex-wrap: wrap; border: 1px solid;">
+    <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml?branch=main">
+      <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/lint.yml/badge.svg?branch=main" alt="Lint" />
+    </a>
+    <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml?branch=main">
+      <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/typecheck.yml/badge.svg?branch=main" alt="Typecheck" />
+    </a>
+    <a href="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml?branch=main">
+      <img src="https://github.com/jesperpjohansson/nobrakes-dev/actions/workflows/test.yml/badge.svg?branch=main" alt="Test" />
+    </a>
+    <a href="https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main">
+      <img src="https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main" alt="Coverage" />
+    </a>
+  </div>
+</div>
+
+
 
 A high-level user API for asynchronous fetching, parsing and transformation of Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
 
