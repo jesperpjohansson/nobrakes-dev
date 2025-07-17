@@ -90,14 +90,14 @@ class SVEMOScraper:
     """
     An asynchronous scraper for SVEMO speedway data.
 
-    This class provides methods to fetch structured HTML data from different pages
-    of the SVEMO website.
+    `SVEMOScraper` provides methods to fetch structured HTML data from various pages
+    on the SVEMO website.
 
     Parameters
     ----------
     session : SupportedClient
-        An instance of `nobrakes.SessionAdapter` or any of the following supported
-        third-party clients:
+        An instance of either a subclass of `nobrakes.SessionAdapter` or one of
+        the following supported third-party clients:
 
         - `aiohttp.ClientSession`
         - `httpx.AsyncClient`
@@ -105,8 +105,13 @@ class SVEMOScraper:
     Raises
     ------
     UnsupportedClientError
-        If `session` is an unsupported client.
+        If the provided `session` is neither an instance of a subclass of
+        `nobrakes.SessionAdapter` nor an instance of a supported third-party client.
 
+    Notes
+    -----
+    `SVEMOScraper` does **not** manage the lifecycle of the `session` instance.
+    The caller is responsible for creating, managing, and closing the session.
     """
 
     def __init__(self, session: SupportedClient) -> None:
@@ -130,19 +135,19 @@ class SVEMOScraper:
         language: Language = "sv-se",
     ) -> Self:
         """
-        Fetch required URLs and adds them to the internal URL cache.
+        Launch the `SVEMOScraper` instance.
 
         Parameters
         ----------
         *seasons : int
-            Seasons to scrape. From 2011 and onwards.
+            Season(s) to enable scraping for. Valid values are from 2011 onwards.
         tier : Tier
-            The league tier to scrape.
+            The league tier to scrape:
 
             - 1 : Bauhausligan/Elitserien
             - 2 : Allsvenskan.
         language : Language
-            Language header.
+            Language setting for the scraper:
 
             - 'sv-se' : Swedish
             - 'en-us' : English
@@ -150,18 +155,16 @@ class SVEMOScraper:
         Returns
         -------
         Self
-            A ready-to-use instance of SVEMOScraper.
+            A ready-to-use instance of `SVEMOScraper`.
 
         Raises
         ------
         ExceptionGroup
-            If one or more of the input arguments are invalid (unsupported
-            season, tier, or language).
+            If invalid arguments are passed.
         ScraperError
-            If the scraper has already been launched.
+            If the `SVEMOScraper` instance has already been launched.
         FetchError
-            If not all page URLs could be fetched.
-
+            If unable to fetch the URLs required for further scraping.
         """
         if self._launched:
             exc_msg = "The scraper has already been launched."
@@ -225,7 +228,7 @@ class SVEMOScraper:
         pagelimit: int = 5,
     ) -> pgelements.Events:
         """
-        Fetch events page data for a given season.
+        Fetch *events* page data.
 
         Parameters
         ----------
@@ -280,7 +283,7 @@ class SVEMOScraper:
         season: int,
     ) -> pgelements.Standings:
         """
-        Fetch standings data for a given season.
+        Fetch *standings* page data.
 
         Parameters
         ----------
@@ -317,7 +320,7 @@ class SVEMOScraper:
 
     async def teams(self, *, season: int, cache: bool = False) -> pgelements.Teams:
         """
-        Fetch team information for a given season.
+        Fetch *teams* page data.
 
         Parameters
         ----------
@@ -352,7 +355,7 @@ class SVEMOScraper:
 
     async def rider_averages(self, *, season: int) -> pgelements.RiderAverages:
         """
-        Fetch a table containing rider averages for a given season.
+        Fetch *rider averages* page data.
 
         Parameters
         ----------
@@ -384,7 +387,7 @@ class SVEMOScraper:
         season: int,
     ) -> pgelements.Attendance:
         """
-        Fetch attendance data for a given season.
+        Fetch *attendance* page data.
 
         Parameters
         ----------
@@ -423,11 +426,10 @@ class SVEMOScraper:
         **events_pg_kwargs,
     ) -> dict[tuple[str, str], pgelements.Scorecard]:
         """
-        Fetch scorecard details for a given season.
+        Fetch data from multiple *scorecard* pages.
 
-        The pages are accessed through links found in the table of a events
-        page. If a call to `events` has previously been made, with parameter
-        `cache` set to `True`, the cached table will be used.
+        The pages are accessed through links found in the fourth column of an
+        *events* page table.
 
         Parameters
         ----------
@@ -440,10 +442,10 @@ class SVEMOScraper:
         season : int
             Target season.
         date_query : Callable[[str], bool], optional
-            A predicate function to filter table rows based on first column.
+            A predicate function to filter *events* table rows based on first column.
             The input is a string in the format returned by the source site.
         name_query : Callable[[str], bool], optional
-            A predicate function to filter table rows based on second column.
+            A predicate function to filter *events* table rows based on second column.
             The input is a string in the format returned by the source site.
         delay : float, optional
             Delay applied before each fetch, in seconds.
@@ -451,8 +453,13 @@ class SVEMOScraper:
             Tuple representing random jitter range (min, max) applied before
             each fetch, in seconds.
         **events_pg_kwargs : Any
-            Keyword arguments forwarded to `events`. Redundant when a cached
+            Keyword arguments forwarded to `events()`. Redundant when a cached
             table is used.
+
+        Returns
+        -------
+        dict[tuple[str, str], pgelements.Scorecard]
+            Mapping of (date, name) to their parsed scorecard data.
 
         Raises
         ------
@@ -460,13 +467,8 @@ class SVEMOScraper:
             If `*data` is empty.
             If `season` was not passed when the session was launched.
         FetchError
-            If the events page data could not be fetched.
+            If the *events* page data could not be fetched.
             If data from one or more scorecard pages could not be fetched.
-
-        Returns
-        -------
-        dict[tuple[str, str], pgelements.Scorecard]
-            Mapping of (date, name) to their parsed scorecard data.
 
         """
         return await self._fetch_nested_pg_data(
@@ -509,11 +511,10 @@ class SVEMOScraper:
         **teams_pg_kwargs,
     ) -> dict[str, pgelements.Squad]:
         """
-        Fetch squads for each team for a given season.
+        Fetch data from multiple *squad* pages.
 
-        The pages are accessed through links found in the table of a teams page.
-        If a call to `teams()` has previously been made, with parameter
-        `cache` set to `True`, the cached table will be used.
+        The pages are accessed through links found in the fourth column of a
+        *teams* page table.
 
         Parameters
         ----------
@@ -525,7 +526,7 @@ class SVEMOScraper:
         season : int
             Target season.
         team_query : Callable[[str], bool], optional
-            A predicate function to filter table rows based on first column.
+            A predicate function to filter *teams* table rows based on first column.
             The input is a string in the format returned by the source site.
         delay : float, optional
             Delay applied between each request, in seconds.
@@ -533,7 +534,7 @@ class SVEMOScraper:
             Tuple representing random jitter range (min, max) applied before
             each fetch, in seconds.
         **teams_pg_kwargs : Any
-            Keyword arguments forwarded to `teams`. Redundant when a cached table
+            Keyword arguments forwarded to `teams()`. Redundant when a cached table
             is used.
 
         Returns
@@ -547,8 +548,8 @@ class SVEMOScraper:
             If `*data` is empty.
             If `season` was not passed when the session was launched.
         FetchError
-            If the teams page data could not be fetched.
-            If data from one or more squad pages could not be fetched.
+            If the *teams* page data could not be fetched.
+            If data from one or more *squad* pages could not be fetched.
 
         """
         return await self._fetch_nested_pg_data(
@@ -629,12 +630,20 @@ class SVEMOScraper:
 
     @_ensure_launched
     @_ensure_data_labels
-    async def _fetch_tab_pg_data(self, /, *data, pg, season, cache=False, **kwargs):
+    async def _fetch_tab_pg_data(
+        self,
+        /,
+        *data: str,
+        pg: TabPgModuleLabel,
+        season: int,
+        cache: bool = False,
+        **kwargs,
+    ):
         """
         Fetch data from a tab-level page.
 
         Common mechanism for fetching data a page embedded in, or linked to in a
-        results page tab.
+        *results* page tab.
         """
         url: URL | None = self._url_cache.get((pg, season))
         if url is None:
@@ -704,10 +713,11 @@ class SVEMOScraper:
         jitter,
     ):
         """
-        Fetch data from multiple pages accessed via a table in a tab-level page.
+        Fetch data from multiple pages accessed through an embedded page.
 
-        Common mechanism for fetching data from pages that are accessed through
-        hyperlinks in a table column.
+        Common mechanism for fetching data from pages that are only accessible through
+        hyperlinks (`<a>`) found in a `<table>` contained by a page embedded in a
+        *results* page tab.
         """
         table = (self._pg_cache.get(cache_key) or await fallback).get("table")
 
