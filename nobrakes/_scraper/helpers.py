@@ -55,10 +55,8 @@ def validate_launch_args(
     """
     exceptions = []
 
-    if not seasons:
-        exceptions.append(ValueError("'*seasons' is empty."))
-    elif unavailable := [s for s in seasons if s < FIRST_AVAILABLE_SEASON]:
-        exceptions.append(ValueError(f"Unavailable seasons: {unavailable}"))
+    if unavailable_seasons := [s for s in seasons if s < FIRST_AVAILABLE_SEASON]:
+        exceptions.append(ValueError(f"Unavailable seasons: {unavailable_seasons}"))
 
     if tier not in _AVAILABLE_TIERS:
         exceptions.append(ValueError(f"Unavailable tier: {tier}"))

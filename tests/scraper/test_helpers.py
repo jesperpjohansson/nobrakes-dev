@@ -69,10 +69,8 @@ class TestValidateLaunchArgs:
         helpers.validate_launch_args(seasons, tier, language)
 
     @staticmethod
-    @pytest.mark.parametrize(
-        "seasons", [(), (FIRST_AVAILABLE_SEASON, FIRST_AVAILABLE_SEASON - 1)]
-    )
-    def test_raises_if_args_are_invalid(seasons):
+    def test_raises_if_args_are_invalid():
+        seasons = (FIRST_AVAILABLE_SEASON, FIRST_AVAILABLE_SEASON - 1)
         tier = "S1"
         language = "EN"
         with pytest.raises(ExceptionGroup) as exc_group:
@@ -85,8 +83,6 @@ class TestValidateLaunchArgs:
         if seasons:
             unavailable = sorted(filter(lambda s: s < FIRST_AVAILABLE_SEASON, seasons))
             assert str(excs[0]) == f"Unavailable seasons: {unavailable}"
-        else:
-            assert str(excs[0]) == "'*seasons' is empty."
 
         assert str(excs[1]) == f"Unavailable tier: {tier}"
         assert str(excs[2]) == f"Unavailable language: {language}"

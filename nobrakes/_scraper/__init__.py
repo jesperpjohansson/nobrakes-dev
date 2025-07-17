@@ -70,22 +70,6 @@ def _ensure_launched[T: SVEMOScraper, **P, R](
     return cast("Callable[Concatenate[T, P], R]", wrapper)
 
 
-def _ensure_data_labels[T: SVEMOScraper, **P, R](
-    func: Callable[Concatenate[T, P], R],
-) -> Callable[Concatenate[T, P], R]:
-    """Raise `ValueError` if no page data labels have been passed."""
-
-    @wraps(func)
-    def wrapper(self: T, *data: P.args, **kwargs: P.kwargs) -> R:
-        if not data:
-            exc_msg = "'*data' is empty."
-            raise ValueError(exc_msg)
-
-        return func(self, *data, **kwargs)
-
-    return cast("Callable[Concatenate[T, P], R]", wrapper)
-
-
 class SVEMOScraper:
     """
     An asynchronous scraper for SVEMO speedway data.
@@ -130,7 +114,8 @@ class SVEMOScraper:
 
     async def launch(
         self,
-        *seasons: int,
+        season: int,
+        *additional_seasons: int,
         tier: Tier = 1,
         language: Language = "sv-se",
     ) -> Self:
@@ -139,7 +124,7 @@ class SVEMOScraper:
 
         Parameters
         ----------
-        *seasons : int
+        season, *additional_seasons : int
             Season(s) to enable scraping for. Valid values are from 2011 onwards.
         tier : Tier
             The league tier to scrape:
@@ -170,6 +155,7 @@ class SVEMOScraper:
             exc_msg = "The scraper has already been launched."
             raise ScraperError(exc_msg)
 
+        seasons = (season, *additional_seasons)
         validate_launch_args(seasons, tier, language)
 
         self._session.headers.update(
@@ -279,7 +265,8 @@ class SVEMOScraper:
 
     async def standings(
         self,
-        *data: StandingsPgDataLabel,
+        data: StandingsPgDataLabel,
+        *additional_data: StandingsPgDataLabel,
         season: int,
     ) -> pgelements.Standings:
         """
@@ -287,7 +274,7 @@ class SVEMOScraper:
 
         Parameters
         ----------
-        *data : StandingsPgDataLabel
+        data, *additional_data : StandingsPgDataLabel
             Page data to extract.
 
             - 'po1' : Results from the finals.
@@ -305,7 +292,6 @@ class SVEMOScraper:
         Raises
         ------
         ValueError
-            If `*data` is empty.
             If `season` was not passed when the session was launched.
         FetchError
             If the page data could not be fetched.
@@ -316,7 +302,9 @@ class SVEMOScraper:
         three race off sections.
 
         """
-        return await self._fetch_tab_pg_data(*data, pg="standings", season=season)
+        return await self._fetch_tab_pg_data(
+            data, *additional_data, pg="standings", season=season
+        )
 
     async def teams(self, *, season: int, cache: bool = False) -> pgelements.Teams:
         """
@@ -383,7 +371,8 @@ class SVEMOScraper:
 
     async def attendance(
         self,
-        *data: AttendancePgDataLabel,
+        data: AttendancePgDataLabel,
+        *additional_data: AttendancePgDataLabel,
         season: int,
     ) -> pgelements.Attendance:
         """
@@ -391,7 +380,7 @@ class SVEMOScraper:
 
         Parameters
         ----------
-        *data : AttendancePgDataLabel
+        data, *additional_data : AttendancePgDataLabel
             Page data to extract.
 
             - 'average' : The average attendance figure.
@@ -407,17 +396,19 @@ class SVEMOScraper:
         Raises
         ------
         ValueError
-            If `*data` is empty.
             If `season` was not passed when the session was launched.
         FetchError
             If the page data could not be fetched.
 
         """
-        return await self._fetch_tab_pg_data(*data, pg="attendance", season=season)
+        return await self._fetch_tab_pg_data(
+            data, *additional_data, pg="attendance", season=season
+        )
 
     async def scorecards(
         self,
-        *data: ScorecardPgDataLabel,
+        data: ScorecardPgDataLabel,
+        *additional_data: ScorecardPgDataLabel,
         season: int,
         date_query: Callable[[str], bool] | None = None,
         name_query: Callable[[str], bool] | None = None,
@@ -433,7 +424,7 @@ class SVEMOScraper:
 
         Parameters
         ----------
-        *data : ScorecardPgDataLabel
+        data, *additional_data : ScorecardPgDataLabel
             Page data to extract.
 
             - 'result' : Team names and points.
@@ -464,7 +455,6 @@ class SVEMOScraper:
         Raises
         ------
         ValueError
-            If `*data` is empty.
             If `season` was not passed when the session was launched.
         FetchError
             If the *events* page data could not be fetched.
@@ -472,7 +462,8 @@ class SVEMOScraper:
 
         """
         return await self._fetch_nested_pg_data(
-            *data,
+            data,
+            *additional_data,
             cache_key=("events", season),
             fallback=self.events(season=season, **events_pg_kwargs),
             pg_module=SVEMOScraper._import_pg_module("scorecard"),
@@ -503,7 +494,8 @@ class SVEMOScraper:
 
     async def squads(
         self,
-        *data: SquadPgDataLabel,
+        data: SquadPgDataLabel,
+        *additional_data: SquadPgDataLabel,
         season: int,
         team_query: Callable[[str], bool] | None = None,
         delay: float | None = None,
@@ -518,7 +510,7 @@ class SVEMOScraper:
 
         Parameters
         ----------
-        *data : SquadPgDataLabel
+        data, *additional_data : SquadPgDataLabel
             Page data to extract.
 
             - 'riders' : A table containing information about non-guest riders.
@@ -545,7 +537,6 @@ class SVEMOScraper:
         Raises
         ------
         ValueError
-            If `*data` is empty.
             If `season` was not passed when the session was launched.
         FetchError
             If the *teams* page data could not be fetched.
@@ -553,7 +544,8 @@ class SVEMOScraper:
 
         """
         return await self._fetch_nested_pg_data(
-            *data,
+            data,
+            *additional_data,
             cache_key=("teams", season),
             fallback=self.teams(season=season, **teams_pg_kwargs),
             pg_module=SVEMOScraper._import_pg_module("squad"),
@@ -629,7 +621,6 @@ class SVEMOScraper:
     ) -> pgelements.Attendance: ...
 
     @_ensure_launched
-    @_ensure_data_labels
     async def _fetch_tab_pg_data(
         self,
         /,
@@ -698,7 +689,6 @@ class SVEMOScraper:
     ) -> dict[str, pgelements.Squad]: ...
 
     @_ensure_launched
-    @_ensure_data_labels
     async def _fetch_nested_pg_data(
         self,
         /,

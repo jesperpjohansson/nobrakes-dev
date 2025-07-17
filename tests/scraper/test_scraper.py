@@ -9,7 +9,7 @@ import httpx
 import pytest
 import pytest_asyncio
 
-from nobrakes._scraper import SVEMOScraper, _ensure_data_labels, _ensure_launched
+from nobrakes._scraper import SVEMOScraper, _ensure_launched
 from nobrakes.exceptions import FetchError, ScraperError, UnsupportedClientError
 
 MODULEPATH = "nobrakes._scraper"
@@ -310,20 +310,9 @@ async def test__ensure_launched_does_not_raise_when_launched(initialized_scraper
 
 
 @pytest.mark.asyncio
-async def test__ensure_data_labels_raises_data_is_empty(initialized_scraper):
-    @_ensure_data_labels
-    async def decorated_method(_, *data, **kwargs):
-        pass
-
-    with pytest.raises(ValueError, match=re.escape("'*data' is empty.")):
-        _ = await decorated_method(initialized_scraper, kwarg="value")
-
-
-@pytest.mark.asyncio
 async def test__ensure_launched_does_not_raise_when_data_is_not_empty(
     initialized_scraper,
 ):
-    @_ensure_data_labels
     async def decorated_method(_, *data, **kwargs):
         pass
 
