@@ -19,31 +19,20 @@ A high-level user API for asynchronous fetching, parsing and transformation of S
 ---
 
 ## Features
-- **Efficient Web Scraping:** Fetch and parse raw HTML content from the SVEMO website
-  using the high-performance asynchronous `SVEMOScraper`.
-- **Easy Data Transformation:** Transform `SVEMOScraper` output into structured,
-  easy-to-use Python objects using the robust page models provided in the `pgmodel`
-  module.
-- **Third-party Asynchronous HTTP Client Support:** Built-in support for
-  `aiohttp.ClientSession` and `httpx.AsyncClient`.
-- **Customizable and Extensible:** Easily extend or customize HTTP session behavior 
-  (concurrency control, logging, retry logic, etc.) by implementing your own session
-  adapters, or subclassing native ones.
-
-## License
-
-This project is licensed under the [BSD 3-Clause License](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE).
-
+- **Asynchronous Web Scraping:** Use `SVEMOScraper` to fetch and parse raw HTML content from the SVEMO website.
+- **Structured Data Output:** Transform page data into native Python objects using page models provided in the `pgmodel` module.
+- **Third-party HTTP Client Support:** Compatible with `aiohttp.ClientSession` and `httpx.AsyncClient`.
+- **Customizable Request Handling:** Subclass session adapters to control concurrency, retries, logging, and more.
 
 ## Install
 
 ### PyPI
 
+!!! note
+    Not available at the moment.
 ```bash
 pip install nobrakes
 ```
-!!! note
-    Not available at the moment.
 
 ### Source
 
@@ -52,3 +41,7 @@ git clone https://github.com/jesperpjohansson/nobrakes-dev.git
 cd nobrakes-dev
 pip install .
 ```
+
+## License
+
+This project is licensed under the [BSD 3-Clause License](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE).
