@@ -32,7 +32,7 @@ This project is licensed under the BSD 3-Clause License. See [LICENSE](https://g
 
 User-oriented documentation is available [here](https://nobrakes.readthedocs.io/en/latest/).
 
-## Installation
+## Install
 
 ```bash
 # Clone the repository
