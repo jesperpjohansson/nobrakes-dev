@@ -399,15 +399,13 @@ def test_get_hyperlink_href_returns_href():
 
 
 class TestValidateLaunchArgs:
-    @staticmethod
-    def test_does_not_raise_when_args_are_valid():
+    def test_does_not_raise_when_args_are_valid(self):
         seasons = (FIRST_AVAILABLE_SEASON,)
         tier = next(iter(_scraper._AVAILABLE_TIERS))
         language = next(iter(_scraper._AVAILABLE_LANGUAGES))
         _scraper._validate_launch_args(seasons, tier, language)
 
-    @staticmethod
-    def test_raises_if_args_are_invalid():
+    def test_raises_if_args_are_invalid(self):
         seasons = (FIRST_AVAILABLE_SEASON, FIRST_AVAILABLE_SEASON - 1)
         tier = "S1"
         language = "EN"
@@ -427,9 +425,8 @@ class TestValidateLaunchArgs:
 
 
 class TestCreateNestedPgTasks:
-    @staticmethod
     @pytest.mark.asyncio
-    async def test_returns_expected_value():
+    async def test_returns_expected_value(self):
         mock_pg_module = Mock()
         mock_pg_module.fetch = AsyncMock(return_value="result")
         mock_session = Mock()
@@ -447,9 +444,8 @@ class TestCreateNestedPgTasks:
         result = tasks[0].result()
         assert result == "result"
 
-    @staticmethod
     @pytest.mark.asyncio
-    async def test_coro_is_called_with_delay():
+    async def test_coro_is_called_with_delay(self):
         mock_pg_module = Mock()
         mock_pg_module.fetch = Mock()
         mock_session = Mock()
@@ -467,9 +463,8 @@ class TestCreateNestedPgTasks:
                 )
             mock_delay_func.assert_called_once()
 
-    @staticmethod
     @pytest.mark.asyncio
-    async def test_coro_is_called_with_jitter():
+    async def test_coro_is_called_with_jitter(self):
         mock_pg_module = Mock()
         mock_pg_module.fetch = Mock()
         mock_session = Mock()
@@ -489,8 +484,7 @@ class TestCreateNestedPgTasks:
 
 
 class TestGetFilteredColumnData:
-    @staticmethod
-    def test_returns_expected_values():
+    def test_returns_expected_values(self):
         table = etree.fromstring(
             """
             <table>
@@ -509,38 +503,47 @@ class TestGetFilteredColumnData:
         values = list(map(tuple, columns))
         assert values == [("R2C1", "R3C1"), ("2C2R", "2C3R")]
 
-    @staticmethod
-    def test_raises_when_table_has_no_tbody():
+    def test_raises_when_table_has_no_tbody(self):
         table = etree.fromstring("<table></table>")
         with pytest.raises(ElementError):
             list(_scraper._filtered_column_data(table, {}, {}))
 
 
 class TestSessionAdapterFactory:
-    @staticmethod
+    @pytest.fixture
+    def mock_session_factory(self):
+        def _mock_session_factory(module_name, client_name):
+            mock_class_property = MagicMock()
+            mock_class_property.__module__ = module_name
+            mock_class_property.__name__ = client_name
+
+            mock_session = MagicMock()
+            mock_session.__class__ = mock_class_property
+
+            return mock_session
+
+        return _mock_session_factory
+
     @pytest.mark.parametrize(
         ("module_name", "client_name"),
         [("aiohttp", "NotClientSession"), ("notaiohttp", "ClientSession")],
     )
-    def test_raises_if_adaptee_is_not_supported(module_name, client_name):
-        class DummySession:
-            __module__ = module_name
-
-        DummySession.__name__ = client_name
+    def test_raises_if_adaptee_is_not_supported(
+        self, mock_session_factory, module_name, client_name
+    ):
+        mock_session = mock_session_factory(module_name, client_name)
 
         with pytest.raises(UnsupportedClientError):
-            _scraper._session_adapter_factory(DummySession())
+            _scraper._session_adapter_factory(mock_session)
 
-    @staticmethod
     @pytest.mark.parametrize(
         ("module_name", "client_name"),
         [("aiohttp", "ClientSession"), ("httpx", "AsyncClient")],
     )
-    def test_returns_wrapped_adaptee(monkeypatch, module_name, client_name):
-        class DummySession:
-            __module__ = module_name
-
-        DummySession.__name__ = client_name
+    def test_returns_wrapped_adaptee(
+        self, mock_session_factory, module_name, client_name
+    ):
+        mock_session = mock_session_factory(module_name, client_name)
 
         class DummyAdapter:
             def __init__(self, session):
@@ -548,12 +551,13 @@ class TestSessionAdapterFactory:
 
         adapter_name = f"{module_name.upper()}SessionAdapter"
 
-        monkeypatch.setitem(
-            sys.modules,
-            f"nobrakes.session._concrete_adapters.{module_name}",
-            types.SimpleNamespace(**{adapter_name: DummyAdapter}),
-        )
+        dummy_module = Mock(**{adapter_name: DummyAdapter})
 
-        result = _scraper._session_adapter_factory(DummySession())
+        with patch.dict(
+            sys.modules,
+            {f"nobrakes.session._concrete_adapters.{module_name}": dummy_module},
+        ):
+            result = _scraper._session_adapter_factory(mock_session)
+
         assert isinstance(result, DummyAdapter)
-        assert isinstance(result.session, DummySession)
+        assert isinstance(result.session, type(mock_session))

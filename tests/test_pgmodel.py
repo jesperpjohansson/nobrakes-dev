@@ -16,83 +16,66 @@ from nobrakes.exceptions import ElementError
 from nobrakes.pgmodel import _pgmodel
 from tests.conftest import element_from_string
 
-_DATA_DIR = Path(__file__).parent / "data"
+_PGMODEL_OUTPUT_DIR = Path(__file__).parent / "data/pgmodel_output"
 
 
 @pytest.fixture
 def load_pgmodel_output():
     def _load(filename: str) -> dict:
-        path = _DATA_DIR / f"pgmodel_output/{filename}.json"
+        path = _PGMODEL_OUTPUT_DIR / f"{filename}.json"
         with path.open(encoding="utf-8") as stream:
             return json.load(stream)
 
     return _load
 
 
-def test__get_model_field_names_raises_when___match_args___does_not_return_str_tuple():
-    class ConcreteModel(_pgmodel.PgModel):
-        __match_args__ = (1, 2, 3)
+class Model(_pgmodel.PgModel):
+    _field: ClassVar = None
 
-        def from_pgelements(self, _):
-            pass
+    def from_pgelements(self, _):
+        pass
 
-    exc_msg = re.escape("ConcreteModel.__match_args__ did not return tuple[str, ...].")
+
+def test_get_model_field_names_raises_when_match_args_does_not_return_str_tuple():
+    Model.__match_args__ = (1, 2, 3)
+    exc_msg = re.escape("Model.__match_args__ did not return tuple[str, ...].")
     with pytest.raises(ValueError, match=exc_msg):
-        ConcreteModel._get_model_field_names()
+        Model._get_model_field_names()
 
 
-def test__add_field_raises_when_handler_method_is_not_implemented():
-    class ConcreteModel(_pgmodel.PgModel):
-        def from_pgelements(self, _):
-            pass
-
+@pytest.mark.parametrize(
+    ("field_name", "exc_msg", "exc_type"),
+    [
+        ("missing", "Model is missing handler method '_missing'", NotImplementedError),
+        ("field", "Model._field() is not callable.", TypeError),
+    ],
+)
+def test_add_field_raises(field_name, exc_msg, exc_type):
     fields = {}
-    field_name = "field"
     elem = "element"
 
-    exc_msg = re.escape(f"ConcreteModel is missing handler method '_{field_name}'.")
-    with pytest.raises(NotImplementedError, match=exc_msg):
-        ConcreteModel._add_field(fields, field_name, elem)
+    with pytest.raises(exc_type, match=re.escape(exc_msg)):
+        Model._add_field(fields, field_name, elem)
 
 
-def test__add_field_raises_when_handler_method_is_not_callable():
-    class ConcreteModel(_pgmodel.PgModel):
-        _field: ClassVar = None
-
-        def from_pgelements(self, _):
-            pass
-
-    fields = {}
-    field_name = "field"
-    elem = "element"
-
-    exc_msg = re.escape("ConcreteModel._field() is not callable.")
-    with pytest.raises(TypeError, match=exc_msg):
-        ConcreteModel._add_field(fields, field_name, elem)
-
-
-def test__create_raises_when_data_contains_non_element_value():
-    class ConcreteModel(_pgmodel.PgModel):
-        __match_args__ = ("field_name",)
-
-        def from_pgelements(self, _):
-            pass
+def test_create_raises_when_data_contains_non_element_value():
+    Model.__match_args__ = ("field_name",)
 
     data = {"field_name": "element"}
 
     exc_msg = re.escape("'data' contains a non-element value.")
     with pytest.raises(ValueError, match=exc_msg):
-        ConcreteModel._create(data)
+        Model._create(data)
 
 
-def test__create_adds_none_to_fields():
+def test_create_adds_none_to_fields():
     with patch(
         "nobrakes.pgmodel._pgmodel.PgModel._get_model_field_names",
         new_callable=lambda: ("field_name",),
     ):
 
         @dataclass
-        class ConcreteModel(_pgmodel.PgModel):
+        class _Model(_pgmodel.PgModel):
             field_name: Any
 
             def from_pgelements(self, _):
@@ -100,7 +83,7 @@ def test__create_adds_none_to_fields():
 
     data = {"field_name": None}
     with patch("nobrakes.pgmodel._pgmodel.is_element", lambda _: False):
-        ConcreteModel._create(data)
+        _Model._create(data)
         assert data["field_name"] is None
 
 
@@ -131,13 +114,13 @@ def test_model_assigns_expected_values_to_fields(
     assert asdict(model.from_pgelements(pgfetch_output)) == pgmodel_output
 
 
-def test_attendance__average_raises_when_b_is_none():
+def test_attendance_average_raises_when_b_is_none():
     root = etree.Element("p")
     with pytest.raises(ElementError, match=re.escape("Missing expected element <b>.")):
         _pgmodel.Attendance._average(root)
 
 
-def test_attendance__average_raises_when_b_tail_is_none():
+def test_attendance_average_raises_when_b_tail_is_none():
     root = etree.Element("p")
     child = etree.Element("b")
     child.text = "Attendance figure:"
@@ -152,7 +135,7 @@ def test_attendance__average_raises_when_b_tail_is_none():
 @pytest.mark.parametrize(
     ("exc_type", "n_elements"), [(ElementError, 5), (ElementError, 3)]
 )
-def test_scorecard__result_raises_when_n_children_in_element_is_not_4(
+def test_scorecard_result_raises_when_n_children_in_element_is_not_4(
     exc_type, n_elements
 ):
     root = etree.Element("div")
@@ -162,7 +145,7 @@ def test_scorecard__result_raises_when_n_children_in_element_is_not_4(
         _pgmodel.Scorecard._result(root)
 
 
-def test_scorecard__result_raises_when_text_is_missing_from_child_in_element():
+def test_scorecard_result_raises_when_text_is_missing_from_child_in_element():
     root = etree.Element("p")
     children = list(map(etree.Element, 4 * ["h2"]))
     for child, text in zip(children, ["team1", "pts", "team2", ""], strict=False):
@@ -175,13 +158,13 @@ def test_scorecard__result_raises_when_text_is_missing_from_child_in_element():
         _pgmodel.Scorecard._result(root)
 
 
-def test_scorecard__attendance_raises_when_element_has_no_text():
+def test_scorecard_attendance_raises_when_element_has_no_text():
     root = etree.Element("h3")
     exc_msg = re.escape("Unable to extract attendance figure.")
     with pytest.raises(ElementError, match=exc_msg):
         _pgmodel.Scorecard._attendance(root)
 
 
-def test_squad__guests_returns_none_when_table_has_no_records():
+def test_squad_guests_returns_none_when_table_has_no_records():
     root = element_from_string("""<tbody><tr class="rgNoRecords"></tr></tbody>""")
     assert _pgmodel.Squad._guests(root) is None

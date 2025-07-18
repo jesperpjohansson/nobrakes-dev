@@ -9,25 +9,25 @@ from nobrakes._accumulator import ElementAccumulator
 from nobrakes._models import TagSignature
 
 
-@pytest.fixture
+@pytest.fixture(scope="module")
 def markup():
     return """
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <title>Sample Page</title>
-            </head>
-            <body>
-                <div id="main-content">
-                    <h1 class="title">Welcome to the Sample Page</h1>
-                </div>
-                <div>
-                    <h2 class="title">This is a header</h2>
-                </div>
-            </body>
-            </html>
-        """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <title>Sample Page</title>
+        </head>
+        <body>
+            <div id="main-content">
+                <h1 class="title">Welcome to the Sample Page</h1>
+            </div>
+            <div>
+                <h2 class="title">This is a header</h2>
+            </div>
+        </body>
+        </html>
+    """
 
 
 @pytest.fixture
@@ -58,11 +58,6 @@ def markup_aiter_chars(markup_iter_chars):
             yield char
 
     return iterator()
-
-
-@pytest.fixture
-def expected_remaining_markup(markup):
-    return markup.split("</head>")[-1]
 
 
 @pytest.mark.asyncio
@@ -104,9 +99,8 @@ def test_expected_intermediate_state_when_all_target_tags_exist(markup, tag):
 
 
 @pytest.mark.asyncio
-async def test_aiter_feed_stops_consuming_when_done(
-    markup_aiter_chars, expected_remaining_markup
-):
+async def test_aiter_feed_stops_consuming_when_done(markup, markup_aiter_chars):
+    expected_remaining_markup = markup.split("</head>")[-1]
     acc = ElementAccumulator(TagSignature("head"))
     _ = await acc.aiter_feed(markup_aiter_chars)
     remaining_markup = "".join([c async for c in markup_aiter_chars])
