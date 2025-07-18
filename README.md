@@ -18,12 +18,6 @@ A high-level user API for asynchronous fetching, parsing and transformation of S
 > available speedway data from SVEMO's website for convenience. Use responsibly and
 > respect SVEMO's terms of service.
 
-## Table of Contents
-- [License](#license)
-- [Documentation](#documentation)
-- [Installation](#installation)
-- [Contributing](#contributing)
-
 ## License
 
 This project is licensed under the BSD 3-Clause License. See [LICENSE](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE).
