@@ -35,14 +35,15 @@ A high-level user API for asynchronous fetching, parsing and transformation of S
 This project is licensed under the [BSD 3-Clause License](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE).
 
 
-## 📦 Installation
+## Install
 
 ### PyPI
-!!! note
-    Not yet available.
+
 ```bash
 pip install nobrakes
 ```
+!!! note
+    Not available at the moment.
 
 ### Source
 
