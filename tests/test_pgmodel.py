@@ -14,7 +14,7 @@ import pytest
 
 from nobrakes.exceptions import ElementError
 from nobrakes.pgmodel import _pgmodel
-from tests.conftest import element_from_string
+from tests.conftest import element_from_markup
 
 _PGMODEL_OUTPUT_DIR = Path(__file__).parent / "data/pgmodel_output"
 
@@ -103,7 +103,7 @@ def test_model_assigns_expected_values_to_fields(
     load_pgfetch_output, load_pgmodel_output, model, filename
 ):
     pgfetch_output = {
-        k: element_from_string(v) for k, v in load_pgfetch_output(filename).items()
+        k: element_from_markup(v) for k, v in load_pgfetch_output(filename).items()
     }
 
     pgmodel_output = load_pgmodel_output(filename)
@@ -166,5 +166,5 @@ def test_scorecard_attendance_raises_when_element_has_no_text():
 
 
 def test_squad_guests_returns_none_when_table_has_no_records():
-    root = element_from_string("""<tbody><tr class="rgNoRecords"></tr></tbody>""")
+    root = element_from_markup("""<tbody><tr class="rgNoRecords"></tr></tbody>""")
     assert _pgmodel.Squad._guests(root) is None

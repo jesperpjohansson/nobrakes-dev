@@ -12,7 +12,7 @@ from nobrakes.exceptions import (
     ElementError,
 )
 from nobrakes.typing import ETreeElement
-from tests.conftest import element_from_string
+from tests.conftest import element_from_markup
 
 MODULEPATH = "nobrakes._scraper.table_browser"
 
@@ -37,7 +37,7 @@ def browser_target_tags():
 
 @pytest.fixture
 def viewstate():
-    return element_from_string(
+    return element_from_markup(
         """<input name="__VIEWSTATE" id="__VIEWSTATE" value="abc+pg1...xyz">"""
     )
 
@@ -108,7 +108,7 @@ def table_pg1(next_page_button):
     )
 
     table = TABLE_TEMPLATE.format(pagination=pagination)
-    return element_from_string(table)
+    return element_from_markup(table)
 
 
 @pytest.fixture
@@ -119,12 +119,12 @@ def table_pg4(next_page_button):
     )
 
     table = TABLE_TEMPLATE.format(pagination=pagination)
-    return element_from_string(table)
+    return element_from_markup(table)
 
 
 @pytest.fixture
 def table_no_pagination():
-    return element_from_string(TABLE_TEMPLATE.format(pagination=""))
+    return element_from_markup(TABLE_TEMPLATE.format(pagination=""))
 
 
 @pytest.fixture
@@ -142,7 +142,7 @@ def table_no_pagination_button_text(next_page_button):
     )
 
     table = TABLE_TEMPLATE.format(pagination=pagination)
-    return element_from_string(table)
+    return element_from_markup(table)
 
 
 @pytest.fixture
@@ -152,7 +152,7 @@ def table_no_next_page_button():
     )
 
     table = TABLE_TEMPLATE.format(pagination=pagination)
-    return element_from_string(table)
+    return element_from_markup(table)
 
 
 @pytest.fixture

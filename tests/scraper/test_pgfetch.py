@@ -1,6 +1,5 @@
 """Tests for `nobrakes._scraper.pgfetch`."""
 
-from contextlib import contextmanager
 import re
 from typing import get_args
 from unittest.mock import AsyncMock, MagicMock, Mock, patch
@@ -27,19 +26,18 @@ from nobrakes.exceptions import (
     TablePageLimitError,
 )
 from nobrakes.typing._typing import TabPgModuleLabel
-from tests.conftest import normalize_markup, normalize_url
+from tests.conftest import DATA_DIR, normalize_markup, normalize_url
 
 SUBPKGPATH = "nobrakes._scraper.pgfetch"
 
 
 @pytest.fixture
-def patch_local_func():
-    @contextmanager
-    def _patch_local_func(module, target, *args, **kwargs):
-        with patch(f"{SUBPKGPATH}.{module}.{target}", *args, **kwargs):
-            yield
+def load_markup():
+    def _load(filename: str) -> str:
+        path = DATA_DIR / f"markup/{filename}.html"
+        return path.read_text("utf-8")
 
-    return _patch_local_func
+    return _load
 
 
 @pytest.fixture
@@ -47,16 +45,6 @@ def named_target_tags() -> HashableMapping:
     return HashableMapping(
         {"label1": "element1", "label2": "element2", "label3": "element3"}
     )
-
-
-@pytest.fixture
-def labels_accumulated_order(named_target_tags):
-    return list(named_target_tags.keys())
-
-
-@pytest.fixture
-def elements_accumulated_order(named_target_tags):
-    return list(named_target_tags.values())
 
 
 def test_get_target_tags_subset_returns_correct_subset():
@@ -81,17 +69,14 @@ class TestGetSortingIndexes:
 @pytest.mark.asyncio
 async def test_extract_elements_raises_when_element_is_missing(
     named_target_tags,
-    make_mock_session,
-    labels_accumulated_order,
-    elements_accumulated_order,
+    mock_session,
 ):
-    missing_element = elements_accumulated_order.pop(1)
-
-    mock_session = make_mock_session()
+    elements = list(named_target_tags.values())
+    missing_element = elements.pop()
 
     mock_accumulator = Mock()
     mock_accumulator.remaining = (missing_element,)
-    mock_accumulator.aiter_feed = AsyncMock(return_value=elements_accumulated_order)
+    mock_accumulator.aiter_feed = AsyncMock(return_value=elements)
 
     with (
         patch(f"{SUBPKGPATH}.ElementAccumulator", return_value=mock_accumulator),
@@ -101,13 +86,12 @@ async def test_extract_elements_raises_when_element_is_missing(
             mock_session,
             "https://example.com",
             named_target_tags,
-            *labels_accumulated_order,
+            *named_target_tags.keys(),
         )
 
 
 @pytest.mark.asyncio
-async def test_extract_elements_returns_elements(named_target_tags, make_mock_session):
-    mock_session = make_mock_session()
+async def test_extract_elements_returns_elements(named_target_tags, mock_session):
     data_labels = list(named_target_tags.keys())
     mock_elements = list(named_target_tags.values())
 
@@ -158,48 +142,44 @@ async def test_fetch_finds_nodes(
 
 class TestFetchHome:
     @pytest.fixture
-    def patched_fetch(self, patch_local_func):
+    def patched_fetch(self, mock_session):
         mock_extract_elements = AsyncMock(return_value={"navbar": "navbar"})
         mock_select_accordion = Mock(return_value="accordion")
-        mock_session = Mock()
         url = "http://example.com"
         season = 2025
         tier = 1
 
         with (
-            patch_local_func("home", "extract_elements", mock_extract_elements),
-            patch_local_func("home", "_select_accordion", mock_select_accordion),
+            patch(f"{SUBPKGPATH}.home.extract_elements", mock_extract_elements),
+            patch(f"{SUBPKGPATH}.home._select_accordion", mock_select_accordion),
         ):
             yield home.fetch(mock_session, url, season, tier=tier)
 
     @pytest.mark.parametrize("key", ["results", "previous_results"])
-    def test_select_accordion_raises_if_accordion_is_not_found(
-        self, key, patch_local_func
-    ):
+    def test_select_accordion_raises_if_accordion_is_not_found(self, key):
         mock_element = Mock()
         exc_msg = (
             f"Failed selecting the {key.replace('_', ' ')} "
             "accordion in the navigation bar."
         )
         with (
-            patch_local_func(
-                "home", "xpath.first_element_e", Mock(side_effect=ElementError)
+            patch(
+                f"{SUBPKGPATH}.home.xpath.first_element_e",
+                Mock(side_effect=ElementError),
             ),
             pytest.raises(FetchError, match=re.escape(exc_msg)),
         ):
             home._select_accordion(mock_element, key)
 
-    def test_extract_previous_season_urls_raises_if_not_season(self, patch_local_func):
+    def test_extract_previous_season_urls_raises_if_not_season(self):
         exc_msg = "Failed to extract season from hyperlink text."
         with (
-            patch_local_func("home", "xpath.string", Mock(return_value=None)),
+            patch(f"{SUBPKGPATH}.home.xpath.string", Mock(return_value=None)),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             next(home._extract_previous_season_urls([Mock()], []))
 
-    def test_extract_previous_season_urls_raises_if_href_is_none(
-        self, patch_local_func
-    ):
+    def test_extract_previous_season_urls_raises_if_href_is_none(self):
         tier_alias = "League Name"
 
         def mock_xpath_string(_, selector):
@@ -207,32 +187,30 @@ class TestFetchHome:
 
         exc_msg = "Failed to extract URL from hyperlink href."
         with (
-            patch_local_func("home", "xpath.string", mock_xpath_string),
+            patch(f"{SUBPKGPATH}.home.xpath.string", mock_xpath_string),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             next(home._extract_previous_season_urls([Mock()], [tier_alias]))
 
     def test_extract_previous_season_urls_raises_if_season_is_not_convertible_to_int(
         self,
-        patch_local_func,
     ):
         season = "twentytwenty"
         exc_msg = f'Failed converting season "{season}" to integer.'
         with (
-            patch_local_func("home", "xpath.string", Mock(return_value=season)),
+            patch(f"{SUBPKGPATH}.home.xpath.string", Mock(return_value=season)),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             next(home._extract_previous_season_urls([Mock()], ["Elitserien"]))
 
     def test_extract_current_season_url_raises_if_current_season_url_is_not_found(
         self,
-        patch_local_func,
     ):
         tier_aliases = ["Elitserien"]
         exc_msg = f"Could not select any href using tier aliases: {tier_aliases}"
 
         with (
-            patch_local_func("home", "xpath.string", Mock(return_value=None)),
+            patch(f"{SUBPKGPATH}.home.xpath.string", Mock(return_value=None)),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             home._extract_current_season_url(Mock(), tier_aliases)
@@ -250,13 +228,14 @@ class TestFetchHome:
 
     @pytest.mark.asyncio
     async def test_fetch_raises_if_extract_previous_season_urls_raises(
-        self, patched_fetch, patch_local_func
+        self, patched_fetch
     ):
         exc_msg = "Failed fetching URLs to result pages of previous seasons."
 
         with (
-            patch_local_func(
-                "home", "_extract_previous_season_urls", Mock(side_effect=Exception)
+            patch(
+                f"{SUBPKGPATH}.home._extract_previous_season_urls",
+                Mock(side_effect=Exception),
             ),
             pytest.raises(FetchError, match=re.escape(exc_msg)),
         ):
@@ -264,17 +243,17 @@ class TestFetchHome:
 
     @pytest.mark.asyncio
     async def test_fetch_raises_if_extract_current_season_url_raises(
-        self, patched_fetch, patch_local_func
+        self, patched_fetch
     ):
         exc_msg = "Failed fetching the URL to the current season results page."
         with (
-            patch_local_func(
-                "home",
-                "_extract_previous_season_urls",
+            patch(
+                f"{SUBPKGPATH}.home._extract_previous_season_urls",
                 Mock(return_value=[(2024, "url")]),
             ),
-            patch_local_func(
-                "home", "_extract_current_season_url", Mock(side_effect=Exception)
+            patch(
+                f"{SUBPKGPATH}.home._extract_current_season_url",
+                Mock(side_effect=Exception),
             ),
             pytest.raises(FetchError, match=re.escape(exc_msg)),
         ):
@@ -309,24 +288,23 @@ class TestFetchResults:
 
     @pytest.mark.asyncio
     async def test_fetch_raises_when_missing_tabs(
-        self, patch_local_func, make_mock_extract_elements
+        self, mock_session, make_mock_extract_elements
     ):
         pg_names = ["pg1", "pg2", "pg3", "pg4", "pg5"]
         tab_panels = ["elem1", "elem2"]
 
-        mock_session = Mock()
         mock_extract_elements = make_mock_extract_elements(tab_panels)
 
         exc_msg = f"Expected {len(pg_names)} tabs, found {len(tab_panels)}."
         with (
-            patch_local_func("results", "extract_elements", mock_extract_elements),
+            patch(f"{SUBPKGPATH}.results.extract_elements", mock_extract_elements),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             await results.fetch(mock_session, "http://example.com", *pg_names)
 
     @pytest.mark.asyncio
     async def test_fetch_raises_when_url_extraction_fails(
-        self, patch_local_func, make_mock_extract_elements
+        self, mock_session, make_mock_extract_elements
     ):
         pg_names = ["pg1", "pg2", "pg3", "pg4"]
         tab_panels = [
@@ -336,12 +314,11 @@ class TestFetchResults:
             {"src": ""},
         ]
 
-        mock_session = Mock()
         mock_extract_elements = make_mock_extract_elements(tab_panels)
 
         exc_msg = "Failed extracting URL(s) for pages: ['pg1', 'pg4']"
         with (
-            patch_local_func("results", "extract_elements", mock_extract_elements),
+            patch(f"{SUBPKGPATH}.results.extract_elements", mock_extract_elements),
             pytest.raises(ElementError, match=re.escape(exc_msg)),
         ):
             await results.fetch(mock_session, "http://example.com", *pg_names)

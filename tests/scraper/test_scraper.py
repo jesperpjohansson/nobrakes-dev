@@ -32,7 +32,7 @@ def initialized_scraper(mock_session) -> _scraper.SVEMOScraper:
 
 
 @pytest_asyncio.fixture
-def launch_scraper(monkeypatch) -> _scraper.SVEMOScraper:
+def launch_scraper() -> _scraper.SVEMOScraper:
     async def _launch_scraper(scraper: _scraper.SVEMOScraper):
         mock_home_fetch = AsyncMock(return_value={2023: "https://example.com/2023"})
         mock_results_fetch = AsyncMock(
@@ -41,15 +41,11 @@ def launch_scraper(monkeypatch) -> _scraper.SVEMOScraper:
 
         mock_home_pg_module = MagicMock(fetch=mock_home_fetch)
         mock_results_pg_module = MagicMock(fetch=mock_results_fetch)
-
-        monkeypatch.setattr(
+        with patch(
             f"{MODULEPATH}.SVEMOScraper._import_pg_module",
-            lambda name: (
-                mock_home_pg_module if name == "home" else mock_results_pg_module
-            ),
-        )
-
-        return await scraper.launch(2023, tier=1, language="sv-se")
+            lambda x: mock_home_pg_module if x == "home" else mock_results_pg_module,
+        ):
+            return await scraper.launch(2023, tier=1, language="sv-se")
 
     return _launch_scraper
 
@@ -154,7 +150,7 @@ async def test_launch_raises_if_tab_pg_url_fetch_fails(initialized_scraper):
 
 
 @pytest.mark.asyncio
-async def test__fetch_tab_pg_data_returns_expected_items(launched_scraper):
+async def test_fetch_tab_pg_data_returns_expected_items(launched_scraper):
     expected = {"K", "V"}
 
     with patch(f"{MODULEPATH}.SVEMOScraper._import_pg_module") as mock_import_pg_module:
@@ -169,7 +165,7 @@ async def test__fetch_tab_pg_data_returns_expected_items(launched_scraper):
 
 
 @pytest.mark.asyncio
-async def test__fetch_tab_pg_data_raises_if_unavailable_season(
+async def test_fetch_tab_pg_data_raises_if_unavailable_season(
     initialized_scraper, launch_scraper
 ):
     await launch_scraper(initialized_scraper)
@@ -183,7 +179,7 @@ async def test__fetch_tab_pg_data_raises_if_unavailable_season(
 
 
 @pytest.mark.asyncio
-async def test__fetch_tab_pg_data_raises_when_fetch_fails(initialized_scraper):
+async def test_fetch_tab_pg_data_raises_when_fetch_fails(initialized_scraper):
     test_season = 2025
     test_pg = "events"
     test_url = "https://example.com"
@@ -202,7 +198,7 @@ async def test__fetch_tab_pg_data_raises_when_fetch_fails(initialized_scraper):
 
 
 @pytest.mark.asyncio
-async def test__fetch_nested_pg_data_returns_expected_items(launched_scraper):
+async def test_fetch_nested_pg_data_returns_expected_items(launched_scraper):
     fallback = AsyncMock(return_value={"table": MagicMock()})
 
     key_columns = [["2025-05-01", "2025-05-02"], ["Team A", "Team B"]]
@@ -242,7 +238,7 @@ async def test__fetch_nested_pg_data_returns_expected_items(launched_scraper):
 
 
 @pytest.mark.asyncio
-async def test__fetch_nested_pg_data_raises_when_fetch_fails(launched_scraper):
+async def test_fetch_nested_pg_data_raises_when_fetch_fails(launched_scraper):
     fallback = AsyncMock(return_value={"table": MagicMock()})
     exc_msg = "Failed fetching data from page(s)."
     with (
@@ -272,7 +268,7 @@ async def test__fetch_nested_pg_data_raises_when_fetch_fails(launched_scraper):
 
 
 @pytest.mark.asyncio
-async def test__fetch_nested_pg_data_raises_when_cached_table_is_not_an_element(
+async def test_fetch_nested_pg_data_raises_when_cached_table_is_not_an_element(
     launched_scraper,
 ):
     fallback = AsyncMock(return_value={"table": "not_an_element"})
@@ -299,7 +295,7 @@ async def test__fetch_nested_pg_data_raises_when_cached_table_is_not_an_element(
 
 
 @pytest.mark.asyncio
-async def test__ensure_launched_raises_when_not_launched(initialized_scraper):
+async def test_ensure_launched_raises_when_not_launched(initialized_scraper):
     initialized_scraper._launched = False
 
     @_scraper._ensure_launched
@@ -311,7 +307,7 @@ async def test__ensure_launched_raises_when_not_launched(initialized_scraper):
 
 
 @pytest.mark.asyncio
-async def test__ensure_launched_does_not_raise_when_launched(initialized_scraper):
+async def test_ensure_launched_does_not_raise_when_launched(initialized_scraper):
     initialized_scraper._launched = True
 
     @_scraper._ensure_launched
@@ -322,7 +318,7 @@ async def test__ensure_launched_does_not_raise_when_launched(initialized_scraper
 
 
 @pytest.mark.asyncio
-async def test__ensure_launched_does_not_raise_when_data_is_not_empty(
+async def test_ensure_launched_does_not_raise_when_data_is_not_empty(
     initialized_scraper,
 ):
     async def decorated_method(_, *data, **kwargs):
@@ -388,13 +384,7 @@ def test_import_pg_module_returns_module(monkeypatch):
 
 
 def test_get_hyperlink_href_returns_href():
-    elem = etree.fromstring(
-        """
-        <td>
-            <a href="http://example.com">Link</a>
-        </td>
-        """
-    )
+    elem = etree.fromstring("""<td><a href="http://example.com">Link</a></td>""")
     assert _scraper._get_hyperlink_href(elem) == "http://example.com"
 
 
@@ -425,62 +415,39 @@ class TestValidateLaunchArgs:
 
 
 class TestCreateNestedPgTasks:
+    @pytest.fixture
+    def kwargs(self):
+        return {
+            "pg_module": Mock(fetch=Mock()),
+            "session": Mock(),
+            "urls": ["http://example.com"],
+            "delay": None,
+            "jitter": None,
+        }
+
     @pytest.mark.asyncio
-    async def test_returns_expected_value(self):
-        mock_pg_module = Mock()
-        mock_pg_module.fetch = AsyncMock(return_value="result")
-        mock_session = Mock()
+    async def test_returns_expected_value(self, kwargs):
+        kwargs["pg_module"].fetch = AsyncMock(return_value="result")
         async with asyncio.TaskGroup() as tg:
-            tasks = _scraper._create_nested_pg_tasks(
-                pg_module=mock_pg_module,
-                tg=tg,
-                session=mock_session,
-                urls=["http://example.com"],
-                delay=None,
-                jitter=None,
-            )
+            tasks = _scraper._create_nested_pg_tasks(**kwargs, tg=tg)
 
         assert len(tasks) == 1
         result = tasks[0].result()
         assert result == "result"
 
     @pytest.mark.asyncio
-    async def test_coro_is_called_with_delay(self):
-        mock_pg_module = Mock()
-        mock_pg_module.fetch = Mock()
-        mock_session = Mock()
-        with patch(
-            f"{MODULEPATH}.with_delay", new_callable=AsyncMock
-        ) as mock_delay_func:
-            async with asyncio.TaskGroup() as tg:
-                _ = _scraper._create_nested_pg_tasks(
-                    pg_module=mock_pg_module,
-                    tg=tg,
-                    session=mock_session,
-                    urls=["http://example.com"],
-                    delay=1,
-                    jitter=None,
-                )
-            mock_delay_func.assert_called_once()
+    @pytest.mark.parametrize(
+        ("func_name", "k", "v"),
+        [("with_delay", "delay", 1), ("with_jitter", "jitter", (0, 1))],
+    )
+    async def test_coro_is_called_with_sleep_func(self, kwargs, func_name, k, v):
+        kwargs[k] = v
 
-    @pytest.mark.asyncio
-    async def test_coro_is_called_with_jitter(self):
-        mock_pg_module = Mock()
-        mock_pg_module.fetch = Mock()
-        mock_session = Mock()
-        with patch(
-            f"{MODULEPATH}.with_jitter", new_callable=AsyncMock
-        ) as mock_jitter_func:
+        with patch(f"{MODULEPATH}.{func_name}", new_callable=AsyncMock) as mock_func:
             async with asyncio.TaskGroup() as tg:
-                _ = _scraper._create_nested_pg_tasks(
-                    pg_module=mock_pg_module,
-                    tg=tg,
-                    session=mock_session,
-                    urls=["http://example.com"],
-                    delay=None,
-                    jitter=(0, 1),
-                )
-            mock_jitter_func.assert_called_once()
+                _ = _scraper._create_nested_pg_tasks(**kwargs, tg=tg)
+
+        mock_func.assert_called_once()
 
 
 class TestGetFilteredColumnData:

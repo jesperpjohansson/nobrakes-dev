@@ -11,15 +11,17 @@ import pytest
 
 from nobrakes.typing import ETreeElement
 
-_DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR = Path(__file__).parent / "data"
 
-_INVALID_URL_CHR_RE = re.compile(r"�|”|ï|¿|½")
 
-_WHITESPACE_RE = re.compile(r"[\n\r\t]+")
+_INVALID_URL_CHAR_RE = re.compile(r"�|”|ï|¿|½")
 
 
 def normalize_url(url: str) -> str:
-    return _INVALID_URL_CHR_RE.sub("", url)
+    return _INVALID_URL_CHAR_RE.sub("", url)
+
+
+_WHITESPACE_RE = re.compile(r"[\n\r\t]+")
 
 
 def normalize_markup(text: bytes | str) -> str:
@@ -33,35 +35,19 @@ def normalize_markup(text: bytes | str) -> str:
     return text.strip()
 
 
-@pytest.fixture
-def load_markup():
-    def _load(filename: str) -> str:
-        path = _DATA_DIR / f"markup/{filename}.html"
-        return path.read_text("utf-8")
-
-    return _load
-
-
-@pytest.fixture
-def load_pgfetch_output():
-    def _load(filename: str) -> dict[str, str]:
-        path = _DATA_DIR / f"pgfetch_output/{filename}.json"
-        with path.open() as f:
-            return json.load(f)
-
-    return _load
-
-
-def element_from_string(markup) -> ETreeElement:
-    if isinstance(markup, bytes):
-        markup = markup.decode()
+def element_from_markup(markup: str) -> ETreeElement:
     root = re.search(r"[^<>\s]+", markup).group()
     return etree.fromstring(markup, parser=etree.HTMLParser()).find(f".//{root}")
 
 
 @pytest.fixture
-def markup():
-    return b""
+def load_pgfetch_output():
+    def _load(filename: str) -> dict[str, str]:
+        path = DATA_DIR / f"pgfetch_output/{filename}.json"
+        with path.open() as f:
+            return json.load(f)
+
+    return _load
 
 
 class _ACMMixin:

@@ -2,13 +2,12 @@
 
 import importlib
 import sys
-from unittest.mock import AsyncMock, MagicMock, Mock
+from unittest.mock import AsyncMock, MagicMock, Mock, patch
 
 import aiohttp
 import pytest
 
-from nobrakes.session._concrete_adapters import aiohttp as a_aiohttp, httpx as a_httpx
-from nobrakes.session._utils import DummyCookieJar
+from nobrakes import session
 
 
 @pytest.mark.parametrize(
@@ -20,28 +19,30 @@ from nobrakes.session._utils import DummyCookieJar
         ("httpx", "HTTPXSessionAdapter"),
     ],
 )
-def test_adapter_raises_if_missing_dependency(monkeypatch, lib, class_name):
-    monkeypatch.setattr(
-        importlib.util, "find_spec", lambda name: None if name == lib else "not_none"
-    )
-
+def test_adapter_raises_if_missing_dependency(lib, class_name):
     sys.modules.pop("nobrakes.session._concrete_adapters", None)
-    module = importlib.import_module("nobrakes.session._concrete_adapters")
+    with patch.object(
+        importlib.util, "find_spec", lambda name: None if name == lib else "not_none"
+    ):
+        module = importlib.import_module("nobrakes.session._concrete_adapters")
+
     missing_class = getattr(module, class_name)
     with pytest.raises(ImportError, match=f"{class_name}.*{lib}"):
         missing_class()
 
 
 @pytest.mark.parametrize("lib", ["aiohttp", "httpx"])
-def test_module_raises_if_missing_dependency(lib, monkeypatch):
+def test_module_raises_if_missing_dependency(lib):
     module_path = f"nobrakes.session._concrete_adapters.{lib}"
 
     # Ensure a fresh import
     sys.modules.pop(module_path, None)
-    monkeypatch.setattr(importlib.util, "find_spec", lambda _: None)
 
     # Patch the correct path to find_spec inside the target module
-    with pytest.raises(ImportError, match=f"Missing required dependency '{lib}'"):
+    with (
+        patch.object(importlib.util, "find_spec", lambda _: None),
+        pytest.raises(ImportError, match=f"Missing required dependency '{lib}'"),
+    ):
         importlib.import_module(module_path)
 
 
@@ -51,31 +52,35 @@ class TestSessionAdapters:
         return MagicMock()
 
     @pytest.mark.parametrize(
-        ("module", "request_method_name", "s_adapter_name", "r_adapter_name"),
+        ("request_method_name", "session_adapter_name", "response_adapter_name"),
         [
-            (a_aiohttp, "request", "AIOHTTPSessionAdapter", "AIOHTTPResponseAdapter"),
-            (a_httpx, "stream", "HTTPXSessionAdapter", "HTTPXResponseAdapter"),
+            ("request", "AIOHTTPSessionAdapter", "AIOHTTPResponseAdapter"),
+            ("stream", "HTTPXSessionAdapter", "HTTPXResponseAdapter"),
         ],
     )
     @pytest.mark.asyncio
     async def test_request_method_wraps_response(
-        self, mock_session, module, request_method_name, s_adapter_name, r_adapter_name
+        self,
+        mock_session,
+        request_method_name,
+        session_adapter_name,
+        response_adapter_name,
     ):
         request_method = getattr(mock_session, request_method_name)
 
-        adapter_type = getattr(module, r_adapter_name)
-        session_adapter_type = getattr(module, s_adapter_name)
+        response_adapter_type = getattr(session, response_adapter_name)
+        session_adapter_type = getattr(session, session_adapter_name)
 
         session_adapter = session_adapter_type(mock_session)
 
         async with session_adapter.request("get", "http://example.com") as response:
-            assert isinstance(response, adapter_type)
+            assert isinstance(response, response_adapter_type)
 
         request_method.assert_called_once_with("get", "http://example.com")
 
     @pytest.mark.asyncio
     @pytest.mark.parametrize(
-        "adapter_type", [a_aiohttp.AIOHTTPSessionAdapter, a_httpx.HTTPXSessionAdapter]
+        "adapter_type", [session.AIOHTTPSessionAdapter, session.HTTPXSessionAdapter]
     )
     async def test_session_adapter_headers_returns_session_headers(
         self, mock_session, adapter_type
@@ -87,15 +92,15 @@ class TestSessionAdapters:
 
     @pytest.mark.asyncio
     async def test_aiohttp_session_adapter_sets_dummy_cookie_jar(self, mock_session):
-        _ = a_aiohttp.AIOHTTPSessionAdapter(mock_session)
+        _ = session.AIOHTTPSessionAdapter(mock_session)
         assert type(mock_session._cookie_jar) is aiohttp.DummyCookieJar
 
     def test_httpx_session_adapter_sets_dummy_cookie_jar(self, mock_session):
-        _ = a_httpx.HTTPXSessionAdapter(mock_session)
-        assert type(mock_session.cookies.jar) is DummyCookieJar
+        _ = session.HTTPXSessionAdapter(mock_session)
+        assert type(mock_session.cookies.jar) is session.DummyCookieJar
 
     def test_httpx_session_adapter_enables_redirects(self, mock_session):
-        _ = a_httpx.HTTPXSessionAdapter(mock_session)
+        _ = session.HTTPXSessionAdapter(mock_session)
         assert mock_session.follow_redirects is True
 
 
@@ -113,7 +118,7 @@ class TestResponseAdapters:
 
     @pytest.mark.parametrize(
         "adapter_type",
-        [a_aiohttp.AIOHTTPResponseAdapter, a_httpx.HTTPXResponseAdapter],
+        [session.AIOHTTPResponseAdapter, session.HTTPXResponseAdapter],
     )
     async def test_calls_session_raise_for_status(self, adapter_type):
         mock_response = MagicMock()
@@ -124,8 +129,8 @@ class TestResponseAdapters:
     @pytest.mark.parametrize(
         ("adapter_type", "read_method_name"),
         [
-            (a_aiohttp.AIOHTTPResponseAdapter, "read"),
-            (a_httpx.HTTPXResponseAdapter, "aread"),
+            (session.AIOHTTPResponseAdapter, "read"),
+            (session.HTTPXResponseAdapter, "aread"),
         ],
     )
     async def test_read_returns_data(self, markup, adapter_type, read_method_name):
@@ -137,8 +142,8 @@ class TestResponseAdapters:
     @pytest.mark.parametrize(
         ("adapter_type", "method_name"),
         [
-            (a_aiohttp.AIOHTTPResponseAdapter, "iter_chunks"),
-            (a_httpx.HTTPXResponseAdapter, "aiter_bytes"),
+            (session.AIOHTTPResponseAdapter, "iter_chunks"),
+            (session.HTTPXResponseAdapter, "aiter_bytes"),
         ],
     )
     async def test_iter_chunks_returns_chunks_iterator(
@@ -176,7 +181,7 @@ class TestResponseAdapters:
 
     @pytest.mark.parametrize(
         "adapter_type",
-        [a_aiohttp.AIOHTTPResponseAdapter, a_httpx.HTTPXResponseAdapter],
+        [session.AIOHTTPResponseAdapter, session.HTTPXResponseAdapter],
     )
     async def test_iter_lines_yields_lines(self, markup, adapter_type):
         mock_response = MagicMock()
