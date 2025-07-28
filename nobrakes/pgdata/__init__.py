@@ -20,10 +20,10 @@ nobrakes.pgmodel :
     Defines ready-to-use page data transformation models.
 """
 
-from nobrakes.pgelements._pgelements import (
+from nobrakes.pgdata._pgdata import (
     Attendance,
     Events,
-    PgElements,
+    PgData,
     RiderAverages,
     Scorecard,
     Squad,
@@ -34,7 +34,7 @@ from nobrakes.pgelements._pgelements import (
 __all__ = [
     "Attendance",
     "Events",
-    "PgElements",
+    "PgData",
     "RiderAverages",
     "Scorecard",
     "Squad",

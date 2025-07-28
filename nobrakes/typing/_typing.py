@@ -23,7 +23,7 @@ from lxml import etree
 if TYPE_CHECKING:
     from nobrakes._models import HashableMapping, TagSignature
     from nobrakes.client._base import SessionAdapter
-    from nobrakes.pgelements import PgElements
+    from nobrakes.pgdata import PgData
 
 # ≡≡≡ API ≡≡≡
 # Objects defined in this section are considered part of the user API and are
@@ -79,7 +79,7 @@ type TabPgModuleLabel = Literal[
 
 type TabPgKey = tuple[TabPgModuleLabel, int]
 type URLCache = dict[TabPgKey, URL]
-type PgCache = dict[TabPgKey, "PgElements"]
+type PgCache = dict[TabPgKey, "PgData"]
 
 type NamedTargetTags = "HashableMapping[str, TagSignature]"
 

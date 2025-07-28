@@ -27,7 +27,7 @@ async def main():
         pg_data = await scraper.attendance("average", season=2023)
     
     # The page model transforms the parsed page data and extracts relevant information
-    pg_model = pgmodel.Attendance.from_pgelements(pg_data)
+    pg_model = pgmodel.Attendance.from_pgdata(pg_data)
 
     # The attendance page hosts two extractable sections, a paragraph containing the
     # seasonal average attendance and a table containing event-specific attendance

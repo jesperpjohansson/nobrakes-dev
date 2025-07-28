@@ -11,9 +11,9 @@ See Also
 --------
 nobrakes.SVEMOScraper :
     Extracts HTML elements from SVEMO pages, producing the data structures
-    found in `nobrakes.pgelements`.
+    found in `nobrakes.pgdata`.
 
-nobrakes.pgelements :
+nobrakes.pgdata :
     Contains the HTML-element based data structures used as input to these models.
 """
 

@@ -1,5 +1,5 @@
 ::: nobrakes.SVEMOScraper
-::: nobrakes.pgelements
+::: nobrakes.pgdata
 ::: nobrakes.pgmodel
 ::: nobrakes.client
 ::: nobrakes.exceptions

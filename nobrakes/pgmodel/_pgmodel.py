@@ -14,7 +14,7 @@ from dataclasses import dataclass
 import re
 from typing import Any, ClassVar, Self, cast, final, override
 
-from nobrakes import pgelements
+from nobrakes import pgdata
 from nobrakes._constants import TA_DOMAIN
 from nobrakes._element_utils import string, table, xpath
 from nobrakes.exceptions import ElementError
@@ -48,7 +48,7 @@ class PgModel(ABC):
 
     @classmethod
     @abstractmethod
-    def from_pgelements(cls, data) -> Self:  # noqa: ANN001
+    def from_pgdata(cls, data) -> Self:  # noqa: ANN001
         """
         Abstract factory method.
 
@@ -122,7 +122,7 @@ class PgModel(ABC):
 
     @final
     @classmethod
-    def _create(cls, data: pgelements.PgElements) -> Self:
+    def _create(cls, data: pgdata.PgData) -> Self:
         """
         Instantiate a model.
 
@@ -133,7 +133,7 @@ class PgModel(ABC):
 
         Parameters
         ----------
-        data : pgelements.PgElements
+        data : pgdata.PgData
             A mapping of model field names to `ETreeElement` instances.
 
         Returns
@@ -168,7 +168,7 @@ class Attendance(PgModel):
     """
     Transformed attendance page data.
 
-    Must be instantiated using `pgmodel.Attendance.from_pgelements()`.
+    Must be instantiated using `pgmodel.Attendance.from_pgdata()`.
 
     Attributes
     ----------
@@ -183,13 +183,13 @@ class Attendance(PgModel):
     table: list[list[str]] | None
 
     @classmethod
-    def from_pgelements(cls, data: pgelements.Attendance) -> Self:
+    def from_pgdata(cls, data: pgdata.Attendance) -> Self:
         """
         Create an instance of `pgmodel.Attendance`.
 
         Parameters
         ----------
-        data : pgelements.Attendance
+        data : pgdata.Attendance
             Mapping of `pgmodel.Attendance` field names to instances of
             `ETreeElement`.
 
@@ -227,7 +227,7 @@ class RiderAverages(PgModel):
     """
     Transformed rider averages page data.
 
-    Must be instantiated using `pgmodel.RiderAverages.from_pgelements()`.
+    Must be instantiated using `pgmodel.RiderAverages.from_pgdata()`.
 
     Attributes
     ----------
@@ -243,13 +243,13 @@ class RiderAverages(PgModel):
     table: list[list[str]] | None
 
     @classmethod
-    def from_pgelements(cls, data: pgelements.RiderAverages) -> Self:
+    def from_pgdata(cls, data: pgdata.RiderAverages) -> Self:
         """
         Create an instance of `pgmodel.RiderAverages`.
 
         Parameters
         ----------
-        data : pgelements.RiderAverages
+        data : pgdata.RiderAverages
             Mapping of `pgmodel.RiderAverages` field names to instances of
             `ETreeElement`.
 
@@ -272,7 +272,7 @@ class Events(PgModel):
     """
     Transformed events page data.
 
-    Must be instantiated using `pgmodel.Events.from_pgelements()`.
+    Must be instantiated using `pgmodel.Events.from_pgdata()`.
 
     Attributes
     ----------
@@ -297,13 +297,13 @@ class Events(PgModel):
     table: list[list[str | None]] | None
 
     @classmethod
-    def from_pgelements(cls, data: pgelements.Events) -> Self:
+    def from_pgdata(cls, data: pgdata.Events) -> Self:
         """
         Create an instance of `pgmodel.Events`.
 
         Parameters
         ----------
-        data : pgelements.Attendance
+        data : pgdata.Attendance
             Mapping of `pgmodel.Attendance` field names to instances of
             `ETreeElement`.
 
@@ -326,7 +326,7 @@ class Scorecard(PgModel):
     """
     Transformed scorecard page data.
 
-    Must be instantiated using `pgmodel.Scorecard.from_pgelements()`.
+    Must be instantiated using `pgmodel.Scorecard.from_pgdata()`.
 
     Attributes
     ----------
@@ -359,13 +359,13 @@ class Scorecard(PgModel):
     scorecard: list[list[str]] | None
 
     @classmethod
-    def from_pgelements(cls, data: pgelements.Scorecard) -> Self:
+    def from_pgdata(cls, data: pgdata.Scorecard) -> Self:
         """
         Create an instance of `pgmodel.Scorecard`.
 
         Parameters
         ----------
-        data : pgelements.Scorecard
+        data : pgdata.Scorecard
             Mapping of `pgmodel.Scorecard` field names to instances of `ETreeElement`.
 
         Raises
@@ -441,7 +441,7 @@ class Squad(PgModel):
     """
     Transformed squad page data.
 
-    Must be instantiated using `pgmodel.Squad.from_pgelements()`.
+    Must be instantiated using `pgmodel.Squad.from_pgdata()`.
 
     Attributes
     ----------
@@ -460,13 +460,13 @@ class Squad(PgModel):
     guests: list[list[str]] | None
 
     @classmethod
-    def from_pgelements(cls, data: pgelements.Squad) -> Self:
+    def from_pgdata(cls, data: pgdata.Squad) -> Self:
         """
         Create an instance of `pgmodel.Squad`.
 
         Parameters
         ----------
-        data : pgelements.Squad
+        data : pgdata.Squad
             Mapping of `pgmodel.Squad` field names to instances of
             `ETreeElement`.
 
@@ -497,7 +497,7 @@ class Standings(PgModel):
     """
     Transformed standings page data.
 
-    Must be instantiated using `pgmodel.Standings.from_pgelements()`.
+    Must be instantiated using `pgmodel.Standings.from_pgdata()`.
 
     Attributes
     ----------
@@ -558,13 +558,13 @@ class Standings(PgModel):
     regular: list[list[str]] | None
 
     @classmethod
-    def from_pgelements(cls, data: pgelements.Standings) -> Self:
+    def from_pgdata(cls, data: pgdata.Standings) -> Self:
         """
         Create an instance of `pgmodel.Standings`.
 
         Parameters
         ----------
-        data : pgelements.Standings
+        data : pgdata.Standings
             Mapping of `pgmodel.Standings` field names to instances of
             `ETreeElement`.
 
@@ -640,7 +640,7 @@ class Teams(PgModel):
     """
     Transformed teams page data.
 
-    Must be instantiated using `pgmodel.Teams.from_pgelements()`.
+    Must be instantiated using `pgmodel.Teams.from_pgdata()`.
 
     Attributes
     ----------
@@ -665,13 +665,13 @@ class Teams(PgModel):
     table: list[list[str]] | None
 
     @classmethod
-    def from_pgelements(cls, data: pgelements.Teams) -> Self:
+    def from_pgdata(cls, data: pgdata.Teams) -> Self:
         """
         Create an instance of `pgmodel.Teams`.
 
         Parameters
         ----------
-        data : pgelements.Teams
+        data : pgdata.Teams
             Mapping of `pgmodel.Teams` field names to instances of
             `ETreeElement`.
 

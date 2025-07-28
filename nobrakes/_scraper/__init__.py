@@ -49,7 +49,7 @@ from nobrakes.typing._typing import (
 if TYPE_CHECKING:
     from collections.abc import Awaitable, Callable, Iterable, Iterator, Mapping
 
-    from nobrakes import pgelements
+    from nobrakes import pgdata
     from nobrakes.typing import (
         AttendancePgDataLabel,
         ETreeElement,
@@ -415,7 +415,7 @@ class SVEMOScraper:
         cache: bool = False,
         pagesize: int = 50,
         pagelimit: int = 5,
-    ) -> pgelements.Events:
+    ) -> pgdata.Events:
         """
         Fetch *events* page data.
 
@@ -432,7 +432,7 @@ class SVEMOScraper:
 
         Returns
         -------
-        pgelements.Events
+        pgdata.Events
             Parsed page data.
 
         Raises
@@ -471,7 +471,7 @@ class SVEMOScraper:
         data: StandingsPgDataLabel,
         *additional_data: StandingsPgDataLabel,
         season: int,
-    ) -> pgelements.Standings:
+    ) -> pgdata.Standings:
         """
         Fetch *standings* page data.
 
@@ -489,7 +489,7 @@ class SVEMOScraper:
 
         Returns
         -------
-        pgelements.Standings
+        pgdata.Standings
             Parsed page data.
 
         Raises
@@ -509,7 +509,7 @@ class SVEMOScraper:
             data, *additional_data, pg="standings", season=season
         )
 
-    async def teams(self, *, season: int, cache: bool = False) -> pgelements.Teams:
+    async def teams(self, *, season: int, cache: bool = False) -> pgdata.Teams:
         """
         Fetch *teams* page data.
 
@@ -522,7 +522,7 @@ class SVEMOScraper:
 
         Returns
         -------
-        pgelements.Teams
+        pgdata.Teams
             Parsed page data.
 
         Raises
@@ -544,7 +544,7 @@ class SVEMOScraper:
             cache=cache,
         )
 
-    async def rider_averages(self, *, season: int) -> pgelements.RiderAverages:
+    async def rider_averages(self, *, season: int) -> pgdata.RiderAverages:
         """
         Fetch *rider averages* page data.
 
@@ -555,7 +555,7 @@ class SVEMOScraper:
 
         Returns
         -------
-        pgelements.RiderAverages
+        pgdata.RiderAverages
             Parsed page data.
 
         Raises
@@ -577,7 +577,7 @@ class SVEMOScraper:
         data: AttendancePgDataLabel,
         *additional_data: AttendancePgDataLabel,
         season: int,
-    ) -> pgelements.Attendance:
+    ) -> pgdata.Attendance:
         """
         Fetch *attendance* page data.
 
@@ -593,7 +593,7 @@ class SVEMOScraper:
 
         Returns
         -------
-        pgelements.Attendance
+        pgdata.Attendance
             Parsed page data.
 
         Raises
@@ -618,7 +618,7 @@ class SVEMOScraper:
         delay: float | None = None,
         jitter: tuple[float, float] | None = None,
         **events_pg_kwargs,
-    ) -> dict[tuple[str, str], pgelements.Scorecard]:
+    ) -> dict[tuple[str, str], pgdata.Scorecard]:
         """
         Fetch data from multiple *scorecard* pages.
 
@@ -652,7 +652,7 @@ class SVEMOScraper:
 
         Returns
         -------
-        dict[tuple[str, str], pgelements.Scorecard]
+        dict[tuple[str, str], pgdata.Scorecard]
             Mapping of (date, name) to their parsed scorecard data.
 
         Raises
@@ -704,7 +704,7 @@ class SVEMOScraper:
         delay: float | None = None,
         jitter: tuple[float, float] | None = None,
         **teams_pg_kwargs,
-    ) -> dict[str, pgelements.Squad]:
+    ) -> dict[str, pgdata.Squad]:
         """
         Fetch data from multiple *squad* pages.
 
@@ -734,7 +734,7 @@ class SVEMOScraper:
 
         Returns
         -------
-        dict[str, pgelements.Squad]]
+        dict[str, pgdata.Squad]]
             Mapping of team names to parsed squad data.
 
         Raises
@@ -780,7 +780,7 @@ class SVEMOScraper:
         season: int,
         cache: bool,
         **kwargs,
-    ) -> pgelements.Events: ...
+    ) -> pgdata.Events: ...
 
     @overload
     async def _fetch_tab_pg_data(
@@ -790,7 +790,7 @@ class SVEMOScraper:
         pg: Literal["standings"],
         season: int,
         **kwargs,
-    ) -> pgelements.Standings: ...
+    ) -> pgdata.Standings: ...
 
     @overload
     async def _fetch_tab_pg_data(
@@ -801,7 +801,7 @@ class SVEMOScraper:
         season: int,
         cache: bool,
         **kwargs,
-    ) -> pgelements.Teams: ...
+    ) -> pgdata.Teams: ...
 
     @overload
     async def _fetch_tab_pg_data(
@@ -811,7 +811,7 @@ class SVEMOScraper:
         pg: Literal["rider_averages"],
         season: int,
         **kwargs,
-    ) -> pgelements.RiderAverages: ...
+    ) -> pgdata.RiderAverages: ...
 
     @overload
     async def _fetch_tab_pg_data(
@@ -821,7 +821,7 @@ class SVEMOScraper:
         pg: Literal["attendance"],
         season: int,
         **kwargs,
-    ) -> pgelements.Attendance: ...
+    ) -> pgdata.Attendance: ...
 
     @_ensure_launched
     async def _fetch_tab_pg_data(
@@ -872,14 +872,14 @@ class SVEMOScraper:
         /,
         *data: ScorecardPgDataLabel,
         cache_key: tuple[Literal["events"], int],
-        fallback: Awaitable[pgelements.Events],
+        fallback: Awaitable[pgdata.Events],
         pg_module: PgFetchModuleProtocol,
         col_predicates: dict[int, Callable[[str], bool]],
         col_extractors: dict[int, Callable[[ETreeElement], str]],
         key_builder: Callable[[tuple[str, ...]], tuple[str, str]],
         delay: float | None,
         jitter: tuple[float, float] | None,
-    ) -> dict[tuple[str, str], pgelements.Scorecard]: ...
+    ) -> dict[tuple[str, str], pgdata.Scorecard]: ...
 
     @overload
     async def _fetch_nested_pg_data(
@@ -887,14 +887,14 @@ class SVEMOScraper:
         /,
         *data: SquadPgDataLabel,
         cache_key: tuple[Literal["teams"], int],
-        fallback: Awaitable[pgelements.Teams],
+        fallback: Awaitable[pgdata.Teams],
         pg_module: PgFetchModuleProtocol,
         col_predicates: dict[int, Callable[[str], bool]],
         col_extractors: dict[int, Callable[[ETreeElement], str]],
         key_builder: Callable[[tuple[str, ...]], str],
         delay: float | None,
         jitter: tuple[float, float] | None,
-    ) -> dict[str, pgelements.Squad]: ...
+    ) -> dict[str, pgdata.Squad]: ...
 
     @_ensure_launched
     async def _fetch_nested_pg_data(

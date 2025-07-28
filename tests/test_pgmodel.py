@@ -32,7 +32,7 @@ def load_pgmodel_output():
 class Model(_pgmodel.PgModel):
     _field: ClassVar = None
 
-    def from_pgelements(self, _):
+    def from_pgdata(self, _):
         pass
 
 
@@ -78,7 +78,7 @@ def test_create_adds_none_to_fields():
         class _Model(_pgmodel.PgModel):
             field_name: Any
 
-            def from_pgelements(self, _):
+            def from_pgdata(self, _):
                 pass
 
     data = {"field_name": None}
@@ -111,7 +111,7 @@ def test_model_assigns_expected_values_to_fields(
     if model == _pgmodel.Scorecard:
         pgmodel_output["result"] = tuple(tuple(x) for x in pgmodel_output["result"])
 
-    assert asdict(model.from_pgelements(pgfetch_output)) == pgmodel_output
+    assert asdict(model.from_pgdata(pgfetch_output)) == pgmodel_output
 
 
 def test_attendance_average_raises_when_b_is_none():

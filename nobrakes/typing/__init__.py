@@ -3,7 +3,7 @@ Typing used throughout the `nobrakes` API.
 
 See Also
 --------
-nobrakes.pgelements :
+nobrakes.pgdata :
     `TypedDict`-based modeling of the data produced by `nobrakes.SVEMOScraper`.
 """
 

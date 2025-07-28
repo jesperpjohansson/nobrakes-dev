@@ -3,7 +3,7 @@ Page element data structures.
 
 See Also
 --------
-nobrakes._api.pgelements :
+nobrakes._api.pgdata :
     Public re-export module.
 """
 
@@ -15,11 +15,11 @@ if TYPE_CHECKING:
     from nobrakes.typing import ETreeElement
 
 
-class PgElements(TypedDict, total=False):
+class PgData(TypedDict, total=False):
     """Base class for data structures representing parsed SVEMO page data."""
 
 
-class Attendance(PgElements):
+class Attendance(PgData):
     """
     Parsed attendance page elements.
 
@@ -35,7 +35,7 @@ class Attendance(PgElements):
     table: ETreeElement
 
 
-class RiderAverages(PgElements):
+class RiderAverages(PgData):
     """
     Parsed rider averages page elements.
 
@@ -48,7 +48,7 @@ class RiderAverages(PgElements):
     table: ETreeElement
 
 
-class Events(PgElements):
+class Events(PgData):
     """
     Parsed events page elements.
 
@@ -61,7 +61,7 @@ class Events(PgElements):
     table: ETreeElement
 
 
-class Scorecard(PgElements):
+class Scorecard(PgData):
     """
     Parsed scorecard page elements.
 
@@ -80,7 +80,7 @@ class Scorecard(PgElements):
     scorecard: ETreeElement
 
 
-class Squad(PgElements):
+class Squad(PgData):
     """
     Parsed squad page elements.
 
@@ -96,7 +96,7 @@ class Squad(PgElements):
     guests: ETreeElement
 
 
-class Standings(PgElements):
+class Standings(PgData):
     """
     Parsed league standings page data.
 
@@ -118,7 +118,7 @@ class Standings(PgElements):
     regular: ETreeElement
 
 
-class Teams(PgElements):
+class Teams(PgData):
     """
     Parsed teams page elements.
 
