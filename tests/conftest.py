@@ -11,7 +11,7 @@ import pytest
 
 from nobrakes.typing import ETreeElement
 
-DATA_DIR = Path(__file__).parent / "data"
+DATA_DIR = Path(__file__).parent / "testdata"
 
 
 _INVALID_URL_CHAR_RE = re.compile(r"�|”|ï|¿|½")

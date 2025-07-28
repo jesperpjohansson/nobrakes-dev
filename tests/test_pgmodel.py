@@ -14,9 +14,9 @@ import pytest
 
 from nobrakes.exceptions import ElementError
 from nobrakes.pgmodel import _pgmodel
-from tests.conftest import element_from_markup
+from tests.conftest import element_from_markup, DATA_DIR
 
-_PGMODEL_OUTPUT_DIR = Path(__file__).parent / "data/pgmodel_output"
+_PGMODEL_OUTPUT_DIR = DATA_DIR / "pgmodel_output"
 
 
 @pytest.fixture
