@@ -12,7 +12,7 @@ if TYPE_CHECKING:
 
 
 class DummyCookieJar(http.cookiejar.CookieJar):
-    """Prevent cookie updates by disabling cookie extraction during HTTP responses."""
+    """A cookie jar that inhibits cookie extraction from HTTP responses."""
 
     @override
     def extract_cookies(self, *_: object) -> None:
