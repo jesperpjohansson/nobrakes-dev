@@ -10,7 +10,7 @@
 [![Coverage](https://coveralls.io/repos/github/jesperpjohansson/nobrakes-dev/badge.svg?branch=main)](https://coveralls.io/github/jesperpjohansson/nobrakes-dev?branch=main)
 
 
-A high-level user API for asynchronous fetching, parsing, and transformation of Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
+A high-level user API for asynchronous fetching, parsing, and transforming Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
 
 > [!IMPORTANT]
 > `nobrakes` is an independent project and **is not affiliated with, endorsed by, or

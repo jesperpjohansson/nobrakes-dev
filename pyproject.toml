@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "nobrakes"
 dynamic = ["version"]
-description = "A high-level user API for asynchronous fetching, parsing, and transformation of Swedish speedway data sourced from SVEMO."
+description = "A high-level user API for asynchronous fetching, parsing, and transforming Swedish speedway data sourced from SVEMO."
 readme = "README.md"
 requires-python = ">=3.12,<3.14"
 license = "BSD-3-Clause"

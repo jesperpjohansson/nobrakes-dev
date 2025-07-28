@@ -3,7 +3,7 @@
 ![Python](https://img.shields.io/badge/Python-3.12%20%7C%203.13-blue.svg)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://github.com/jesperpjohansson/nobrakes-dev/blob/main/LICENSE)
 
-A high-level user API for asynchronous fetching, parsing, and transformation of Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
+A high-level user API for asynchronous fetching, parsing, and transforming Swedish speedway data sourced from [SVEMO](https://www.svemo.se/).
 
 !!! note
     The API is functional, documented, and tested. However, `nobrakes` is still in the **late stages of development**; hence:
