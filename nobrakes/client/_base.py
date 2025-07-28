@@ -37,15 +37,9 @@ class ResponseAdapter[ResponseT](ABC):
         """
 
     @abstractmethod
-    def iter_chunks(self, n: int | None = None) -> AsyncIterator[bytes]:
+    def iter_chunks(self) -> AsyncIterator[bytes]:
         """
         Iterate over the response body in chunks.
-
-        Parameters
-        ----------
-        n : int, optional
-            Number of bytes per chunk. If None, the implementation may
-            choose a reasonable default chunk size.
 
         Returns
         -------

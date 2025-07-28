@@ -175,10 +175,6 @@ class TestResponseAdapters:
         chunks = [chunk async for chunk in adapter.iter_chunks()]
         assert chunks == [markup]
 
-        chunks = [chunk async for chunk in adapter.iter_chunks(n=30)]
-        expected = [markup[i : i + 30] for i in range(0, len(markup), 30)]
-        assert chunks == expected
-
     @pytest.mark.parametrize(
         "adapter_type",
         [client.AIOHTTPResponseAdapter, client.HTTPXResponseAdapter],

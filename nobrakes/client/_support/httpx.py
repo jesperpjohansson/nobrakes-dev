@@ -31,8 +31,8 @@ class HTTPXResponseAdapter(ResponseAdapter["httpx.Response"]):
         return self.adaptee.raise_for_status()
 
     @override
-    def iter_chunks(self, n: int | None = None) -> AsyncIterator[bytes]:
-        return self.adaptee.aiter_bytes(n)
+    def iter_chunks(self) -> AsyncIterator[bytes]:
+        return self.adaptee.aiter_bytes()
 
     @override
     def iter_lines(self) -> AsyncIterator[bytes]:

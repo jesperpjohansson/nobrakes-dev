@@ -29,13 +29,13 @@ class AIOHTTPResponseAdapter(ResponseAdapter["aiohttp.ClientResponse"]):
         self.adaptee.raise_for_status()
 
     @override
-    def iter_chunks(self, n: int | None = None) -> AsyncIterator[bytes]:
-        async def iter_arbitrary_size() -> AsyncIterator[bytes]:
+    def iter_chunks(self) -> AsyncIterator[bytes]:
+        async def _iter_chunks() -> AsyncIterator[bytes]:
             """Arbitrary chunk size."""
             async for data, _ in self.adaptee.content.iter_chunks():
                 yield data
 
-        return self.adaptee.content.iter_chunked(n) if n else iter_arbitrary_size()
+        return _iter_chunks()
 
     @override
     def iter_lines(self) -> AsyncIterator[bytes]:

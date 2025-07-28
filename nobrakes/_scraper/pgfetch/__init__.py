@@ -51,11 +51,7 @@ def _get_sorting_indexes(
 
 
 async def extract_elements[K: PgDataLabel | Literal["tab_content", "navbar"]](
-    session: SessionAdapter,
-    url: URL,
-    target_tags: NamedTargetTags,
-    *data: K,
-    n: int | None = None,
+    session: SessionAdapter, url: URL, target_tags: NamedTargetTags, *data: K
 ) -> dict[K, ETreeElement]:
     """
     Fetch, parse and return requested elements.
@@ -66,7 +62,7 @@ async def extract_elements[K: PgDataLabel | Literal["tab_content", "navbar"]](
     accumulator = ElementAccumulator(*subset)
     async with session.get(url) as response:
         response.raise_for_status()
-        chunks = response.iter_chunks(n)
+        chunks = response.iter_chunks()
         elements: list[ETreeElement] = await accumulator.aiter_feed(chunks)
 
     if accumulator.remaining:
