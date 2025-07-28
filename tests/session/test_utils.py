@@ -1,10 +1,10 @@
-"""Tests for `nobrakes.session.utils`."""
+"""Tests for `nobrakes.client.utils`."""
 
 from unittest.mock import AsyncMock, patch
 
 import pytest
 
-from nobrakes.session._utils import (
+from nobrakes.client._utils import (
     DummyCookieJar,
     with_delay,
     with_jitter,

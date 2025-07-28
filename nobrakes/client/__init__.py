@@ -1,13 +1,13 @@
 """Package docstring."""
 
-from nobrakes.session._base import ResponseAdapter, SessionAdapter
-from nobrakes.session._concrete_adapters import (
+from nobrakes.client._base import ResponseAdapter, SessionAdapter
+from nobrakes.client._support import (
     AIOHTTPResponseAdapter,
     AIOHTTPSessionAdapter,
     HTTPXResponseAdapter,
     HTTPXSessionAdapter,
 )
-from nobrakes.session._utils import DummyCookieJar
+from nobrakes.client._utils import DummyCookieJar
 
 __all__ = [
     "AIOHTTPResponseAdapter",

@@ -522,7 +522,7 @@ class TestSessionAdapterFactory:
 
         with patch.dict(
             sys.modules,
-            {f"nobrakes.session._concrete_adapters.{module_name}": dummy_module},
+            {f"nobrakes.client._support.{module_name}": dummy_module},
         ):
             result = _scraper._session_adapter_factory(mock_session)
 

@@ -23,17 +23,17 @@ def _missing(dep: str, cls: str) -> Callable:
 
 
 if TYPE_CHECKING:
-    from nobrakes.session._concrete_adapters.aiohttp import (
+    from nobrakes.client._support.aiohttp import (
         AIOHTTPResponseAdapter,
         AIOHTTPSessionAdapter,
     )
-    from nobrakes.session._concrete_adapters.httpx import (
+    from nobrakes.client._support.httpx import (
         HTTPXResponseAdapter,
         HTTPXSessionAdapter,
     )
 else:
     if find_spec("aiohttp") is not None:
-        from nobrakes.session._concrete_adapters.aiohttp import (
+        from nobrakes.client._support.aiohttp import (
             AIOHTTPResponseAdapter,
             AIOHTTPSessionAdapter,
         )
@@ -42,7 +42,7 @@ else:
         AIOHTTPSessionAdapter = _missing("aiohttp", "AIOHTTPSessionAdapter")
 
     if find_spec("httpx") is not None:
-        from nobrakes.session._concrete_adapters.httpx import (
+        from nobrakes.client._support.httpx import (
             HTTPXResponseAdapter,
             HTTPXSessionAdapter,
         )

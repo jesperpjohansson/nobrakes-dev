@@ -16,7 +16,7 @@ from typing import override
 
 import aiohttp
 
-from nobrakes.session._base import ResponseAdapter, SessionAdapter
+from nobrakes.client._base import ResponseAdapter, SessionAdapter
 
 __all__ = ["AIOHTTPResponseAdapter", "AIOHTTPSessionAdapter"]
 

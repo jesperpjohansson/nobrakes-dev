@@ -10,7 +10,7 @@ from nobrakes.exceptions import ElementError
 
 if TYPE_CHECKING:
     from nobrakes._models import TagSignature
-    from nobrakes.session._base import SessionAdapter
+    from nobrakes.client._base import SessionAdapter
     from nobrakes.typing import ETreeElement, PgDataLabel
     from nobrakes.typing._typing import URL, NamedTargetTags
 

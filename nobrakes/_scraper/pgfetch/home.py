@@ -19,7 +19,7 @@ from nobrakes.typing._typing import URL, NamedTargetTags
 if TYPE_CHECKING:
     from collections.abc import Iterator, Mapping
 
-    from nobrakes.session._base import SessionAdapter
+    from nobrakes.client._base import SessionAdapter
     from nobrakes.typing import ETreeElement, Tier
 
 

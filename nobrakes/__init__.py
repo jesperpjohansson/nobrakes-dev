@@ -1,6 +1,6 @@
 """....."""
 
-from nobrakes import pgelements, pgmodel, session, typing
+from nobrakes import client, pgelements, pgmodel, typing
 from nobrakes._scraper import SVEMOScraper
 
-__all__ = ["SVEMOScraper", "pgelements", "pgmodel", "session", "typing"]
+__all__ = ["SVEMOScraper", "client", "pgelements", "pgmodel", "typing"]

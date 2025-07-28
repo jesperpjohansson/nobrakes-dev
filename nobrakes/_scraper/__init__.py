@@ -25,6 +25,8 @@ from nobrakes._element_utils import (
     table as table_utils,
     xpath as xpath_utils,
 )
+from nobrakes.client._base import SessionAdapter
+from nobrakes.client._utils import with_delay, with_jitter
 from nobrakes.exceptions import (
     ElementError,
     FetchError,
@@ -32,8 +34,6 @@ from nobrakes.exceptions import (
     TablePageLimitError,
     UnsupportedClientError,
 )
-from nobrakes.session._base import SessionAdapter
-from nobrakes.session._utils import with_delay, with_jitter
 from nobrakes.typing import Language, Tier
 from nobrakes.typing._typing import (
     URL,
@@ -245,9 +245,7 @@ def _session_adapter_factory(session: SupportedClient) -> SessionAdapter:
         exc_msg = f"'{cls_name}' from library '{lib_name}' is not a supported session."
         raise UnsupportedClientError(exc_msg)
 
-    adapter_module = importlib.import_module(
-        f"nobrakes.session._concrete_adapters.{lib_name}"
-    )
+    adapter_module = importlib.import_module(f"nobrakes.client._support.{lib_name}")
     adapter_type: type[SessionAdapter] = getattr(adapter_module, adapter_name)
     return adapter_type(session)
 
@@ -285,7 +283,7 @@ class SVEMOScraper:
     Parameters
     ----------
     session : SupportedClient
-        An instance of either a subclass of `nobrakes.SessionAdapter` or one of
+        An instance of either a subclass of `nobrakes.clientAdapter` or one of
         the following supported third-party clients:
 
         - `aiohttp.ClientSession`
@@ -295,7 +293,7 @@ class SVEMOScraper:
     ------
     UnsupportedClientError
         If the provided `session` is neither an instance of a subclass of
-        `nobrakes.SessionAdapter` nor an instance of a supported third-party client.
+        `nobrakes.clientAdapter` nor an instance of a supported third-party client.
 
     Notes
     -----

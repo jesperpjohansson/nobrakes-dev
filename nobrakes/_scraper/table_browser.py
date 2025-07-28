@@ -14,7 +14,7 @@ from nobrakes.typing._typing import URL, TBTargetTags, TBXPaths, is_element
 if TYPE_CHECKING:
     from collections.abc import Callable
 
-    from nobrakes.session._base import ResponseAdapter, SessionAdapter
+    from nobrakes.client._base import ResponseAdapter, SessionAdapter
     from nobrakes.typing import ETreeElement
 
 

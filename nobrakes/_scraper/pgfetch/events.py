@@ -16,7 +16,7 @@ from nobrakes.typing import ETreeElement, EventsPgDataLabel
 from nobrakes.typing._typing import URL, TBTargetTags, TBXPaths, is_element
 
 if TYPE_CHECKING:
-    from nobrakes.session._base import SessionAdapter
+    from nobrakes.client._base import SessionAdapter
 
 
 @dataclass

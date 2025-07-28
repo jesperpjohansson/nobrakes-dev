@@ -1,6 +1,6 @@
 ::: nobrakes.SVEMOScraper
 ::: nobrakes.pgelements
 ::: nobrakes.pgmodel
-::: nobrakes.session
+::: nobrakes.client
 ::: nobrakes.exceptions
 ::: nobrakes.typing

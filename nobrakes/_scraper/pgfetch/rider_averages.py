@@ -12,7 +12,7 @@ from nobrakes._scraper.pgfetch import extract_elements
 from nobrakes.typing import ETreeElement, RiderAveragesPgDataLabel
 
 if TYPE_CHECKING:
-    from nobrakes.session._base import SessionAdapter
+    from nobrakes.client._base import SessionAdapter
     from nobrakes.typing._typing import URL, NamedTargetTags
 
 
