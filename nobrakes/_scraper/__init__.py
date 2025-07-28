@@ -275,7 +275,7 @@ def _get_hyperlink_href(td_elem: ETreeElement) -> str:
 
 class SVEMOScraper:
     """
-    An asynchronous scraper for SVEMO speedway data.
+    An asynchronous scraper for speedway data sourced from SVEMO.
 
     `SVEMOScraper` provides methods to fetch structured HTML data from various pages
     on the SVEMO website.
@@ -283,7 +283,7 @@ class SVEMOScraper:
     Parameters
     ----------
     session : SupportedClient
-        An instance of either a subclass of `nobrakes.clientAdapter` or one of
+        An instance of either a subclass of `nobrakes.ClientAdapter` or one of
         the following supported third-party clients:
 
         - `aiohttp.ClientSession`
@@ -293,7 +293,7 @@ class SVEMOScraper:
     ------
     UnsupportedClientError
         If the provided `session` is neither an instance of a subclass of
-        `nobrakes.clientAdapter` nor an instance of a supported third-party client.
+        `nobrakes.ClientAdapter` nor an instance of a supported third-party client.
 
     Notes
     -----
