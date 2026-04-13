@@ -14,7 +14,7 @@ dependencies = ["lxml>=5.3.0", "lxml-stubs>=0.2.0"]
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp>=3.9.0"]
-httpx = ["httpx>=0.23.1"]
+httpx = ["httpx>=0.28.1"]
 dev = [
   "aiohttp",
   "httpx",
