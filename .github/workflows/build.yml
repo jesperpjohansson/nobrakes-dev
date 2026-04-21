@@ -1,20 +1,6 @@
 name: Build
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "pyproject.toml"
-      - "README.md"
-      - "LICENSE"
-      - "MANIFEST.in"
-      - "nobrakes/**"
-      - "tests/**"
-      - "requirements/covreport.txt"
-      - "requirements/test.txt"
-      - ".github/workflows/build.yml"
-      - ".github/actions/set-up-python-env/action.yml"
   workflow_dispatch:
   workflow_call:
 
