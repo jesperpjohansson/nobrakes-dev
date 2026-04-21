@@ -1,14 +1,7 @@
-# Packages required to run `scripts/typecheck.py`
-#
-# Notes:
-# - `# import: name` specifies the import name of a dependency. It is a directive
-#   comment used to verify that all dependencies have been installed.
-#   See `scripts/_utils.py`.
+# Packages required to typecheck the package.
 
-# TOOL
 mypy
 
-# TYPING DEPENDENCIES
-aiohttp    # import: aiohttp | supported client
-httpx      # import: httpx | supported client
-lxml-stubs # import: lxml-stubs
+aiohttp
+httpx
+lxml-stubs

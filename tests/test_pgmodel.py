@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import asdict, dataclass
 import json
-from pathlib import Path
 import re
 from typing import Any, ClassVar
 from unittest.mock import patch
@@ -14,7 +13,7 @@ import pytest
 
 from nobrakes.exceptions import ElementError
 from nobrakes.pgmodel import _pgmodel
-from tests.conftest import element_from_markup, DATA_DIR
+from tests.conftest import DATA_DIR, element_from_markup
 
 _PGMODEL_OUTPUT_DIR = DATA_DIR / "pgmodel_output"
 

@@ -31,10 +31,13 @@ If you find a bug or have a feature request, please open an issue on GitHub:
 
 3. **Write tests** for your changes, if applicable.
 
-4. **Run relevant [scripts](#quality-standards)** locally to verify everything works:
+4. **Run relevant quality checks** locally:
 
     ```bash
-    pytest
+    python -m ruff format --check
+    python -m ruff check
+    python -m mypy
+    python -m pytest
     ```
 
 5. **Commit your changes** with a clear message:
@@ -47,29 +50,23 @@ If you find a bug or have a feature request, please open an issue on GitHub:
 
 ## Quality Standards
 
-The repository contains three packages with Python modules: `nobrakes`, `scripts`, and `tests`. 
+The repository contains Python package code in `nobrakes` and tests in `tests`.
 
 All contributions must meet quality standards regarding [code](#code), [docstrings](#docstrings), [typing](#typing), and [testing](#testing). These are checked during CI. Configurations for the tools checking this can be found in `pyproject.toml`.
-
-To make contributing as frictionless as possible, the repository provides a [scripts](https://github.com/jesperpjohansson/nobrakes-dev/tree/main/scripts) package containing OS-agnostic, standardized scripts for use in development and CI. You are encouraged to utilize these scripts to ensure your code meets all quality expectations.
-
-```bash
-# Run a script
-python -m scripts.script_name
-```
 
 ### Code
 
 Code formatting and linting are [ruff](https://docs.astral.sh/ruff/)-based. As a starting point:
 
 - Comply with [PEP8](https://peps.python.org/pep-0008/) but allow line lengths up to 88 characters.
-- Run [scripts.format](scripts/format.py) to fix formatting issues and safely fixable lint rule violations.
-- Run [scripts.lint](scripts/lint.py) to check for formatting issues and lint rule violations.
+- Run `python -m ruff format` to fix formatting issues.
+- Run `python -m ruff format --check` to check formatting.
+- Run `python -m ruff check` to check lint rule violations.
 
 ---
 ### Docstrings
 
-Docstring linting is [ruff](https://docs.astral.sh/ruff/)-based. Run [scripts.lint](scripts/lint.py) to check for formatting issues and lint rule violations.
+Docstring linting is [ruff](https://docs.astral.sh/ruff/)-based. Run `python -m ruff check` to check for formatting issues and lint rule violations.
 
 #### nobrakes
 
@@ -77,29 +74,21 @@ Docstring linting is [ruff](https://docs.astral.sh/ruff/)-based. Run [scripts.li
 - Internal code demands less extensive documentation.
 - Follow the [NumPy](https://numpydoc.readthedocs.io/en/latest/format.html) docstring convention.
 
-#### scripts
-- Module docstrings are mandatory.
-- Any other docstrings are optional, but welcomed.
-- Follow the [NumPy](https://numpydoc.readthedocs.io/en/latest/format.html) docstring convention.
-
 #### tests
+
 - Docstrings are optional, but welcomed.
 - No docstring convention is enforced.
 
 ---
 ### Typing
 
-Typechecking is [MyPy](https://mypy.readthedocs.io/en/stable/index.html)-based. Run [scripts.typecheck](scripts/typecheck.py) to check for typing related errors.
+Typechecking is [MyPy](https://mypy.readthedocs.io/en/stable/index.html)-based. Run `python -m mypy` to check for typing related errors.
 
 #### nobrakes
 
 - `nobrakes` is a [py.typed](https://peps.python.org/pep-0561/) package.
 - All types are to be defined in [nobrakes/typing/_typing.py](nobrakes/typing/_typing.py).
 - Types that are exposed in the public API **must** be re-exported in [nobrakes/typing/\_\_init\_\_.py](nobrakes/typing/__init__.py).
-
-#### scripts
-
-All public functions and classes in scripts must include type annotations. Internal helpers are encouraged but not strictly required to be typed.
 
 #### tests
 
@@ -112,8 +101,8 @@ Typing is **not** required.
 - Certain code paths may be exempted from the rule if there are valid reasons to do so.
 - Tests are to be written using a framework consisting of [pytest](https://docs.pytest.org/en/stable/), [pytest-asyncio](https://pytest-asyncio.readthedocs.io/en/latest/), and [unittest.mock](https://docs.python.org/3/library/unittest.mock.html).
 - In addition to the unit tests, other tests such as integration tests are welcomed but not required.
-- Run [scripts.test](scripts/test.py) to test `nobrakes`.
-- Run [scripts.covreport](scripts/covreport.py) with a required positional report type argument to produce a `nobrakes` coverage report.
+- Run `python -m pytest` to test `nobrakes`.
+- Run `python -m pytest --cov=nobrakes --cov-report=term-missing` to produce a coverage report.
 
 ## Need Help?
 

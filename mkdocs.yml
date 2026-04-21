@@ -1,23 +1,37 @@
 site_name: nobrakes
+site_description: Typed Python API for fetching, parsing, and transforming Swedish speedway data from SVEMO.
+site_url: https://nobrakes.readthedocs.io/
 repo_url: https://github.com/jesperpjohansson/nobrakes-dev
+repo_name: jesperpjohansson/nobrakes-dev
 theme:
   name: material
   features:
     - navigation.instant
+    - navigation.tracking
     - navigation.top
     - navigation.footer
-    - navigation.indexes
-    - toc.integrate
+    - navigation.sections
     - search.suggest
-
+    - search.highlight
+    - content.code.copy
   palette:
-    - scheme: slate
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
       primary: light blue
       accent: orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: light blue
+      accent: orange
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
   font:
     text: Roboto
     code: Fira Code
-  
   icon:
     repo: fontawesome/brands/github
 
@@ -33,14 +47,29 @@ plugins:
       default_handler: python
       handlers:
         python:
+          paths: [.]
           options:
-            docstring_style: numpy
-            show_root_heading: true
             show_source: false
-            show_signature_annotations: false
+            show_bases: false
+            docstring_style: numpy
+            docstring_section_style: table
+            merge_init_into_class: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            annotations_path: source
+            line_length: 88
+            show_signature: true
+            show_signature_annotations: true
 
 markdown_extensions:
   - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
@@ -48,6 +77,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
 
 copyright: Copyright &copy; 2025 Jesper Johansson
 
@@ -58,4 +89,3 @@ extra:
 
 extra_css:
   - assets/css/table.css
-            
