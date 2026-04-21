@@ -80,7 +80,7 @@ async def test_extract_elements_raises_when_element_is_missing(
 
     with (
         patch(f"{SUBPKGPATH}.ElementAccumulator", return_value=mock_accumulator),
-        pytest.raises(ElementError, match="Expected 3 elements, found 2."),
+        pytest.raises(ElementError, match=r"Expected 3 elements, found 2\."),
     ):
         _ = await pgfetch.extract_elements(
             mock_session,

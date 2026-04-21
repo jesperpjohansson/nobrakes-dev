@@ -226,7 +226,7 @@ async def test_fetch_nested_pg_data_returns_expected_items(launched_scraper):
             pg_module=MagicMock(),
             col_predicates={},
             col_extractors={},
-            key_builder=lambda keys: tuple(keys),
+            key_builder=tuple,
             delay=None,
             jitter=None,
         )
